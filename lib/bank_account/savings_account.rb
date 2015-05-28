@@ -1,6 +1,6 @@
 module BankAccount
 
-  class Account
+  class SavingsAccount
   end
 
 end
