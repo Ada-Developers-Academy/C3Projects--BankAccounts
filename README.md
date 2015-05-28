@@ -1,4 +1,4 @@
-# Bank Accounts
+# Bank Accounts- Loren Wang
 
 
 ## Breakfast
@@ -50,4 +50,3 @@ Create a `MoneyMarketAccount` class with a minimum of 6 specs. The class should 
   - Exception to the above: A deposit performed to reach or exceed the minimum balance of $10,000 is not counted as part of the 6 transactions.
 - `#add_interest(rate)`: Calculate the interest on the balance and add the interest to the balance. Return the interest that was calculated and added to the balance (not the updated balance). Note** This is the same as the `SavingsAccount` interest.
 - `#reset_transactions`: Resets the number of transactions to zero
-
