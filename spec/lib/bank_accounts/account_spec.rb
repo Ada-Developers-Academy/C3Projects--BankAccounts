@@ -28,7 +28,7 @@ describe BankAccounts::Account do
     expect(bob).to respond_to(:withdraw)
   end
 
-  it "#withdraw subtracts & returns 'amount' from the balance" do
+  it "#withdraw subtracts 'amount' from the balance & returns balance" do
     expect(bob.withdraw(100)).to eq(900)
   end
 
@@ -46,6 +46,18 @@ describe BankAccounts::Account do
 
   it "#withdraw still lets you subtract if amount equals balance" do
     expect(bob.withdraw(1000)).to eq(0)
+  end
+
+  it "responds to #deposit" do
+    expect(bob).to respond_to(:deposit)
+  end
+
+  it "#deposit adds 'amount' to the balance & returns balance" do
+    expect(bob.deposit(100)).to eq(1100)
+  end
+
+  it "responds to #balance" do
+    expect(bob).to respond_to(:deposit)
   end
 
 end

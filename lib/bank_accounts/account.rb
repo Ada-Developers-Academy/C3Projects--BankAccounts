@@ -23,6 +23,13 @@ module BankAccounts
       @balance -= amount
     end
 
+    # ADD AMOUNT TO BALANCE & RETURN BALANCE
+    def deposit(amount)
+      neg_num_guard(amount)
+
+      @balance += amount
+    end
+
     # CHECKS TO MAKE SURE NUMBER ISN'T NEGATIVE; THROWS ERROR IF SO
     def neg_num_guard(num)
       raise ArgumentError, "negative number" if num < 0
