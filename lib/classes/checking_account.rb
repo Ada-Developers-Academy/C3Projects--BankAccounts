@@ -16,7 +16,7 @@ module BankAccount
       else @check_use > 3
         @current_balance -= (amount + 2)
       end
-      puts @check_use
+      #puts @check_use
       @check_use += 1
       return @current_balance
     end
