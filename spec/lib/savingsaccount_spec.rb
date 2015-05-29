@@ -26,7 +26,7 @@ describe BankAccount::SavingsAccount do
         expect(@my_account.balance).to eq(125)
       end
 
-      it 'has an intiial_balance' do
+      it 'has an initial_balance' do
         expect(@my_account.initial_balance).to eq(125)
       end
     end
@@ -141,14 +141,14 @@ describe BankAccount::SavingsAccount do
       expect(@my_account.balance).to eq(125.31)
     end
 
-    it 'handles rounding earned interest appropriately (rounds .015 down)' do
+    it 'handles rounding earned interest appropriately' do
       @my_account.add_interest(0.012)
-      expect(@my_account.balance).to eq(125.01)
+      expect(@my_account.balance).to eq(125.02)
     end
 
     it 'returns interest accrued, not account balance' do
       expect( @my_account.add_interest(0.25) ).to eq(0.31)
     end
-
   end
+
 end
