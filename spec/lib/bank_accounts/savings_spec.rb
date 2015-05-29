@@ -42,8 +42,13 @@ describe BankAccounts::SavingsAccount do
   context "When adding interest to the account balance" do
     let(:savings) { BankAccounts::SavingsAccount.new(0, 50) }
 
-    it "calculates the interest on the balance" do
+    it "calculates and returns the interest" do
       expect(savings.interest(0.01)).to eq(0.5)
+    end
+
+    it "adds the interest to the balance" do
+      savings.interest(0.01)
+      expect(savings.balance).to eq(50.5)
     end
 
   end

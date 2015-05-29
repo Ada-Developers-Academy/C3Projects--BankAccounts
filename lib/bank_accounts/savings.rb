@@ -28,8 +28,13 @@ module BankAccounts
       end
     end
 
-    def interest(rate) 
-    end
+    def interest(rate)
+      # calculate the interest rate and add it to the balance
+      interest = @balance * rate
+      @balance += interest
       
+      return interest
+    end
+  binding.pry
   end # class
 end # module
