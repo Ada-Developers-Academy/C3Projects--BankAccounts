@@ -50,9 +50,7 @@ describe BankAccounts::SavingsAccount do
       savings.interest(0.25)
       expect(savings.balance).to eq(10025)
     end
-
   end
-
 
 end # describe
 
