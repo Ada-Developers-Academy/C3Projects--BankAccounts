@@ -27,6 +27,9 @@ module BankAccounts
         return @balance
       end
     end
-    binding.pry
+
+    def interest(rate) 
+    end
+      
   end # class
 end # module
