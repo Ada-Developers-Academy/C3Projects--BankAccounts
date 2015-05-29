@@ -9,7 +9,7 @@ describe BankAccounts::Account do
     end
 
     it "raises an error when an account is created with a negative balance" do
-      expect{ BankAccounts::Account.new(0, -1) }.to raise_error(ArgumentError, "Sorry, you can't have a negative balance.")
+      expect{ BankAccounts::Account.new(0, -1) }.to raise_error(ArgumentError, "Sorry, you can't start an account with a negative balance.")
     end
   end
 
@@ -25,7 +25,7 @@ describe BankAccounts::Account do
     end
 
     it "raises an error when the account is overdrawn" do
-      expect{account.withdraw(500)}.to raise_error(ArgumentError, "WARNING: INSUFFICIENT FUNDS - Your current balance is #{account.balance}.")
+      expect{account.withdraw(500)}.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is #{account.balance}.")
     end
   end
 

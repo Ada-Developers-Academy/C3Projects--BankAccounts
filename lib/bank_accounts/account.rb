@@ -11,7 +11,7 @@ module BankAccounts
 
       # Raises an error if the initial balance is negative
       if initial_balance < 0
-        raise ArgumentError.new "Sorry, you can't have a negative balance."
+        raise ArgumentError.new "Sorry, you can't start an account with a negative balance."
       end
     end
 
@@ -19,7 +19,7 @@ module BankAccounts
 
       # Raises warning message if withdraw amount is greater than present balance
       if amount > @balance
-        raise ArgumentError.new "WARNING: INSUFFICIENT FUNDS - Your current balance is #{@balance}."
+        raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is #{@balance}."
       
       # Return the updated balance once money is withdrawn from the account
       else
