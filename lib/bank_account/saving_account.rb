@@ -8,9 +8,10 @@ module BankAccount
     def withdraw(amount)
       super
       # not working
-      new_balance = @balance - 2
-    #  binding.pry
-      return @balance
+     binding.pry
+
+      @balance= @balance - 2
+      # return @balance
     end
 
     def add_interest(rate)

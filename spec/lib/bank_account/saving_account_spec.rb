@@ -5,12 +5,17 @@ require "pry"
 
 describe BankAccount::SavingAccount do
 
+  context "SavingAccount is a child class of the parent Account Class" do
+    it "Account class is the parent of SavingAccount" do
+      expect(BankAccount::SavingAccount.superclass).to eq(BankAccount::Account)
+    end
+  end
+
   context "#self.new" do
     it "responds to class method called new" do
       expect(BankAccount::SavingAccount).to respond_to :new
     end
 
-    # Account cannot be created with less tha $10
 
   end # .new
 
