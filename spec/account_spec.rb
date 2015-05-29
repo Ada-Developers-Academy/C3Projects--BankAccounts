@@ -1,10 +1,11 @@
-require 'spec_helper'
 require 'bankaccounts'
+require 'pry'
+require 'spec_helper'
 
 describe BankAccount::Account do
 
   describe "It is initialized with assignments" do
-  let (:bankaccount) {BankAccount::Account.new(1, 10000)}
+    let (:bankaccount) {BankAccount::Account.new(1, 10000)}
 
     it "has an ID of 1" do
       expect(bankaccount.id).to eq(1)
@@ -20,7 +21,7 @@ describe BankAccount::Account do
   end
 
   describe "It has instance methods with functionality" do
-  let (:bankaccount) {BankAccount::Account.new(2, 10000)}
+    let (:bankaccount) {BankAccount::Account.new(2, 10000)}
 
     it "Has a withdraw method" do
       expect(bankaccount).to respond_to :withdraw

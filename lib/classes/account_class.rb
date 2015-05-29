@@ -4,10 +4,11 @@ module BankAccount
     attr_accessor :id, :initial_balance, :current_balance
 
     def initialize(id, initial_balance)
-      raise ArgumentError.new ("You cannot create an account with a negative balance") unless initial_balance > 0
-        @id = id
-        @initial_balance = initial_balance
-        @current_balance = initial_balance
+      raise ArgumentError.new ("You cannot create an account with a negative balance") \
+        unless initial_balance > 0
+      @id = id
+      @initial_balance = initial_balance
+      @current_balance = initial_balance
     end
 
     def withdraw(amount)
@@ -26,6 +27,10 @@ module BankAccount
     def balance
       return @current_balance
     end
+
+    ## should you write into your current class the fee modification structure
+    ## so you don't have to call all that within the child classes? They are children
+    ## you probably should try to leave less up to them
 
   end
 end

@@ -1,11 +1,11 @@
-require 'spec_helper'
 require 'bankaccounts'
 require 'pry'
+require 'spec_helper'
 
 describe BankAccount::SavingsAccount do
 
   describe "It is initialized with assignments" do
-  let (:bankaccount) {BankAccount::SavingsAccount.new(1, 10000)}
+    let (:bankaccount) {BankAccount::SavingsAccount.new(1, 10000)}
 
     it "has an ID of 1" do
       expect(bankaccount.id).to eq(1)
@@ -25,7 +25,7 @@ describe BankAccount::SavingsAccount do
   end
 
   describe "It has instance methods with functionality" do
-  let (:bankaccount) {BankAccount::SavingsAccount.new(33, 500)}
+    let (:bankaccount) {BankAccount::SavingsAccount.new(33, 500)}
 
     it "Withdrawing money incurs a $2 fee" do
       expect(bankaccount.withdraw(48)).to eq(450)
@@ -35,9 +35,8 @@ describe BankAccount::SavingsAccount do
       expect(bankaccount.withdraw(495)).to eq(500)
     end
 
-    it "Returns 502.50 with an interest rate of 0.5%" do
-      expect(bankaccount.add_interest(0.5)).to eq(502.5)
+    it "Returns $2.50 interest with an interest rate of 0.5%" do
+      expect(bankaccount.add_interest(0.5)).to eq(2.50)
     end
   end
-
 end
