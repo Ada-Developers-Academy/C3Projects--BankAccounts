@@ -14,11 +14,11 @@ describe BankAccounts::SavingsAccount do
     @savings_account = BankAccounts::SavingsAccount.new("Name", 100)
   end
 
-  it "rsponds to #id" do
+  it "responds to #id" do
     expect(@savings_account.id).to eq("Name")
   end
 
-  it "returns 120 when 20 is deposited using Account #deposit" do
+  it "returns 120 when 20 is deposited" do
     expect(@savings_account.deposit(20)).to eq(120)
   end
 
@@ -30,6 +30,12 @@ describe BankAccounts::SavingsAccount do
     expect(@savings_account.withdraw(95)).to eq(100)
   end
 
+  it "returns 25 when #add_interest(0.25) is called" do
+    expect(BankAccounts::SavingsAccount.new("Name", 10_000).add_interest(0.25)).to eq(25)
+  end
 
-
+  # it "returns balance after adding interest" do
+  #   my_savings = BankAccounts::SavingsAccount.new("Name", 10_000).add_interest(0.25)
+  #   expect(my_savings.balance).to eq(10_025)
+  # end
 end
