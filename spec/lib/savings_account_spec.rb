@@ -34,8 +34,9 @@ describe BankAccounts::SavingsAccount do
     expect(BankAccounts::SavingsAccount.new("Name", 10_000).add_interest(0.25)).to eq(25)
   end
 
-  # it "returns balance after adding interest" do
-  #   my_savings = BankAccounts::SavingsAccount.new("Name", 10_000).add_interest(0.25)
-  #   expect(my_savings.balance).to eq(10_025)
-  # end
+  it "returns balance after adding interest" do
+    my_savings = BankAccounts::SavingsAccount.new("Name", 10_000)
+    my_savings.add_interest(0.25)
+    expect(my_savings.balance).to eq(10_025)
+  end
 end

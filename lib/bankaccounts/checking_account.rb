@@ -1,6 +1,8 @@
 module BankAccounts
 
   class CheckingAccount < Account
+      attr_accessor :check_count
+      @check_count = 0  # not working
 
     def withdraw(amount)
       # does not allow the account to go negative.
@@ -16,17 +18,22 @@ module BankAccounts
       return @balance
     end
 
-    def withdraw_using_check(amount)
+    def withdraw_using_check(amount) # not working anymore
       # allows the account to go into overdraft up to -$10 but not any lower
       if amount > (@balance + 10)
         puts "You can't withdraw that much"
-      else
-      # the input amount gets taken out of the account as a result of a check withdrawal
-        @balance = @balance - amount
+        return @balance
+      else # amount is less than maximum withdrawal amount
+        if @check_count  <= 3
+          @balance = @balance - amount
+          @check_count += 1
+        else
+          @balance = @balance - (amount + 2)
+        end
       end
-      # returns the updated account balance or the unmodified balance if amount is more than 10 more than balance
       return @balance
-
+      # the input amount gets taken out of the account as a result of a check withdrawal
+      # returns the updated account balance or the unmodified balance if amount is more than 10 more than balance
       #The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee
     end
 
