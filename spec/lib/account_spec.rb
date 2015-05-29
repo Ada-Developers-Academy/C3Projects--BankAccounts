@@ -1,7 +1,7 @@
 describe BankAccount::Account do
 
   describe '.new(id, initial_balance)' do
-    it 'responds to .new' do
+    it 'responds' do
       expect(BankAccount::Account).to respond_to :new
     end
 
@@ -25,7 +25,7 @@ describe BankAccount::Account do
 
     context 'when a negative account balance is passed in' do
       it 'raises an ArgumentError' do
-        expect {BankAccount::Account.new(1, -1)}.to raise_error(ArgumentError)
+        expect { BankAccount::Account.new(1, -1) }.to raise_error(ArgumentError)
       end
     end
   end
@@ -36,54 +36,50 @@ describe BankAccount::Account do
     end
   end
 
-  # describe '#withdraw(amount)' do
-  #   before :each do
-  #     @my_account = BankAccount::Account.new(1,125)
-  #   end
+  describe '#withdraw(amount)' do
+    before :each do
+      @my_account = BankAccount::Account.new(1,125)
+    end
 
-  #   it 'responds' do
-  #     expect(@my_account).to respond_to :withdraw
-  #   end
+    it 'responds' do
+      expect(@my_account).to respond_to :withdraw
+    end
 
-  #   it 'updates account balance' do
-  #     @my_account.withdraw(100)
-  #     expect(@my_account.balance).to eq(25)
-  #   end
+    it 'updates account balance' do
+      @my_account.withdraw(100)
+      expect(@my_account.balance).to eq(25)
+    end
 
-  #   it 'returns updated account balance' do
-  #     my_account = BankAccount::Account.new(1,125)
-  #     expect(@my_account.withdraw(25)).to eq(100)
-  #   end
+    it 'returns updated account balance' do
+      my_account = BankAccount::Account.new(1,125)
+      expect(@my_account.withdraw(25)).to eq(100)
+    end
 
-  #   context 'when attempting to overdraw' do
-  #     it 'raises an error' do
-  #       expect(@my_account.withdraw(125.5)).to raise_error(ArgumentError)
-  #     end
+    context 'when attempting to overdraw' do
+      it 'returns unmodified account balance' do
+        expect(@my_account.withdraw(140)).to eq(125)
+      end
+    end
+  end
 
-  #     it 'returns unmodified account balance' do
-  #       expect(@my_account.withdraw(140)).to eq(125)
-  #     end
-  #   end
-  # end
+  describe '#deposit(amount)' do
+    before :each do
+      @my_account = BankAccount::Account.new(1,125)
+    end
 
-  # describe '#deposit(amount)' do
-  #   before :each do
-  #     @my_account = BankAccount::Account.new(1,125)
-  #   end
+    it 'responds' do
+      expect(@my_account).to respond_to :deposit
+    end
 
-  #   it 'responds' do
-  #     expect(@my_account).to respond_to :deposit
-  #   end
+    it 'updates account balance' do
+      @my_account.deposit(100)
+      expect(@my_account.balance).to eq(225)
+    end
 
-  #   it 'updates account balance' do
-  #     @my_account.deposit(100)
-  #     expect(@my_account.balance).to eq(225)
-  #   end
-
-  #   it 'returns updated account balance' do
-  #     my_account = BankAccount::Account.new(1,125)
-  #     expect(@my_account.deposit(25)).to eq(150)
-  #   end
-  # end
+    it 'returns updated account balance' do
+      my_account = BankAccount::Account.new(1,125)
+      expect(@my_account.deposit(25)).to eq(150)
+    end
+  end
 
 end
