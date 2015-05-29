@@ -2,9 +2,13 @@ module BankAccounts
   class SavingsAccount < Account
     attr_accessor :id, :balance
 
+    def balance_error
+      raise ArgumentError.new("Must have minimum balance of $10")
+    end
+
     def initialize(id, initial_balance)
-      raise ArgumentError.new("Must have minimum balance of $10") if initial_balance < 10
       super
+      balance_error unless initial_balance > 10
     end
 
     def withdraw(amount)
