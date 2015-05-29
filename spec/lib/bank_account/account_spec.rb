@@ -4,14 +4,16 @@ require 'pry'
 
 describe BankAccount::Account do
 
-  context "Instantiating a new account" do
-    # Thanks Chef!
+  context "When you create a new account" do
+
+    # Thanks TA Chef!
     # This 'let' statement allows you to create a variable called 'new account'
     # that runs something. This variable only works for this one context.
-
     let (:new_account) {BankAccount::Account.new(1,200)}
     let (:sad_account) {BankAccount::Account.new(2,-1)}
 
+    # Since new is a default method, perhaps
+    # write a spec checking the arg number?
     it "responds to class method called .new" do
       expect(BankAccount::Account).to respond_to :new
     end
@@ -39,7 +41,7 @@ describe BankAccount::Account do
     end
 
     it "lets you check current balance" do
-      expect(new_account.balance.to eq(50))
+      expect(new_account.balance).to eq(50)
     end
 
   end

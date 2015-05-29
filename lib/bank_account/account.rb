@@ -3,7 +3,7 @@ require 'pry'
 module BankAccount
 
   class Account
-  attr_reader :id, :initial_balance
+    attr_reader :id, :initial_balance
 
     def initialize(id, initial_balance)
       @id = id
@@ -13,7 +13,6 @@ module BankAccount
       if @initial_balance < 0
         raise ArgumentError, "You can't have negative monies!"
       end
-
     end
 
     def withdraw(need_monies)
