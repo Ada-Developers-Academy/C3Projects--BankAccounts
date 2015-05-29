@@ -15,17 +15,18 @@ module BankAccounts
 
     def withdraw(amount)
 
+      # fee of $2 for every withdrawal transaction
       amount += 2
 
+      # savings accounts have $10 minimum
       if (@balance - amount) < 10
         raise ArgumentError.new "WARNING - You must have at least $10 in your savings account.\nYour current balance is $#{@balance}."
+        return @balance
       else
         super
         return @balance
       end
-
-      
     end
-
+    binding.pry
   end # class
 end # module
