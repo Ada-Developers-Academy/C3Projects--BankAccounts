@@ -6,8 +6,7 @@ module BankAccount
       if initial_balance < 0
         raise ArgumentError.new("You cannot open an account with a negative balance.")
       else
-      @id = id
-      @balance = initial_balance
+      super 
       @check_count = 3
       end
     end

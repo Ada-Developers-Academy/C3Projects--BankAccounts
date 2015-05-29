@@ -6,8 +6,7 @@ module BankAccount
       if initial_balance < 10_000
         raise ArgumentError.new("You are too poor, get out of here peasant!")
       else
-      @id = id
-      @balance = initial_balance
+      super
       @transaction_count = 6
       end
     end
@@ -26,24 +25,39 @@ module BankAccount
         balance
 
       elsif (@balance - amount) < 10_000
-        # if (@balance -= amount + 100) < 0
-        #   puts "Nonsufficient funds"
-        #   balance
-        # else
-        @balance -= (amount + 100)
-        reduce_transaction
-        balance
+        if (@balance - (amount + 100)) < 0
+          puts "Nonsufficient funds"
+          return @balance
+        else
+          @balance -= (amount + 100)
+          reduce_transaction
+          balance
         end
-
       else
-        @balance -= amount
+        super
         reduce_transaction
         balance
       end
     end
 
-    ##deposit(amount). Returns the updated account balance.
-# Each transaction will be counted against the maximum number of transactions
-# Exception to the above: A deposit performed to reach or exceed the minimum balance of $10,000 is not counted as part of the 6 transactions.
+    def deposit(amount)
+      if @balance < 10_000 && transaction_count < 1 && (@balance + amount) >= 10_000
+        @balance += amount
+        return @balance
+      else
+        super
+        reduce_transaction
+        balance
+      end
+    end
+
+    def reset_transactions
+      @transaction_count = 6
+    end
+
+    def add_interest(rate)
+      interest = (rate/100)*@balance
+      return interest
+    end
   end # class end
 end # module end

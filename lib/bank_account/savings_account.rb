@@ -4,9 +4,7 @@ module BankAccount
       if initial_balance < 10
         raise ArgumentError.new("Minimum ammount of $10 required to open savings account.")
       else
-        @id = id
-        @initial_balance = initial_balance
-        @balance = initial_balance
+        super
       end
     end
 
