@@ -42,18 +42,27 @@ describe BankAccount::CheckingAccount do
 			end
 		end
 
-		describe "withdrawing money from your CheckingAccount using a withdraw method" do
+		describe "#withdraw method" do
 			context "you can withdraw money from your CheckingAccount for a 1 transaction fee, unless it would make your account balance go below 0" do
-				it "returns 4498 if you withdraw 500 and it has a 1 transaction fee" do
+				it "returns 4499 if you withdraw 500 and it has a 1 transaction fee" do
 					expect(checking_account.withdraw(500)).to eq 4499
 				end
 				it "raises an ArgumentError if you try to withdraw 6000" do
-					expect{checking_account.withdraw(6000)}.to raise_exception(ArgumentError)
+					expect{ checking_account.withdraw(6000) }.to raise_exception(ArgumentError)
 				end
 			end
 		end
 
-		describe "withdrawing money from your CheckingAccount using withdraw_using_check method" do
+		describe "#withdraw_using_check method" do
+			context "you can withdraw money until the account balance is < -10" do
+				it "returns -5 when you withdraw 5005" do
+					expect(checking_account.withdraw_using_check(5005)).to eq -5
+				end
+				it "returns an ArgumentError if you withdraw 5011" do
+					expect{ checking_account.withdraw_using_check(5011) }.to raise_exception(ArgumentError)
+				end
+			end
+
 			context "you get 3 free checks to withdraw from your account for free. After that, there is a 2 fee per withdrawl." do
 				it "has 3 free checks when you create your CheckingAccount" do
 					expect(checking_account.free_checks).to eq 3
@@ -76,15 +85,24 @@ describe BankAccount::CheckingAccount do
 					end
 					expect(checking_account.account_balance).to eq 4958
 				end
-
-			# context "does not 'burn' a check if it does not allow you to deposit the check" do
-			# 	it "has 2 free checks if your second transaction does not go through (i.e. would take you < -10 balance)" do
-			# 		checking_account.withdraw_using_check(200) # account_balance == 4800; free_checks == 2
-			# 	end
-			# end
-
 			end
 		end # withdraw with check
+
+		describe "you can reset your number of free_checks" do
+			it "resets @free_checks to 3" do
+				expect(checking_account.reset_checks).to eq 3
+			end
+
+			it "returns 2 free checks after this block" do
+				2.times do
+					checking_account.withdraw_using_check(100)
+				end
+				checking_account.reset_checks
+				checking_account.withdraw_using_check(100)
+
+				expect(checking_account.free_checks).to eq 2
+			end
+		end
 
 	end # instance
 

@@ -40,8 +40,10 @@ module BankAccount
 			end
 		end
 
-		# reset_checks
-			# resets free_checks to 3
+		def reset_checks
+			@free_checks = 3
+			return @free_checks
+		end
 
 
 		def deposit(amount)
