@@ -16,7 +16,7 @@ module BankAccounts
       neg_num_guard(amount)
 
       if @balance < amount
-        puts "Cannot withdraw amount; not enough money in account."
+        warn "Cannot withdraw amount; not enough money in account."
         return @balance
       end
 

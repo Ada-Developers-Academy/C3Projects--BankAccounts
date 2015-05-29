@@ -35,7 +35,7 @@ describe BankAccounts::Account do
   context "#withdraw cannot subtract more than balance:" do
 
     it "outputs a warning message" do
-      expect{bob.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
+      expect{bob.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stderr
     end   # NOTE TO SELF: output().to_stdout checks the method bob.error is printing the string
 
     it "& returns original balance" do
@@ -57,7 +57,7 @@ describe BankAccounts::Account do
   end
 
   it "responds to #balance" do
-    expect(bob).to respond_to(:deposit)
+    expect(bob).to respond_to(:balance)
   end
 
 end
