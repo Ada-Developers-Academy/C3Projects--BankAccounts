@@ -16,6 +16,33 @@ describe "money market account attributes" do
 end
 
 describe "money market account methods" do
-  context ""
+  let(:money_market_account) { BankAccount::MoneyMarketAccount.new(1,20_000)
+  }
 
+  context "user can withdraw amount from account" do
+    it "amount specified is subtracted from current account balance" do
+      expect(money_market_account.withdraw(500)).to eq(19_500)
+    end
+  end
+
+  context "user cannot overdraw their account" do
+    it "returns the original prewithdraw balance when the user tries to overdraw" do
+      expect(money_market_account.withdraw(20_001)).to eq(20_000)
+
+    end
+  end
+
+  context "if the user goes below the minimum balance they are charged $100 per transaction" do
+    it "withdraws ammount and charges $100 fee" do
+      expect(money_market_account.withdraw(10_001)).to eq(9899)
+    end
+  end
+
+  context "the user may only complete 6 money market transactions per month" do
+    it "returns the pre-transaction balance if the user has used up their 6 transactions" do
+    6.times do money_market_account.withdraw(10)
+      end
+    expect(money_market_account.withdraw(10)).to eq(19_940)
+    end
+  end
 end
