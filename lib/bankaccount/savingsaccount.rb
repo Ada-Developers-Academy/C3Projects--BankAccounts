@@ -11,14 +11,7 @@ module BankAccount
 
     def withdraw(amount) # [breakfast]
       # each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance [breakfast]
-      amount += 2
-      if amount <= @balance - 10
-        @balance -= amount
-      else
-        # $10 minimum balance; output a warning and return un-modified balance [breakfast]
-        puts "Insufficient funds! You have #{@balance} in your account."
-        @balance
-      end
+      super(amount, 2, 10)
     end
 
     # #add_interest(rate) [breakfast]

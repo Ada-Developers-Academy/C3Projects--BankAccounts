@@ -14,8 +14,10 @@ module BankAccount
 
     # #withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction [breakfast]
       # return value should be the updated account balance [breakfast]
-    def withdraw(amount)
-      if amount <= @balance
+    def withdraw(amount, transaction_fee = 0, min_balance = 0)
+      amount += transaction_fee
+
+      if amount <= @balance - min_balance
         @balance -= amount
       else
         # may not overdraw; will output a warning and return un-modified balance [breakfast]
