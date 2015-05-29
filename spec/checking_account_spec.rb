@@ -35,4 +35,26 @@ describe "checking account methods" do
       expect(checking_account.withdraw_using_check(261)).to eq(250)
     end
   end
+
+  context "each month the user is allowed 3 free withdrawls" do
+    it "tracks the amount of checks(check count) after each withdraw" do
+      checking_account.withdraw_using_check(10)
+      expect(checking_account.check_count).to eq(2)
+    end
+  end
+
+  context "after the user has used their free withdraws they incur a $2 transaction fee for each withdraw" do
+    it "withdraws the amount requested and if the check count < 1 it will charge an additional $2 fee" do
+      3.times do checking_account.withdraw_using_check(10)
+      end
+      expect(checking_account.withdraw_using_check(10)).to eq(208)
+    end
+  end
+
+  context "every month the user's free withdraws are reset" do
+    it "resets the check count to 3" do
+      checking_account.reset_checks
+      expect(checking_account.check_count).to eq(3)
+    end
+  end
 end

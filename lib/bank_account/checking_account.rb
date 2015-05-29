@@ -1,8 +1,17 @@
 module BankAccount
   class CheckingAccount < Account
+  attr_accessor :check_count, :balance, :id
 
-    ##withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction. Each withdrawal 'transaction' incurs a fee of $1 that is taken out of the balance. Returns the updated account balance.
-# Does not allow the account to go negative. Will output a warning message and return the original un-modified balance
+    def initialize(id, initial_balance)
+      if initial_balance < 0
+        raise ArgumentError.new("You cannot open an account with a negative balance.")
+      else
+      @id = id
+      @balance = initial_balance
+      @check_count = 3
+      end
+    end
+
     def withdraw(amount)
       if (@balance - (amount + 1)) < 0
         balance
@@ -15,13 +24,20 @@ module BankAccount
     def withdraw_using_check(amount)
       if (@balance - amount) < -10
         balance
-      else
-      @balance -=amount
+      else if check_count > 0
+      @balance -= amount
+      @check_count -= 1
       balance
-      end 
+      else
+      @balance -= (2 + amount)
+      balance
+        end
+      end
     end
-    ##withdraw_using_check(amount): The input amount gets taken out of the account as a result of a check withdrawal. Returns the updated account balance.
-# Allows the account to go into overdraft up to -$10 but not any lower
-# The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee
+
+    def reset_checks
+      @check_count = 3
+    end
+
   end # class end
 end # module end

@@ -8,7 +8,7 @@ module BankAccount
         raise ArgumentError.new("You cannot open an account with a negative balance.")
       else
       @id = id
-      @initial_balance = initial_balance
+      @initial_balance = Money.new(initial_balance, "usd")
       @balance = initial_balance
       end
     end
@@ -30,7 +30,7 @@ module BankAccount
 
     def deposit(amount)
       if amount > 2_000_000
-        puts "We are unable to handle deposits of that size. May we suggest opening an account with our Swiss sister bank. For information call 1-800-123-4567"
+        puts "We are unable to handle deposits of that size. May we suggest opening an account with our Swiss sister bank 'En Huffe Güld'. For information call 1-800-123-4567"
         balance
       else
         @balance += amount
@@ -39,4 +39,4 @@ module BankAccount
     end
 
   end # class end
-end # module end 
+end # module end
