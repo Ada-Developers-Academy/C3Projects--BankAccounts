@@ -16,12 +16,13 @@ describe "BankAccount::SavingsAccount" do
     end
 
     it "should not raise an error if you start an account balance > $10" do
-      expect {BankAccount::Account.new(3, 11)}.not_to raise_error
+      expect {BankAccount::SavingsAccount.new(2, 10)}.not_to raise_error
     end
   end
 
   context "Withdrawing money" do
     savings_account = BankAccount::SavingsAccount.new(87, 135)
+
     it "returns the current_balance after a withdrawl (includes the $2 transaction fee)" do
       expect(savings_account.withdraw(35)).to eq(98)
     end
@@ -34,7 +35,7 @@ describe "BankAccount::SavingsAccount" do
 
   context "Adding interest" do
     savings_account = BankAccount::SavingsAccount.new(45, 10000)
-    it "returns the interest" do
+    it "returns the interest using a percentage of " do
       expect(savings_account.add_interest(0.25)).to eq(25)
     end
 
