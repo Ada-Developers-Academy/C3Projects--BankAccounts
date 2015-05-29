@@ -7,8 +7,8 @@ module BankAccount
 end
 
 #testing
-x = BankAccount::Checking.new("cj",20)
-4.times do
-  ap x.withdraw_using_check(1)
-end
+#x = BankAccount::Checking.new("cj",20)
+#4.times do
+#  ap x.withdraw_using_check(1)
+#end
 
