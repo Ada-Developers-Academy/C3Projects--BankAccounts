@@ -18,43 +18,51 @@ describe "BankAccounts::Account" do
     end
 
     it "raises error message when initial balance is negative" do
-      expect{ BankAccounts::Account.new(60543, -1000) }.to raise_error("Cannot have negative number for initial balance")
+      expect{ BankAccounts::Account.new(60543, -1000) }.to raise_error("Balance needs to be greater than $0")
+    end
+
+    it "raises error when the id is not a number" do
+      expect{ BankAccounts::Account.new("abc", 1000) }.to raise_error("Parameter must be a number")
+    end
+
+    it "raises an error when the intial balance is not a number" do
+      expect{ BankAccounts::Account.new(1232154, "1000") }.to raise_error("Parameter must be a number")
     end
   end
 
-  context ".withdrawl(amount)" do
-    subject { BankAccounts::Account.new(123, 1000) }
+  context ".withdraw(amount)" do
+    subject { BankAccounts::Account.new(123, 500) }
 
     it "is a valid method for Account class" do
-      expect(subject).to respond_to(:withdrawl).with(1).arguments
+      expect(subject).to respond_to(:withdraw).with(1).arguments
     end
 
     it "subtracts given amount from balance" do
-      expect(subject.withdrawl(100)).to eq(900)
+      expect(subject.withdraw(100)).to eq(400)
     end
 
-    it "returns the original balance when withdrawl amount exceeds balance" do
-      expect(subject.withdrawl(2000)).to eq(1000)
+    it "returns the original balance when withdraw amount exceeds balance" do
+      expect(subject.withdraw(2000)).to eq(500)
     end
   end
 
   context ".deposit(amount)" do
-    subject { BankAccounts::Account.new(123, 1000) }
+    subject { BankAccounts::Account.new(123123, 200) }
 
     it "adds given amount to the balance" do
-      expect(subject.deposit(200)).to eq(1200)
+      expect(subject.deposit(200)).to eq(400)
     end
 
     it "raises error when amount is negative" do
-      expect{ subject.deposit(-100) }.to raise_error("Cannot have negative number for initial balance")
+      expect{ subject.deposit(-100) }.to raise_error("Cannot pass in negative argument")
     end
   end
 
   context ".balance" do
-    subject { BankAccounts::Account.new(123, 1000) }
-    
+    subject { BankAccounts::Account.new(6542, 9000) }
+
     it "returns current balance" do
-      expect(subject.balance).to eq(1000)
+      expect(subject.balance).to eq(9000)
     end
   end
 end
