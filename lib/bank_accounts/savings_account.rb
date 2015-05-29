@@ -1,6 +1,5 @@
 module BankAccounts
   class SavingsAccount < Account
-    attr_reader :id, :initial_balance
 
     def initialize(id, initial_balance)
       @id = id
@@ -16,7 +15,7 @@ module BankAccounts
     def withdraw(amount)
       fee = 2
       if (@balance - (amount + fee)) < 10
-        puts "Savings account balance must be at least $10. Withdraw not processed."
+        puts "Savings account balance must be at least $10. Transaction not processed."
         return @balance
       else
         @balance -= (amount + fee)
@@ -27,7 +26,7 @@ module BankAccounts
     def add_interest(rate)
       interest = ((@balance * rate) / 100).to_i
       if (@balance + interest) < 10
-        puts "Savings account balance must be at least $10. Interest rate not processed."
+        puts "Savings account balance must be at least $10. Transaction not processed."
         return @balance
       else
         @balance += interest

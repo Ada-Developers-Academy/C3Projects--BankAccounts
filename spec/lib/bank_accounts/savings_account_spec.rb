@@ -33,14 +33,14 @@ describe BankAccounts::SavingsAccount do
 
     it "deposits money" do
         expect(savings_account.deposit(100)).to eq(10_100)
-      end
+    end
 
     it "withdraws money with fee" do
-      expect(savings_account.withdraw(100)).to eq(9_898)
+      expect(savings_account.withdraw(9_988)).to eq(10)
     end
 
     it "won't withdraw too much money with fee" do
-      expect(savings_account.withdraw(10_000)).to eq(10_000)
+      expect(savings_account.withdraw(9_989)).to eq(10_000)
     end
 
     it "adds and returns interest" do

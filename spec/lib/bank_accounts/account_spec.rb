@@ -35,12 +35,16 @@ describe BankAccounts::Account do
       expect(account.deposit(10)).to eq(20)
     end
 
+    it "won't accept negative deposit" do
+      expect(account.deposit(-10)).to eq(10)
+    end
+
     it "withdraws money" do
       expect(account.withdraw(10)).to eq(0)
     end
 
     it "won't withdraw too much money" do
-      expect(account.withdraw(20)).to eq(10)
+      expect(account.withdraw(11)).to eq(10)
     end
 
 

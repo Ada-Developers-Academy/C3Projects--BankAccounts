@@ -19,13 +19,18 @@ module BankAccounts
 
 
     def deposit(amount)
-      @balance += amount
+      if amount < 0
+        puts "Can't deposit a negative amount. Transaction not processed."
+        return @balance
+      else
+        @balance += amount
+      end
     end
 
 
     def withdraw(amount)
       if (@balance - amount) < 0
-        puts "Account can't have a negative balance. Withdraw not processed."
+        puts "Account can't have a negative balance. Transaction not processed."
         return @balance
       else
         @balance -= amount
