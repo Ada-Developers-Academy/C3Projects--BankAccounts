@@ -2,6 +2,7 @@ module BankAccount
 
   require_relative('./classes/account.rb')
   require_relative('./classes/savings_account.rb')
+  require_relative('./classes/checking_account.rb')
 
 end
 
