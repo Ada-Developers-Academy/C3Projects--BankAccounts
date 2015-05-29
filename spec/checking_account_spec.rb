@@ -27,20 +27,54 @@ describe BankAccount::CheckingAccount do
 			expect{BankAccount::CheckingAccount.new(4, -400)}.to raise_exception(ArgumentError)
 		end
 
-		context "you can withdraw money from your CheckingAccount for a 1 transaction fee, unless it would make your account balance go below 0" do
-			it "returns 4498 if you withdraw 500 and it has a 1 transaction fee" do
-				expect(checking_account.withdraw(500)).to eq 4499
-			end
-			it "raises an ArgumentError if you try to withdraw 6000" do
-				expect{checking_account.withdraw(6000)}.to raise_exception(ArgumentError)
-			end
-		end
-
 		context "you can deposit money in your CheckingAccount" do
 			it "returns 5500 if you deposit 500" do
 				expect(checking_account.deposit(500)).to eq 5500
 			end
 		end
-	end
+
+		context "you can check your account balance" do
+			it "returns 3506 if you withdraw 500, deposit 10, and withdraw 1000." do
+				checking_account.withdraw(500)
+				checking_account.deposit(10)
+				checking_account.withdraw(1000)
+				expect(checking_account.balance).to eq 3508
+			end
+		end
+
+		describe "withdrawing money from your CheckingAccount using a withdraw method" do
+			context "you can withdraw money from your CheckingAccount for a 1 transaction fee, unless it would make your account balance go below 0" do
+				it "returns 4498 if you withdraw 500 and it has a 1 transaction fee" do
+					expect(checking_account.withdraw(500)).to eq 4499
+				end
+				it "raises an ArgumentError if you try to withdraw 6000" do
+					expect{checking_account.withdraw(6000)}.to raise_exception(ArgumentError)
+				end
+			end
+		end
+
+		describe "withdrawing money from your CheckingAccount using withdraw_using_check method" do
+			context "you get 3 free checks to withdraw from your account for free. After that, there is a 2 fee per withdrawl." do
+				it "has 3 free checks when you create your CheckingAccount" do
+					expect(checking_account.free_checks).to eq 3
+				end
+
+				it "returns 4000 when you withdraw 1000 and have at least 1 free check" do
+					checking_account.withdraw_using_check(1000)
+					expect(checking_account.account_balance).to eq 4000
+				end
+
+				it "returns 4958 when you withdraw 10 four times--i.e. one transactions without a free check available" do
+					4.times do 
+						checking_account.withdraw_using_check(10)
+					end
+					expect(checking_account.account_balance).to eq 4958
+				end
+
+			end
+		end # withdraw with check
+
+	end # instance
 
 end
+

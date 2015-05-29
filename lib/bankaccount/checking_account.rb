@@ -2,7 +2,7 @@ module BankAccount
 
 	class CheckingAccount < Account
 
-		attr_reader :id, :initial_balance, :account_balance
+		attr_reader :id, :initial_balance, :account_balance, :free_checks
 
 		def initialize(id, initial_balance)
 			raise ArgumentError.new "Please enter a positive initial balance." unless initial_balance > 0
@@ -25,15 +25,20 @@ module BankAccount
 			end
 		end
 
-		# withdraw_using_check(amount)
-			# reduces account_balance by the amount
-			# reduces free_checks by 1
-			# returns the account_balance
+		def withdraw_using_check(amount)
+			fee = (@free_checks > 0) ? 0 : 2
 
-			# account_balance must be >= -10
+			@account_balance = @account_balance - amount - fee
 
-			# if free_checks > 0, no fee
-			# if free_checks <= 0, 2 fee per transaction
+			if @account_balance < -10
+				@account_balance = @account_balance + amount + fee
+				raise ArgumentError.new "Insufficient funds to make this withdrawl. Your current balance is $#{@account_balance}."
+				return @account_balance
+			else 
+				@free_checks -= 1
+				return @account_balance
+			end
+		end
 
 		# reset_checks
 			# resets free_checks to 3
