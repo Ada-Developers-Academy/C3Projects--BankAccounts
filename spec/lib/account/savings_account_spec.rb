@@ -3,18 +3,11 @@ require 'bank_accounts'
 
 describe "BankAccounts::SavingsAccount" do
   context "self.new(id, initial_balance)" do
+
     subject { BankAccounts::SavingsAccount.new(123, 1000) }
 
     it "responds to SavingsAccount class" do
       expect(BankAccounts::SavingsAccount).to respond_to(:new).with(2).arguments
-    end
-
-    it "raises error when initial balance is below 10" do
-      expect{BankAccounts::SavingsAccount.new(123, 5)}.to raise_error("Must have minimum balance of $10")
-    end
-
-    it "raises error when initial balance is below 0" do
-      expect{BankAccounts::SavingsAccount.new(123, -1)}.to raise_error("Must have minimum balance of $10")
     end
 
     it "assigns an id" do
@@ -23,6 +16,14 @@ describe "BankAccounts::SavingsAccount" do
 
     it "assigns an initial balance" do
       expect(subject.balance).to eq(1000)
+    end
+
+    it "raises error when initial balance is below 10" do
+      expect{BankAccounts::SavingsAccount.new(123, 5)}.to raise_error("Must have minimum balance of $10")
+    end
+
+    it "raises error when initial balance is below 0" do
+      expect{BankAccounts::SavingsAccount.new(123, -1)}.to raise_error("Balance needs to be greater than $0")
     end
 
     it "raises error when id is not a number" do

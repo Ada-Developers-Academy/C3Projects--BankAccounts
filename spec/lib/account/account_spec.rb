@@ -3,6 +3,7 @@ require 'bank_accounts'
 
 describe "BankAccounts::Account" do
   context "self.new(id, initial_balance)" do
+
     subject { BankAccounts::Account.new(60543, 1000) }
 
     it "responds to Account class" do
@@ -31,9 +32,10 @@ describe "BankAccounts::Account" do
   end
 
   context ".withdraw(amount)" do
+
     subject { BankAccounts::Account.new(123, 500) }
 
-    it "is a valid method for Account class" do
+    it "responds to instance of Account class" do
       expect(subject).to respond_to(:withdraw).with(1).arguments
     end
 
@@ -44,9 +46,14 @@ describe "BankAccounts::Account" do
     it "returns the original balance when withdraw amount exceeds balance" do
       expect(subject.withdraw(2000)).to eq(500)
     end
+
+    it "raises error when amount is not an integer" do
+      expect{ subject.withdraw("blah") }.to raise_error("Parameter must be a number")
+    end
   end
 
   context ".deposit(amount)" do
+
     subject { BankAccounts::Account.new(123123, 200) }
 
     it "adds given amount to the balance" do
@@ -59,6 +66,7 @@ describe "BankAccounts::Account" do
   end
 
   context ".balance" do
+
     subject { BankAccounts::Account.new(6542, 9000) }
 
     it "returns current balance" do

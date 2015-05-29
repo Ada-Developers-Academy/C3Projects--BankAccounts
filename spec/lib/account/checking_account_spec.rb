@@ -3,6 +3,7 @@ require 'bank_accounts'
 
 describe "BankAccounts::CheckingAccount" do
   context "self.new(id, initial_balance)" do
+
     subject { BankAccounts::CheckingAccount.new(123, 1000) }
 
     it "responds to CheckingAccount class" do
@@ -19,6 +20,7 @@ describe "BankAccounts::CheckingAccount" do
   end
 
   context ".withdraw(amount)" do
+
     subject { BankAccounts::CheckingAccount.new(123, 1000) }
 
     it "responds to CheckingAccount instance" do
@@ -31,6 +33,7 @@ describe "BankAccounts::CheckingAccount" do
   end
 
   context "withdraw_using_check(amount)" do
+
     subject { BankAccounts::CheckingAccount.new(532156, 1000) }
 
     it "responds to CheckingAccount instance" do
@@ -64,6 +67,7 @@ describe "BankAccounts::CheckingAccount" do
   end
 
   context ".reset_checks"
+
     subject { BankAccounts::CheckingAccount.new(9999, 1000) }
 
     it "responds to CheckingAccount instance" do
@@ -73,6 +77,7 @@ describe "BankAccounts::CheckingAccount" do
     it "resets check_count back to zero" do
       subject.check_count = 5
       subject.reset_checks
+      
       expect(subject.check_count).to eq(0)
     end
 end
