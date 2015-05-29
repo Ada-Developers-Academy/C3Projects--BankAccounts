@@ -18,7 +18,7 @@ module BankAccounts
 
 
     def initialize(id, initial_balance)
-      not_num_error unless id.class == Fixnum && initial_balance.class == Fixnum
+      not_num_error unless id.is_a? Numeric && initial_balance.is_a? Numeric
 
       balance_error unless initial_balance > 0
 
@@ -28,6 +28,9 @@ module BankAccounts
 
 
     def withdraw(amount)
+      not_num_error unless amount.is_a? Numeric
+      negative_num_error unless amount > 0
+
       if amount > @balance
         puts ("Insufficient funds. Please withdraw an amount less than or equal to #{@balance}")
         return @balance
