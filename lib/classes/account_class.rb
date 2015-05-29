@@ -4,7 +4,7 @@ module BankAccount
     attr_accessor :id, :initial_balance, :current_balance
 
     def initialize(id, initial_balance)
-      raise ArgumentError.new("You cannot create an account with a negative balance") unless initial_balance > 0
+      raise ArgumentError.new ("You cannot create an account with a negative balance") unless initial_balance > 0
         @id = id
         @initial_balance = initial_balance
         @current_balance = initial_balance
