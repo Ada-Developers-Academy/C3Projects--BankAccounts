@@ -59,16 +59,15 @@ describe BankAccounts::Account do
 
 	context "invalid initial amount passed in" do
 
-		it "raises ArgumentError in case of negative initial balance" do
+		[
+			[2, -10],
+			[2, nil]
+		].each do |id, initial_balance|
+			it "raises ArgumentError in case of initial balance of #{initial_balance}" do
 			expect { 
-				BankAccounts::Account.new(2, -10)
+				BankAccounts::Account.new(id, initial_balance)
 			}.to raise_error ArgumentError
-		end
-
-		it "raises ArgumentError in case of nil initial balance" do
-			expect { 
-				BankAccounts::Account.new(2, nil)
-			}.to raise_error ArgumentError
+			end
 		end
 	end
 end

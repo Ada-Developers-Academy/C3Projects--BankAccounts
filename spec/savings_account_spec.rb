@@ -84,17 +84,15 @@ describe BankAccounts::SavingsAccount do
 
 	context "too small initial balance" do
 
-		it "raises ArgumentError in case of initial balance between 0 and 10" do
-			expect { 
-				BankAccounts::SavingsAccount.new(3, 5)
-			}.to raise_error ArgumentError
-		end
-
-		it "raises ArgumentError in case of negative initial balance" do
-			expect { 
-				BankAccounts::SavingsAccount.new(3, -5)
-			}.to raise_error ArgumentError
+		[
+			[3,  5],
+			[3, -5]
+		].each do |id, initial_balance|
+			it "raises ArgumentError in case of initial balance of #{initial_balance}" do
+				expect { 
+					BankAccounts::SavingsAccount.new(id, initial_balance)
+				}.to raise_error ArgumentError
+			end
 		end
 	end
-
 end
