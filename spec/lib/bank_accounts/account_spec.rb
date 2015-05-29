@@ -35,7 +35,7 @@ describe BankAccounts::Account do
   context "#withdraw cannot subtract more than balance:" do
 
     it "outputs a warning message" do
-      expect{bob.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stderr
+      expect{bob.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
     end   # NOTE TO SELF: output().to_stdout checks the method bob.error is printing the string
 
     it "& returns original balance" do
@@ -59,5 +59,16 @@ describe BankAccounts::Account do
   it "responds to #balance" do
     expect(bob).to respond_to(:balance)
   end
+
+  it "#balance returns current account balance" do
+    expect(bob.balance).to eq(1000)
+  end
+
+  it "#balance returns current account balance (after manipulation of balance)" do
+    amount = BankAccounts::Account.new(3, 500)
+    amount.withdraw(400)
+    amount.deposit(100)
+    expect(amount.balance).to eq(200)
+  end   # QUESTION: Is there a way to execute multiple methods in a row on the same object without typing them all out?
 
 end

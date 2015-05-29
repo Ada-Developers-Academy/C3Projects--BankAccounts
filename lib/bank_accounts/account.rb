@@ -2,7 +2,8 @@ module BankAccounts
 
   class Account
 
-    attr_accessor :id, :balance
+    attr_accessor :balance
+    attr_reader :id
 
     def initialize(id, initial_balance)
       neg_num_guard(initial_balance)
@@ -16,7 +17,7 @@ module BankAccounts
       neg_num_guard(amount)
 
       if @balance < amount
-        warn "Cannot withdraw amount; not enough money in account."
+        puts "Cannot withdraw amount; not enough money in account."
         return @balance
       end
 
