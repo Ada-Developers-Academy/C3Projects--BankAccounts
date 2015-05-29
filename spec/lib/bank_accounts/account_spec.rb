@@ -23,19 +23,17 @@ describe "For the following Account methods:" do
 
   context "When #withdraw is called" do
     it "subtracts the input amount from the balance" do
-      @account.withdraw(500)
-      expect(@account.balance).to eq(500)
+      expect(@account.withdraw(500)).to eq(500)
     end
 
     it "does not allow the account to go negative" do
-      expect(@account.withdraw(1500)).to eq("Insufficient funds to remove this amount. Please try a smaller amount.")
+      expect(@account.withdraw(1500)).to eq(1000)
     end
   end
 
   context "When #deposit is called" do
-    it "adds input value to balance" do
-      @account.deposit(500)
-      expect(@account.balance).to eq(1500)
+    it "adds input value to balance and returns balance" do
+      expect(@account.deposit(500)).to eq(1500)
     end
   end
 end #describe

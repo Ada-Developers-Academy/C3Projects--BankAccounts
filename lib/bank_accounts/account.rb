@@ -20,15 +20,16 @@ module BankAccounts
       # returns error message if withdrawal amount is greater than balance
       # removes input amount from balance
       if amount > @balance
-        return "Insufficient funds to remove this amount. Please try a smaller amount."
+        puts "Insufficient funds. Please withdraw a smaller amount."
+        return @balance
       else
-        @balance -= amount
+        return @balance -= amount
       end
     end
 
     def deposit(amount)
       # adds input amount to balance
-      @balance += amount
+      return @balance += amount
     end
 
   end #class

@@ -29,7 +29,7 @@ describe "SavingsAccount methods will: " do
     end
 
     it "will not allow account to get below $10 min balance" do
-      expect(@account.withdraw(990)).to eq("Insufficient funds. Please withdraw a smaller amount.")
+      expect(@account.withdraw(990)).to eq(1000)
     end
   end
 

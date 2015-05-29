@@ -19,7 +19,8 @@ module BankAccounts
       # balance must remain at $10 min
       amount += 2
       if (@balance - amount) < 10
-        return "Insufficient funds. Please withdraw a smaller amount."
+        puts "Insufficient funds. Please withdraw a smaller amount."
+        return @balance
       end
       super
     end
@@ -37,10 +38,5 @@ module BankAccounts
 
       return interest_accrued
     end
-
-
-
-
   end #class
-
 end # module
