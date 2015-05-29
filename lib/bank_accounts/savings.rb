@@ -1,7 +1,10 @@
+require 'pry'
+
 module BankAccounts
-  class Savings
+  class SavingsAccount < Account
 
-
+    def initialize
+    end
 
   end # class
 end # module
