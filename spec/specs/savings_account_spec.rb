@@ -34,8 +34,30 @@ describe BankAccount::Savings do
     it "reduces balance by 2 each time withdraw is called and returns it" do
       expect(@savings.withdraw(3)).to eq(15)
     end
+  end
+
+  context "when #deposit method is called" do
+    it "has a #deposit method with one parameter" do
+      expect(@savings.deposit(10)).to eq(30)
+    end
+  end
+
+  context "when #balance method is called" do
+    it "returns current savings balance"do
+      expect(@savings.balance).to eq(20)
+    end
+  end
+
+  context "when #add_interest method is called" do
+    it "has an #add_interest method with one parameter" do
+      expect(@savings).to respond_to(:add_interest).with(1).arguments
+    end
+    it "returns the interest calculated in dollars" do
+      expect(@savings.add_interest(0.25)).to eq(0.05)
+    end
 
   end
+
 end
 
 

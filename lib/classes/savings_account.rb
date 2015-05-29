@@ -4,19 +4,25 @@ module BankAccount
 
     def initialize(id, initial_balance)
       super
-      if @initial_balance < 10
+      if @current_balance < 10
         raise ArgumentError.new, "Initial deposit must be greater than 10"
       end
     end
 
     def withdraw(amount)
       super
-      if amount > (@initial_balance - 10)
+      if amount > (@current_balance - 10)
         raise ArgumentError.new, "Savings cannot go below 10"
       end
-      return (@initial_balance -2)
+      return (@current_balance -= 2)
     end
 
+    def add_interest(rate)
+      @rate = Float(rate)
+      @interest = @current_balance * (@rate/100)
+      @current_balance += @interest
+      return @interest
+    end
 
   end
 end

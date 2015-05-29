@@ -6,5 +6,8 @@ module BankAccount
 end
 
 #testing
-x = BankAccount::Savings.new("carjug", 12)
-ap x.id
+x = BankAccount::Savings.new("cj",20)
+ap x.withdraw(3)
+ap x.balance
+ap x.add_interest(0.25)
+ap x.balance
