@@ -19,7 +19,7 @@ module BankAccounts
 
       # Raises warning message if withdraw amount is greater than present balance
       if amount > @balance
-        raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is #{@balance}."
+        raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is $#{@balance}."
       
       # Return the updated balance once money is withdrawn from the account
       else

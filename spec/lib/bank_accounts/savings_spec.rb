@@ -14,24 +14,24 @@ describe BankAccounts::SavingsAccount do
       expect(BankAccounts::SavingsAccount).to respond_to(:new).with(2).arguments
     end
 
-    it "raises an error when a savings account with a balance below 10" do
+    it "raises an error when a savings account with a balance below $10" do
       expect{ BankAccounts::SavingsAccount.new(0, 5) }.to raise_error(ArgumentError, "MINIMUM BALANCE $10 REQUIRED")
     end
 
-    it "raises an error when a savings account with a balance below 0" do
+    it "raises an error when a savings account with a balance below $0" do
       expect{ BankAccounts::SavingsAccount.new(0, -35) }.to raise_error(ArgumentError, "MINIMUM BALANCE $10 REQUIRED")
     end
   end
 
   context "When withdrawing money from bank account" do
-    let(:savings) { BankAccounts::SavingsAccount.new(0, 10000) }
+    let(:savings) { BankAccounts::SavingsAccount.new(0, 5000) }
 
     it "responds to withdraw(amount)" do
       expect(savings).to respond_to(:withdraw)
     end
 
-    it "returns an updated account balance when withdrawing money" do
-      expect(savings.withdraw(500)).to eq(9500)
+    it "incurs a fee of $2 for each withdrawal - returns updated balance" do
+      expect(savings.withdraw(500)).to eq(4498)
     end
   end
 

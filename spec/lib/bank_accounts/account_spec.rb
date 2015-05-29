@@ -25,7 +25,7 @@ describe BankAccounts::Account do
     end
 
     it "raises an error when the account is overdrawn" do
-      expect{account.withdraw(500)}.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is #{account.balance}.")
+      expect{account.withdraw(500)}.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{account.balance}.")
     end
   end
 

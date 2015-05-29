@@ -14,7 +14,7 @@ module BankAccounts
     end
 
     def withdraw(amount)
-      @balance -= amount
+      @balance -= amount + 2
       return @balance
     end
 binding.pry
