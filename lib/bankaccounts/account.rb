@@ -8,6 +8,7 @@ module BankAccounts
       if initial_balance < 0
         raise ArgumentError.new("Only positive initial balances allowed")
       end
+      
       @id = id
       @balance = initial_balance
     end
