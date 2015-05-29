@@ -4,12 +4,11 @@ require 'pry'
 
 describe BankAccount::Account do
 
-  context "When you create a new account" do
+  context "When you sign up for a new account / sell your soul" do
 
     # Thanks TA Chef!
     # This 'let' statement allows you to create a variable called 'new account'
     # that runs something. This variable only works for this one context.
-    let (:new_account) {BankAccount::Account.new(1,200)}
     let (:sad_account) {BankAccount::Account.new(2,-1)}
 
     # Since new is a default method, perhaps
@@ -25,7 +24,7 @@ describe BankAccount::Account do
 
   end
 
-  context "ATM transactions" do
+  context "Account transactions" do
 
     let (:new_account) {BankAccount::Account.new(1,50)}
 
@@ -45,6 +44,6 @@ describe BankAccount::Account do
       expect(new_account.balance).to eq(50)
     end
 
-    
+
   end
 end
