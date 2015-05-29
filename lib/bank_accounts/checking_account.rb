@@ -4,8 +4,12 @@ module BankAccounts
     # CONSTANTS
 
 
+    # limits
+    CHECKS_LIMIT = 3
+
+    # fees
+    EXCESS_CHECKS_FEE = 2.00
     WITHDRAWAL_FEE = 1.00
-    EXCESS_TRANSACTION_FEE = 2.00
 
 
     ##--------------------------------------------------------------------------
@@ -45,7 +49,7 @@ module BankAccounts
       end
 
       unless @checks_used <= 3
-        amount += EXCESS_TRANSACTION_FEE
+        amount += EXCESS_CHECKS_FEE
       end
 
       if withdraw(amount)
@@ -67,7 +71,7 @@ module BankAccounts
       unless validate_number(amount)
         return false
       end
-      
+
       future_balance = @balance - amount - WITHDRAWAL_FEE
 
       if (future_balance < -10)
@@ -80,7 +84,7 @@ module BankAccounts
 
     def validate_check_withdrawal(amount)
       if (@checks_used + 1) > 3
-        amount += EXCESS_TRANSACTION_FEE
+        amount += EXCESS_CHECKS_FEE
       end
 
       if validate_withdrawal(amount)

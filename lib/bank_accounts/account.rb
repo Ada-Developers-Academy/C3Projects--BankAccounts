@@ -1,13 +1,3 @@
-# Create an Account class with a minimum of 6 specs. The class should have the following methods:
-#
-# self.new(id, initial_balance): creates a new instance with the instance variable id and 'initial_balance' assigned
-# Account cannot be created with initialize negative balance
-# #withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction.
-# Does not allow the account to go negative
-# #deposit(amount): Adds the input amount to the account balance as a result of an ATM transaction.
-# #balance: Returns the current account balance
-
-
 # throw error it's more of a prog thing like a data type that won't be recognized by a method.
 # if it's more the user trying to take too much, return false b/c the method call is where the error message should trigger.
 
@@ -20,6 +10,12 @@
 
 module BankAccounts
   class Account
+    ##--------------------------------------------------------------------------
+    # CONSTANTS
+
+
+    # limits
+    MINIMUM_BALANCE = 0
 
 
     attr_reader :balance, :id
@@ -29,7 +25,7 @@ module BankAccounts
     # INSTANCE METHODS
 
     def initialize(id, initial_balance)
-      if initial_balance > 0
+      if initial_balance >= MINIMUM_BALANCE
         @balance = initial_balance.round(2)
       else
         raise ArgumentError.new("You cannot create an account with a negative balance.")

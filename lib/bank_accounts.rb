@@ -15,6 +15,6 @@ module BankAccounts
   require_relative "bank_accounts/checking_account"
 
   # dinner
-  # require_relative bank_accounts/money_market_account
+  require_relative "bank_accounts/money_market_account"
 
 end

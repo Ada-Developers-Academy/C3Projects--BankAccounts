@@ -3,7 +3,10 @@ module BankAccounts
     ##--------------------------------------------------------------------------
     # CONSTANTS
 
+    # limits
+    MINIMUM_BALANCE = 10
 
+    # fees
     WITHDRAWAL_FEE = 2.00
 
 
@@ -13,8 +16,8 @@ module BankAccounts
 
     # create a new savings account.
     def initialize(id, initial_balance)
-      if initial_balance < 10
-        raise ArgumentError.new("You cannot create a savings account with less than a $10 initial deposit.")
+      if initial_balance < MINIMUM_BALANCE
+        raise ArgumentError.new("You cannot create a savings account with less than a $#{ MINIMUM_BALANCE } initial deposit.")
       end
 
       super(id, initial_balance)
