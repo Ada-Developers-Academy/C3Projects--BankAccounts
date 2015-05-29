@@ -30,16 +30,16 @@ describe "BankAccounts::Account" do
       expect(@account).to respond_to :deposit
     end
 
-    it "adds funds to the balance and then returns true" do
-      expect(@account.deposit(45)).to eq(true)
+    it "adds funds to the balance and returns adjusted balance" do
+      expect(@account.deposit(45)).to eq(95)
       expect(@account.balance).to eq(95)
     end
 
     it "cannot deposit negative or zero funds" do
-      expect{ @account.deposit(-1) }.to raise_error(ArgumentError)
+      expect(@account.deposit(-1)).to eq(50)
       expect(@account.balance).to eq(50)
 
-      expect{ @account.deposit(0) }.to raise_error(ArgumentError)
+      expect(@account.deposit(0)).to eq(50)
       expect(@account.balance).to eq(50)
     end
 
@@ -56,21 +56,21 @@ describe "BankAccounts::Account" do
       expect(@account).to respond_to :withdraw
     end
 
-    it "removes funds from the balance and then returns true" do
-      expect(@account.withdraw(45)).to eq(true)
+    it "removes funds from the balance and returns adjusted balance" do
+      expect(@account.withdraw(45)).to eq(5)
       expect(@account.balance).to eq(5)
     end
 
     it "cannot withdraw into the negative" do
-      expect{ @account.withdraw(51) }.to raise_error(ArgumentError)
+      expect(@account.withdraw(51)).to eq(50)
       expect(@account.balance).to eq(50)
     end
 
     it "cannot withdraw negative or zero funds" do
-      expect{ @account.withdraw(-1) }.to raise_error(ArgumentError)
+      expect(@account.withdraw(-1)).to eq(50)
       expect(@account.balance).to eq(50)
 
-      expect{ @account.withdraw(0) }.to raise_error(ArgumentError)
+      expect(@account.withdraw(0)).to eq(50)
       expect(@account.balance).to eq(50)
     end
 

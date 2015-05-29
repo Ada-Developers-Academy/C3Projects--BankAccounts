@@ -24,12 +24,11 @@ describe "BankAccounts::CheckingAccount" do
 
   context "has updated versions of some methods from Account class" do
     it "cannot withdraw below -$10" do
-      expect{ @account.withdraw(61) }.to raise_error(ArgumentError)
+      expect(@account.withdraw(61)).to eq(50)
     end
 
-    it "removes funds from the balance and then returns true" do
-      expect(@account.withdraw(35)).to eq(true)
-      expect(@account.balance).to eq(14)
+    it "removes funds from the balance and returns adjusted balance" do
+      expect(@account.withdraw(35)).to eq(14)
     end
 
     it "has a withdrawal transaction fee of $1" do
@@ -37,12 +36,13 @@ describe "BankAccounts::CheckingAccount" do
       withdrawal = 1.25
       fee = 1.00
 
-      this_many.times do
-        @account.withdraw(withdrawal)
+      this_many.times do |count|
+        actual_balance_adjustment = (count + 1) * (withdrawal + fee)
+        current_balance = 50 - actual_balance_adjustment
+        expect(@account.withdraw(withdrawal)).to eq(current_balance)
       end
 
       actual_balance_adjustment = this_many * (withdrawal + fee)
-
       expect(@account.balance).to eq(50 - actual_balance_adjustment)
     end
   end
@@ -67,13 +67,20 @@ describe "BankAccounts::CheckingAccount" do
 
       excess_transaction_fee = 2.00
       not_excess_transactions = 3
-      excess_transactions = this_many - not_excess_transactions
-      excess_fee = excess_transaction_fee * excess_transactions
 
-      this_many.times do
-        @account.withdraw_using_check(withdrawal)
+      this_many.times do |count|
+        excess_transactions = (count + 1) - not_excess_transactions
+        # adjusting w/ ternary b/c cannot have negative excess transactions. n_n
+        excess_transactions = excess_transactions >= 0 ? excess_transactions : 0
+        actual_excess_fee = excess_transaction_fee * excess_transactions
+        actual_balance_adjustment = ((count + 1) * actual_withdrawal) + actual_excess_fee
+        current_balance = 50 - actual_balance_adjustment
+
+        expect(@account.withdraw_using_check(withdrawal)).to eq(current_balance)
       end
 
+      excess_transactions = this_many - not_excess_transactions
+      excess_fee = excess_transaction_fee * excess_transactions
       actual_balance_reduction = (this_many * actual_withdrawal) + excess_fee
 
       expect(@account.balance).to eq(50 - actual_balance_reduction)
@@ -101,7 +108,7 @@ describe "BankAccounts::CheckingAccount" do
         @account.withdraw_using_check(withdrawal)
       end
 
-      expect(@account.checks_used).to eq(4)
+      expect(@account.checks_used).to eq(this_many)
 
       @account.reset_checks
 

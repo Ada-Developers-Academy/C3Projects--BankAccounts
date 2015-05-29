@@ -21,6 +21,8 @@ module BankAccounts
       end
 
       super(id, initial_balance)
+
+      return true
     end
 
 
@@ -47,9 +49,9 @@ module BankAccounts
     # withdraw money from account.
     def withdraw(amount)
       if super(amount + WITHDRAWAL_FEE)
-        return true
+        return @balance
       else
-        return false
+        return @balance
       end
     end
 
@@ -67,8 +69,10 @@ module BankAccounts
 
       future_balance = @balance - amount - WITHDRAWAL_FEE
 
-      if (future_balance < 10)
-        raise ArgumentError.new("You cannot withdraw that much. Your minimum balance is $10, and this withdrawal would put you at $#{ future_balance }.")
+      if (future_balance < MINIMUM_BALANCE)
+        puts "You cannot withdraw that much. Your minimum balance is $#{ MINIMUM_BALANCE }, and this withdrawal would put you at $#{ future_balance }."
+
+        return false
       end
 
       return true

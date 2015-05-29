@@ -28,7 +28,7 @@ module BankAccounts
       if initial_balance >= MINIMUM_BALANCE
         @balance = initial_balance.round(2)
       else
-        raise ArgumentError.new("You cannot create an account with a negative balance.")
+        raise ArgumentError.new("An account cannot be created with a negative balance.")
       end
 
       @id = id
@@ -37,40 +37,44 @@ module BankAccounts
     end
 
 
-    # withdraw money from account.
+    # withdraw money from account & return adjusted balance.
     def withdraw(amount)
       # withdrawals must not create negative balances.
       unless validate_withdrawal(amount)
-        return false
+        return @balance
       end
 
-      # raises an error if withdrawing negative or no funds.
+      # sends a message to the user if attempting to withdraw negative or zero funds.
       if (amount <= 0)
-        raise ArgumentError.new("You cannot withdraw negative funds! That sounds like it should be a deposit.")
+        puts "You cannot withdraw negative funds! That sounds like a transaction that should be a deposit."
+
+        return @balance
       end
 
       # adjusts balance.
       update_balance(-amount)
 
-      return true # since transaction happened.
+      return @balance
     end
 
 
     def deposit(amount)
       # deposits can only be numeric values.
       unless validate_number(amount)
-        return false
+        return @balance
       end
 
       # raises an error if depositing negative funds would create a negative balance.
       if (amount <= 0)
-        raise ArgumentError.new("You cannot deposit negative funds! That sounds like it should be a withdrawal.")
+        puts "You cannot deposit negative funds! That sounds like a transaction that should be a withdrawal."
+
+        return @balance
       end
 
       # adjusts balance.
       update_balance(amount)
 
-      return true # since transaction happened.
+      return @balance
     end
 
 
@@ -101,8 +105,8 @@ module BankAccounts
       end
 
       if (@balance - amount < 0)
-        raise ArgumentError.new("You cannot withdraw that much. Your balance would be negative.")
-        # return false
+        puts "You cannot withdraw that much. Your balance would be negative, and this is not a credit account."
+        return false
       end
 
       return true

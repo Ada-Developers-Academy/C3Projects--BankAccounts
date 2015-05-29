@@ -26,18 +26,17 @@ describe "BankAccounts::SavingsAccount" do
     it "must have a minimum opening balance of $10" do
       expect{ BankAccounts::SavingsAccount.new("Bad George", 9) }.to raise_error(ArgumentError)
 
-      @good_george = BankAccounts::SavingsAccount.new("Good George", 10)
-      expect(@good_george).to be_an_instance_of(BankAccounts::SavingsAccount)
-      expect(@good_george.balance).to eq(10)
+      good_george = BankAccounts::SavingsAccount.new("Good George", 10)
+      expect(good_george).to be_an_instance_of(BankAccounts::SavingsAccount)
+      expect(good_george.balance).to eq(10)
     end
 
     it "cannot withdraw below $10" do
-      expect{ @account.withdraw(41) }.to raise_error(ArgumentError)
+      expect(@account.withdraw(41)).to eq(50)
     end
 
     it "removes funds from the balance and then returns true" do
-      expect(@account.withdraw(35)).to eq(true)
-      expect(@account.balance).to eq(13)
+      expect(@account.withdraw(35)).to eq(13)
     end
 
     it "has a withdrawal transaction fee of $2" do
@@ -45,8 +44,10 @@ describe "BankAccounts::SavingsAccount" do
       withdrawal = 1.25
       fee = 2.00
 
-      this_many.times do
-        @account.withdraw(withdrawal)
+      this_many.times do |count|
+        actual_balance_adjustment = (count + 1) * (withdrawal + fee)
+        current_balance = 50 - actual_balance_adjustment
+        expect(@account.withdraw(withdrawal)).to eq(current_balance)
       end
 
       actual_balance_adjustment = this_many * (withdrawal + fee)

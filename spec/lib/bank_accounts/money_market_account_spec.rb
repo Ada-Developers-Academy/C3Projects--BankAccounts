@@ -39,7 +39,7 @@ describe "BankAccounts::MoneyMarketAccount" do
       end
 
       it "cannot withdraw below $10_000 more than once in succession" do
-        expect{ @account.withdraw(5) }.to raise_error(ArgumentError)
+        expect(@account.withdraw(5)).to eq(9_895)
       end
 
       it "applies a $100 fee for withdrawals that result in low balances (below $10_000)" do
@@ -47,15 +47,13 @@ describe "BankAccounts::MoneyMarketAccount" do
       end
 
       it "does not permit additional withdrawals until balance is back above minimum ($10_000)" do
-        expect{ @account.withdraw(5) }.to raise_error(ArgumentError)
+        expect(@account.withdraw(5)).to eq(9_895)
 
         @account.deposit(5)
-
-        expect{ @account.withdraw(5) }.to raise_error(ArgumentError)
+        expect(@account.withdraw(5)).to eq(9_900)
 
         @account.deposit(100)
-
-        expect(@account.withdraw(5)).to eq(true)
+        expect(@account.withdraw(5)).to eq(9_895)
       end
     end
   end
@@ -84,8 +82,8 @@ describe "BankAccounts::MoneyMarketAccount" do
         @account.withdraw(1)
       end
 
-      expect{ @account.deposit(1) }.to raise_error(ArgumentError)
-      expect{ @account.deposit(0) }.to raise_error(ArgumentError)
+      expect(@account.deposit(1)).to eq(10_000)
+      expect(@account.deposit(100_000)).to eq(10_000)
     end
 
     it "does not count deposit transactions that are correcting dips below minimum balance" do
