@@ -30,13 +30,21 @@ describe BankAccounts::SavingsAccount do
 
 		context "withdraws an amount" do
 
-			it "lowers balance by amount withdrawn plus 2" do
-				savings_account.withdraw(10)
-				expect(savings_account.balance).to eq(188)
+			[
+				[0,   200],
+				[10,  188],
+				[188,  10],
+				[189, 200],
+				[200, 200]
+			].each do |amount, new_balance|
+				it "withdraws #{amount} and leaves new balance of #{new_balance}" do
+					savings_account.withdraw(amount)
+					expect(savings_account.balance).to eq(new_balance)
+				end
 			end
 
 			it "puts error message if amount withdrawn is greater than minimum balance" do
-				savings_account.withdraw(200)
+				savings_account.withdraw(195)
 				expect(savings_account.balance).to eq(200)
 			end
 		end

@@ -9,12 +9,8 @@ module BankAccounts
 		end
 
 		def withdraw(amount)
-			if amount > @balance - @minimum 
-				puts "You cannot leave less than #{@minimum} in your account."
-				return @balance
-			else
-				@balance -= (amount + 2)
-			end
+			return @balance if amount == 0
+			super(amount + 2)
 		end
 
 		def add_interest(amount)
