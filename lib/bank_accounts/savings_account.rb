@@ -25,6 +25,11 @@ module BankAccounts
     end
 
     def add_interest(rate)
+      # returns error if rate is set at negative
+      if rate < 0
+        return "Rate must be a positive percentage."
+      end
+
       rate /= 100
 
       interest_accrued = @balance * rate

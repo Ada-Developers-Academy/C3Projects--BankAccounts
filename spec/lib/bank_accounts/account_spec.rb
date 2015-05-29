@@ -12,7 +12,7 @@ describe BankAccounts::Account do
 
 end
 
-describe "For the following class methods:" do
+describe "For the following Account methods:" do
   before :each do
       @account = BankAccounts::Account.new(1, 1000)
     end
@@ -22,7 +22,7 @@ describe "For the following class methods:" do
   end
 
   context "When #withdraw is called" do
-    it "removes the input amount from the balance" do
+    it "subtracts the input amount from the balance" do
       @account.withdraw(500)
       expect(@account.balance).to eq(500)
     end
