@@ -15,5 +15,9 @@ describe BankAccount::CheckingAccount do
       expect(bankaccount.withdraw(5000)).to eq(500)
     end
 
+    it "withdraws using a check" do
+      expect(bankaccount.withdraw_using_check(100)).to eq(400)
+    end
+
   end
 end

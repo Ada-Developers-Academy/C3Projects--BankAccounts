@@ -31,7 +31,7 @@ describe BankAccount::SavingsAccount do
       expect(bankaccount.withdraw(48)).to eq(450)
     end
 
-    it "Must leave $10 in savings account, puts warning, returnd original amount" do
+    it "Must leave $10 in savings account, puts warning, returns original amount" do
       expect(bankaccount.withdraw(495)).to eq(500)
     end
 
