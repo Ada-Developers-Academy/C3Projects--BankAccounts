@@ -5,24 +5,20 @@ module BankAccount
 	class SavingsAccount < Account
 		# inherits all methods that Account has
 
-		attr_accessor :id, :initial_balance, :account_balance
+		attr_reader :id, :initial_balance, :account_balance
 
 		def initialize(id, initial_balance)
 			raise ArgumentError.new "Please enter a positive initial balance." unless initial_balance >= 10
 			super
 		end
 
-		# has updated rules for withdraw method
-			# cannot withdraw money if it will make your
-			# account balance < 10
-			# if you try, it will raise ArgumentError
-			# will return original account balance
-
 		def withdraw(amount)
-			super
+			fee = 2
+
+			@account_balance = @account_balance - amount - fee
 
 			if @account_balance < 10
-				@account_balance += amount
+				@account_balance = @account_balance + amount + fee
 				raise ArgumentError.new "Insufficient funds to make this withdrawl including a $2 transaction fee. Your current balance is $#{@account_balance}."
 				return @account_balance
 			else 

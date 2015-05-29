@@ -21,7 +21,20 @@ describe BankAccount::SavingsAccount do
 		let(:savings_account) { BankAccount::SavingsAccount.new(1,5000) }
 
 		it "returns 4498 if you withdraw 500 and it has a $2 transaction fee" do
-			expect(savings_account.withdraw(500)).to eq(4498)
+			expect(savings_account.withdraw(500)).to eq 4498
+		end
+
+		it "returns 5500 if you deposit 500" do
+			expect(savings_account.deposit(500)).to eq 5500
+		end
+
+		context "you can check your account balance" do
+			it "returns 3506 if you withdraw 500, deposit 10, and withdraw 1000." do
+				savings_account.withdraw(500)
+				savings_account.deposit(10)
+				savings_account.withdraw(1000)
+				expect(savings_account.balance).to eq 3506
+			end
 		end
 
 		# describe "your SavingsAccount cannot have a balance < 10" do
