@@ -14,13 +14,10 @@ module BankAccounts
     end
 
     def withdraw(amount)
-      if amount > @balance
-        raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is $#{@balance}."
-
-      else
-        @balance -= amount + 2
-        return @balance
-      end
+      super
+      
+      @balance -= 2
+      return @balance
     end
 binding.pry
   end # class

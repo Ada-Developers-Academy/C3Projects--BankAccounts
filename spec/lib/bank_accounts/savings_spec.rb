@@ -24,7 +24,7 @@ describe BankAccounts::SavingsAccount do
   end
 
   context "When withdrawing money from bank account" do
-    let(:savings) { BankAccounts::SavingsAccount.new(0, 5000) }
+    let(:savings) { BankAccounts::SavingsAccount.new(0, 500) }
 
     it "responds to withdraw(amount)" do
       expect(savings).to respond_to(:withdraw)
@@ -35,7 +35,7 @@ describe BankAccounts::SavingsAccount do
     end
 
     it "incurs a fee of $2 for each withdrawal - returns updated balance" do
-      expect(savings.withdraw(500)).to eq(4498)
+      expect(savings.withdraw(50)).to eq(448)
     end
   end
 
