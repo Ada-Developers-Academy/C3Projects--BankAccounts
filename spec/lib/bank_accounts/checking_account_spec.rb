@@ -7,7 +7,7 @@ describe BankAccounts::CheckingAccount do
   end
 
   before :each do
-    @account = BankAccounts::CheckingAccount.new(1, 1000)
+    @account = BankAccounts::CheckingAccount.new(1, 1000)s
   end
 
   it "inherits balance from parent Account" do
@@ -47,6 +47,16 @@ describe BankAccounts::CheckingAccount do
       4.times do @account.withdraw_using_check(100)
       end
       expect(@account.balance).to eq(598)
+    end
+  end
+
+  #Need to fix this test to work, but method seems to work just fine
+  context "#reset_checks will: " do
+    it "reset checks_used to 0" do
+      4.times do @account.withdraw_using_check(100)
+      end
+      @account.reset_checks
+      expect(@checks_used).to eq(0)
     end
   end
 
