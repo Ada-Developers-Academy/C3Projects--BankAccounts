@@ -22,8 +22,9 @@ module BankAccounts
     def withdraw(amount)
       # amount is subtracted from balance.
       new_balance = @balance - amount
+      min_balance = 0
       # Does not allow the account to go negative - Will output a warning message and return the original un-modified balance
-      if (new_balance) < 0
+      if (new_balance) < min_balance
         # raise StandardError.new("Warning: You cannot withdraw #{amount}. Your account only has #{@balance}.")
         warn("Warning: Insufficient funds! You cannot withdraw #{amount}. Your account only has #{@balance}.")
       else

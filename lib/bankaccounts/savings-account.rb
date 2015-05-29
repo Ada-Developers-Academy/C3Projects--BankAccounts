@@ -11,8 +11,14 @@ module BankAccounts
       end
     end
 
+    # withdraw inherits from Account class, but adds a $2 fee to each withdrawal
+    def withdraw(amount)
+      super(amount + 2)
+      min_balance = 10
+      return @balance
+    end
 
-# #withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction. Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
+
 # Does not allow the account to go below the $10 minimum balance - Will output a warning message and return the original un-modified balance
 # It should include the following new methods:
 #
