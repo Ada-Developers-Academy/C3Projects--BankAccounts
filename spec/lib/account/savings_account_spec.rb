@@ -24,6 +24,14 @@ describe "BankAccounts::SavingsAccount" do
     it "assigns an initial balance" do
       expect(subject.balance).to eq(1000)
     end
+
+    it "raises error when id is not a number" do
+      expect{BankAccounts::SavingsAccount.new("abc", 20)}.to raise_error("Parameter must be a number")
+    end
+
+    it "raises error when initial balance is not a number" do
+      expect{BankAccounts::SavingsAccount.new(12345, "20")}.to raise_error("Parameter must be a number")
+    end
   end
 
   context ".withdraw(amount)" do
