@@ -15,9 +15,9 @@ module BankAccounts
     def withdraw(amount)
       neg_num_guard(amount)
 
-      if (@balance -= amount) < 0
+      if @balance < amount
         puts "Cannot withdraw amount; not enough money in account."
-        return (@balance += amount)
+        return @balance
       end
 
       @balance -= amount
