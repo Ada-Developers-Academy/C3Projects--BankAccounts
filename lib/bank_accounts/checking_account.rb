@@ -16,19 +16,17 @@ module BankAccounts
 		end
 
 		def withdraw_using_check(amount)
-			if amount > @balance - @overdraft_limit
-				puts "You cannot withdraw past the overdraft limit: #{@overdraft_limit}."
-				return @balance
+			if check_count < 3
+				withdraw(amount - 1)
+			else
+				withdraw(amount + 1)
 			end
 
-			if check_count < 3
-				@balance -= amount
-			else
-				@balance -= (amount + 2)
-			end
-			
 			@check_count += 1
-			return @balance
+		end
+
+		def reset_checks
+			@check_count = 0
 		end
 	end
 end

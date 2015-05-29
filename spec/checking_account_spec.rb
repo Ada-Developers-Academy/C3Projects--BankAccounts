@@ -64,7 +64,7 @@ describe BankAccounts::CheckingAccount do
 				expect(checking_account.check_count).to eq(1)
 			end
 
-			context	"withdraws two more times" do
+			context	"withdraws with check more than 3 times" do
 				before(:each) do
 					2.times do
 						checking_account.withdraw_using_check(100)
@@ -78,6 +78,10 @@ describe BankAccounts::CheckingAccount do
 				it "starts charging a 2 fee on the fourth withdrawl using check" do
 					checking_account.withdraw_using_check(100)
 					expect(checking_account.balance).to eq(598)
+				end
+
+				it "resets check count" do
+					expect(checking_account.reset_checks).to eq(0)
 				end
 			end
 		end
