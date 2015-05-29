@@ -28,4 +28,8 @@ describe BankAccounts::SavingsAccount do
     expect{BankAccounts::SavingsAccount.new(4, 10)}.not_to raise_error
   end
 
+  it "responds to #withdraw" do
+    expect(george).to respond_to(:withdraw)
+  end
+
 end
