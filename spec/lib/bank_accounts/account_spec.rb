@@ -55,12 +55,14 @@ describe BankAccounts::Account do
 
 end # describe
 
-# #self.new(id, initial_balance): creates a new instance with the instance variable id and 'initial_balance' assigned
- # #Account cannot be created with initialize negative balance - this will raise an ArgumentError (Google this)
+# Requirements for class Account --------------------------------->
 
-# withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction. Return value should be the updated account balance.
- # Does not allow the account to go negative - Will output a warning message and return the original un-modified balance
+# self.new(id, initial_balance): creates a new instance with the instance variable id and 'initial_balance' assigned
+  # Account cannot be created with initialize negative balance - this will raise an ArgumentError (Google this)
 
-# deposit(amount): Adds the input amount to the account balance as a result of an ATM transaction. Return value should be the updated account balance
+# #withdraw(amount): The input amount gets taken out of the account as result of an ATM transaction. Return value should be the updated account balance.
+  # Does not allow the account to go negative - Will output a warning message and return the original un-modified balance
 
-# balance: Returns the current account balance
+# #deposit(amount): Adds the input amount to the account balance as a result of an ATM transaction. Return value should be the updated account balance
+
+# #balance: Returns the current account balance
