@@ -48,5 +48,4 @@ describe BankAccount::Account do
       end
     end
 
-
 end # describe

@@ -1,5 +1,3 @@
-require "pry"
-
 module BankAccount
   class Account
     attr_reader :balance
@@ -19,7 +17,9 @@ module BankAccount
         return @balance
       else
         new_balance = @balance - amount
-        return @balance = new_balance
+        @balance = new_balance
+        puts "You balance is: $#{@balance}."
+        return @balance
       end
     end # withdraw
 
