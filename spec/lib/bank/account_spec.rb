@@ -20,17 +20,18 @@ describe Bank::Account do
         expect(@bank.balance).to eq(50)
       end
 
-      it "cannot be initialized with a negative balance" do
-        bank = Bank::Account.new("Checking", -10)
-        expect(bank.balance).to eq(0)
-      end
-
       it "sets balance to an integer" do
         bank = Bank::Account.new("Checking", "45")
         expect(bank.balance).to eq(45)
 
         bank2 = Bank::Account.new("Checking", "af")
         expect(bank2.balance).to eq(0)
+      end
+
+      context "when creating an account with a negative balance" do
+        it "raises an error" do
+          expect{Bank::Account.new("Checking", -10)}.to raise_error(ArgumentError, "Negative balance is invalid.")
+        end
       end
     end
   end
@@ -59,9 +60,19 @@ describe Bank::Account do
       expect(bank2.balance).to eq(100)
     end
 
-    it "does not allow account to go negative" do
-      @bank.withdraw(100)
-      expect(@bank.balance).to eq(0)
+    context "amount is greater than account balance" do
+      it "does not withdraw amount" do
+        @bank.withdraw(100)
+        expect(@bank.balance).to eq(50)
+      end
+
+      it "outputs a warning message" do
+        expect{@bank.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $0.\n").to_stdout
+      end
+
+      it "returns unmodified balance" do
+        expect(@bank.withdraw(100)).to eq(50)
+      end
     end
   end
 
