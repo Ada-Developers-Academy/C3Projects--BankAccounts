@@ -3,7 +3,6 @@
 module BankAccount
 
 	class SavingsAccount < Account
-		# inherits all methods that Account has
 
 		attr_reader :id, :initial_balance, :account_balance
 
@@ -34,10 +33,11 @@ module BankAccount
 			super
 		end
 
-		# new add_interest instance method
-
-
-
+		def add_interest(rate)
+			interest = @account_balance * (rate / 100)
+			@account_balance += interest.round(2)
+			return interest.round(2)
+		end
 
 	end
 
