@@ -91,13 +91,7 @@ describe BankAccount::Account do
 				end
 			end
 		end # check balance
-
-
-
-
 	end # Account instance
-
-
 end # describe
 
 
