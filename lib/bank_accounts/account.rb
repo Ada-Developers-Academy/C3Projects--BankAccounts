@@ -9,16 +9,29 @@ module BankAccounts
 
     def initialize(id, initial_balance)
       @id = id
-      @balance = initial_balance
+
+      if initial_balance < 0
+        raise ArgumentError, "Account can't have a negative balance. Create a new account."
+      else
+        @balance = initial_balance
+      end
     end
+
 
     def deposit(amount)
       @balance += amount
     end
 
     def withdraw(amount)
-      @balance -= amount
+      if (@balance - amount) < 0
+        puts "Account can't have a negative balance. Withdraw not processed."
+        return @balance
+      else
+        @balance -= amount
+      end
     end
+
+
 
   end # class Account
 end # module BankAccounts

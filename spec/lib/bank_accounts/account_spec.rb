@@ -10,6 +10,12 @@ describe BankAccounts::Account do
       expect(BankAccounts::Account).to respond_to :new
     end
 
+    context "when balance would be negative"do
+      it "throws an error and aborts account creation" do
+        expect { BankAccounts::Account.new(1, -10) }.to raise_error(ArgumentError, "Account can't have a negative balance. Create a new account.")
+      end
+    end
+
   end # class methods
 
 
@@ -25,6 +31,8 @@ describe BankAccounts::Account do
       expect(account.id).to eq(1)
     end
 
+
+
   end # attributes
 
 
@@ -37,6 +45,10 @@ describe BankAccounts::Account do
 
     it "withdraws money" do
       expect(account.withdraw(10)).to eq(0)
+    end
+
+    it "won't withdraw too much money" do
+      expect(account.withdraw(20)).to eq(10)
     end
 
 
