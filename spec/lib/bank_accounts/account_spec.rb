@@ -34,15 +34,11 @@ describe BankAccounts::Account do
   end
 
   it "#withdraw cannot subtract more than balance: outputs a warning message & returns original balance" do
-    expect(bob.withdraw(1100)).to eq()
-  end # TODO: how to test for warning message?
+    expect{bob.error}.to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
+  end
 
   it "#withdraw still lets you subtract if amount equals balance" do
     expect(bob.withdraw(1000)).to eq(0)
-  end
-
-  it "testing rspec 'output'" do
-    expect{bob.error}.to output('ERROR').to_stdout
   end
 
 end
