@@ -30,7 +30,6 @@ module BankAccounts
       # Subtracts amount
       new_balance = @balance - amount - @fee
       warn("Warning: This transaction will incur a $#{fee} fee.") if @fee > 0
-      # Returns updated balance
 
       if new_balance < @min_balance
         warn("Warning: Insufficient funds! You cannot withdraw #{amount}. Your account only has #{@balance}.")
@@ -39,11 +38,11 @@ module BankAccounts
         @balance = new_balance
       end
       return @balance
-
     end
 
-    # def reset_checks
-    # end
+    def reset_checks
+      @checks_used = 0
+    end
 
 
     # #reset_checks: Resets the number of checks used to zero

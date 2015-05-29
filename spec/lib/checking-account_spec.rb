@@ -15,12 +15,6 @@ describe BankAccounts::CheckingAccount do
         expect(checking_account.deposit(1_010)).to eq(11_010)
       end
 
-      # describe "raise_exception when initial_balance < 0" do
-      #   it "raises an ArgumentError" do
-      #     expect { BankAccounts::CheckingAccount.new(898776, -100) }.to raise_exception(ArgumentError)
-      #   end
-      # end
-
       describe "raise_exception when initial_balance is nil" do
         it "raises an ArgumentError" do
           expect { BankAccounts::CheckingAccount.new(898776, nil) }.to raise_exception(ArgumentError)
@@ -28,7 +22,7 @@ describe BankAccounts::CheckingAccount do
       end
     end
 
-    context "withdraw(amount) would result in a negative value of balance" do
+    context "when withdraw(amount) would result in a negative value of balance" do
       let(:checking_account) do
         BankAccounts::CheckingAccount.new("Voltron2", 1002)
       end
@@ -80,15 +74,25 @@ describe BankAccounts::CheckingAccount do
       expect(checking_account.withdraw_using_check(100)).to eq(87)
     end
 
-    describe "first three withdraw_using_check calls have no fee; subsequent fee = $2"
-      it "charges a fee after 3 withdrawals" do
+    it "responds to 'reset_checks'" do
+      expect(checking_account).to respond_to :reset_checks
+    end
+
+    context "after the third withdraw_using_check call"
+      it "charges a $2 fee" do
         expect(checking_account.withdraw_using_check(7)).to eq(80)
         expect(checking_account.withdraw_using_check(2)).to eq(78)
         expect(checking_account.withdraw_using_check(7)).to eq(71)
         expect(checking_account.withdraw_using_check(10)).to eq(59)
         expect(checking_account.withdraw_using_check(7)).to eq(50)
+      end
+      it "reset_checks sets checks_used to 0" do
+        expect(checking_account.reset_checks).to eq(0)
 
       end
-  end
+    end
+
+
+
 
 end

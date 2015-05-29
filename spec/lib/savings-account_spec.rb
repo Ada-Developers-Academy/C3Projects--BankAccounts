@@ -41,7 +41,7 @@ describe BankAccounts::SavingsAccount do
         end
       end
 
-      context "withdraw(amount) would result in a balance of < 10" do
+      context "when withdraw(amount) would result in a balance of < 10" do
       let(:savings_account) { BankAccounts::SavingsAccount.new("Gangy", 1_000_000) }
 
         it "returns balance" do

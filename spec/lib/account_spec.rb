@@ -13,7 +13,7 @@ describe BankAccounts::Account do
       expect(account.withdraw(50)).to eq(950.00)
     end
 
-    context "withdraw(amount) would result in a negative value of balance" do
+    context "when withdraw(amount) would result in a negative value of balance" do
     let(:account) { BankAccounts::Account.new("Voltron", 1000) }
 
       it "returns original balance" do
