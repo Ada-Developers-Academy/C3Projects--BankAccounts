@@ -8,7 +8,7 @@ describe BankAccounts::Account do
 
     context "when balance would be negative" do
       it "throws an error and aborts account creation" do
-        expect { BankAccounts::Account.new(1, -10) }.to raise_error(ArgumentError, "Account can't have a negative balance. Create a new account.")
+        expect { BankAccounts::Account.new(1, -1) }.to raise_error(ArgumentError, "Account can't have a negative balance. Create a new account.")
       end
     end
 
@@ -16,10 +16,10 @@ describe BankAccounts::Account do
 
 
   describe "attributes" do
-    let(:account) { BankAccounts::Account.new(1, 10) }
+    let(:account) { BankAccounts::Account.new(1, 2) }
 
     it "has initial balance" do
-      expect(account.balance).to eq(10)
+      expect(account.balance).to eq(2)
     end
 
     it "has id" do
@@ -35,7 +35,7 @@ describe BankAccounts::Account do
       expect(account.deposit(10)).to eq(20)
     end
 
-    it "won't accept negative deposit" do
+    it "won't accept negative deposits" do
       expect(account.deposit(-10)).to eq(10)
     end
 

@@ -1,8 +1,3 @@
-# THINGS TO RESEARCH FOR LATER
-# * raise
-# * ArgumentError
-# * rspec method raise_exception
-
 module BankAccounts
   class Account
     attr_reader :id, :balance

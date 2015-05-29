@@ -35,6 +35,10 @@ describe BankAccounts::SavingsAccount do
         expect(savings_account.deposit(100)).to eq(10_100)
     end
 
+    it "won't accept negative deposit" do
+      expect(savings_account.deposit(-100)).to eq(10_000)
+    end
+
     it "withdraws money with fee" do
       expect(savings_account.withdraw(9_988)).to eq(10)
     end
