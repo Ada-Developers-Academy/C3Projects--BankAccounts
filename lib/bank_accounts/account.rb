@@ -5,6 +5,8 @@ module BankAccounts
     attr_accessor :balance
     attr_reader :id
 
+    MIN_BALANCE = 0
+
     def initialize(id, initial_balance)
       neg_num_guard(initial_balance)
 
@@ -16,7 +18,7 @@ module BankAccounts
     def withdraw(amount)
       neg_num_guard(amount)
 
-      if @balance < amount
+      if (@balance - amount) < MIN_BALANCE
         puts "Cannot withdraw amount; not enough money in account."
         return @balance
       end
@@ -33,7 +35,7 @@ module BankAccounts
 
     # CHECKS TO MAKE SURE NUMBER ISN'T NEGATIVE; THROWS ERROR IF SO
     def neg_num_guard(num)
-      raise ArgumentError, "negative number" if num < 0
+      raise ArgumentError, "negative number" if num < MIN_BALANCE
     end
 
   end

@@ -32,4 +32,20 @@ describe BankAccounts::SavingsAccount do
     expect(george).to respond_to(:withdraw)
   end
 
+  it "#withdraw subtracts 'amount' from the balance (& a $2 fee) & returns balance" do
+    expect(george.withdraw(100)).to eq(898)
+  end
+
+  context "#withdraw cannot subtract more than minimum balance:" do
+
+    it "outputs a warning message" do
+      expect{george.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
+    end   # NOTE TO SELF: output().to_stdout checks the method bob.error is printing the string
+
+    it "& returns original balance" do
+      expect(george.withdraw(1100)).to eq(1000)
+    end   # 1000 is original balance
+
+  end #context
+
 end
