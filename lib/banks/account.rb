@@ -6,7 +6,7 @@ module BankAccount
 
       if initial_balance <  0
         # accounts cannot be created with a negative balance
-        raise ArgumentError.new, "Bank accounts cannot be opened with a negative balance."
+        raise ArgumentError.new("Bank accounts cannot be opened with a negative balance.")
       end
     end
 

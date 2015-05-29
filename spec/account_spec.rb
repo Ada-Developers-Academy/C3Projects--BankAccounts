@@ -1,7 +1,7 @@
 require "spec_helper"
 require "./lib/banks/account"
 
-describe "Account class" do
+describe "BankAccount::Account" do
   context "Making a new instance of Account" do
     it "responds to class method called new" do
       expect(BankAccount::Account).to respond_to :new
@@ -16,7 +16,7 @@ describe "Account class" do
         expect {BankAccount::Account.new(4, -10)}.to raise_error(ArgumentError)
       end
 
-      it "should not raise an error if you start an account with a zero balance" do
+      it "should not raise an error if you start an account with $0" do
         expect {BankAccount::Account.new(3, 0)}.not_to raise_error
       end
     end
