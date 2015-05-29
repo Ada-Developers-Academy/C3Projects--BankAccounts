@@ -66,5 +66,9 @@ describe "BankAccounts::SavingsAccount" do
 
       expect(subject.balance).to eq(1002.5)
     end
+
+    it "raises error when rate is less than 0" do
+      expect{ subject.add_interest(-1) }.to raise_error
+    end
   end
 end
