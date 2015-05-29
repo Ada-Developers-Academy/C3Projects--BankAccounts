@@ -3,22 +3,21 @@ module BankAccounts
 	class Account
 		attr_reader :id, :balance
 
-		MINIMUM_BALANCE = 0
-
 		def initialize(id, initial_balance)
 			@id 					= id
-			self.initial_balance	= initial_balance
+			@minimum 				= 0
+			self.balance			= initial_balance
 		end
 
-		def initial_balance=(initial_balance)
-			if initial_balance == nil || initial_balance < MINIMUM_BALANCE
-				raise ArgumentError.new("Initial balance must be at least: #{MINIMUM_BALANCE}.")
+		def balance=(initial_balance)
+			if initial_balance == nil || initial_balance < @minimum 
+				raise ArgumentError.new("Initial balance must be at least: #{@minimum}.")
 			end
 			@balance = initial_balance
 		end
 
 		def withdraw(amount)
-			if amount > @balance - MINIMUM_BALANCE
+			if amount > @balance - @minimum 
 				puts "You cannot withdraw more than the current account balance: #{@balance}."
 				return @balance
 			else

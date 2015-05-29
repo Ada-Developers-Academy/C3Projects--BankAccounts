@@ -2,18 +2,15 @@ module BankAccounts
 
 	class SavingsAccount < BankAccounts::Account
 
-		MINIMUM_BALANCE = 10
-			
-		def initial_balance=(initial_balance)
-			if initial_balance == nil || initial_balance < MINIMUM_BALANCE
-				raise ArgumentError.new("Initial balance must be at least: #{MINIMUM_BALANCE}.")
-			end
-			@balance = initial_balance
+		def initialize(id, initial_balance)
+			super
+			@minimum 		= 10
+			self.balance 	= initial_balance
 		end
 
 		def withdraw(amount)
-			if amount > @balance - MINIMUM_BALANCE
-				puts "You cannot leave less than #{MINIMUM_BALANCE} in your account."
+			if amount > @balance - @minimum 
+				puts "You cannot leave less than #{@minimum} in your account."
 				return @balance
 			else
 				@balance -= (amount + 2)
@@ -21,6 +18,9 @@ module BankAccounts
 		end
 
 		def add_interest(amount)
+			if amount == nil || amount < 0
+				raise ArgumentError.new("Interest rate cannot be negative.")
+			end
 			interest = @balance * (amount.to_f/100)
 			@balance += interest
 			return interest

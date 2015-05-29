@@ -43,22 +43,48 @@ describe BankAccounts::SavingsAccount do
 
 		context "adds interest" do
 
-			it "adds interest to account and returns interest" do
-				expect(savings_account.add_interest(1)).to eq(2)
+			[
+				[1, 	  2],
+				[0.25, 	  0.5],
+				[5,		 10],
+				[0,		  0],
+			].each do |rate, interest|
+				it "adds interest to account at a rate of #{rate} and returns #{interest}" do
+					expect(savings_account.add_interest(rate)).to eq(interest)
+				end
 			end
 		
-			it "new balance equals old balance plus interest" do
-				savings_account.add_interest(1)
-				expect(savings_account.balance).to eq(202)
+			[
+				[1, 	202],
+				[0.25, 	200.5],
+				[5,		210],
+				[0,		200]
+			].each do |rate, new_balance|
+				it "adding interest at rate of #{rate} yields new balance of #{new_balance}" do
+					savings_account.add_interest(rate)
+					expect(savings_account.balance).to eq(new_balance)
+				end
+			end
+
+			it "raises ArgumentError in case of negative rate" do
+				expect { 
+					savings_account.add_interest(-2)
+				}.to raise_error ArgumentError
 			end
 		end
 	end
 
 	context "too small initial balance" do
 
-		it "raises ArgumentError in case of initial balance under 10" do
+		it "raises ArgumentError in case of initial balance between 0 and 10" do
 			expect { 
 				BankAccounts::SavingsAccount.new(3, 5)
+			}.to raise_error ArgumentError
+		end
+
+		it "raises ArgumentError in case of negative initial balance" do
+			expect { 
+				BankAccounts::SavingsAccount.new(3, -5)
 			}.to raise_error ArgumentError
 		end
 	end
