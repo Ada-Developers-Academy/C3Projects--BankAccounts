@@ -36,15 +36,16 @@ describe Bank::Account do
   end
 
   describe "#withdraw(amount)" do
-    # refactor
-    it "removes $45 from account" do
+    money = [45, 25, 10, 0.10].shuffle.sample
+
+    it "removes $#{money} from the account" do
       bank = Bank::Account.new("Checking", "1000")
-      bank.withdraw(45)
-      expect(bank.balance).to eq(955)
+      bank.withdraw(money)
+
+      expect(bank.balance).to eq(1000 - money)
     end
 
     # it "is a result of an ATM transaction" do
-    #
     # end
 
     it "subtracts an integer from @balance" do

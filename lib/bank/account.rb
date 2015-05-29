@@ -4,12 +4,12 @@ module Bank
 
     def initialize(id, initial_balance)
       @id = id
-      @balance = initial_balance.to_i >= 0 ? initial_balance.to_i : 0
+      @balance = initial_balance.to_f >= 0 ? initial_balance.to_f : 0
     end
 
     def withdraw(amount)
-      amount = amount.to_i
-      
+      amount = amount.to_f
+
       if @balance - amount >= 0
         @balance -= amount
       else
