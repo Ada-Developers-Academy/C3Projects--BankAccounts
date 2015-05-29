@@ -49,11 +49,11 @@ describe BankAccounts::SavingsAccount do
         end
 
         it "returns original balance" do
-          expect(savings_account.withdraw(999_997)).to eq(1_000_000)
+          expect(savings_account.withdraw(999_989)).to eq(1_000_000)
         end
 
         it "raises a warning" do
-          expect { savings_account.withdraw(2_000_000) }.to output("Warning: Insufficient funds! You cannot withdraw 2000002. Your account only has 1000000.\n").to_stderr
+          expect { savings_account.withdraw(2_000_000) }.to output("Warning: This transaction will incur a $2 fee.\nWarning: Insufficient funds! You cannot withdraw 2000000. Your account only has 1000000.\n").to_stderr
         end
 
       end

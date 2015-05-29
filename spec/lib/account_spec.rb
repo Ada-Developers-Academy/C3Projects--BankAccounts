@@ -37,7 +37,6 @@ describe BankAccounts::Account do
       it "raises an ArgumentError" do
         expect { BankAccounts::Account.new(898776, -100) }.to raise_exception(ArgumentError)
       end
-
     end
 
     describe "raise_exception when initial_balance is nil" do
