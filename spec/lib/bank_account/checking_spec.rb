@@ -12,10 +12,6 @@ describe Bank::CheckingAccount do
       expect(checkings).to respond_to :balance
     end
 
-    it "has id 'keep_it'" do
-      expect(checkings.id).to eq("checkit")
-    end
-
     it "has an initial balance of 100" do
       expect(checkings.balance).to eq(100)
     end
