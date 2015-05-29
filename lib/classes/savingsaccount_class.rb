@@ -4,7 +4,20 @@ module BankAccount
 
     def initialize(id, initial_balance)
       raise ArgumentError.new ("You cannot create an account with a negative balance") unless initial_balance >= 10
-      super(id, initial_balance)
+      @id = id
+      @initial_balance = initial_balance
+      @current_balance = initial_balance
+    end
+
+
+    def withdraw(amount)
+      if amount > @current_balance - 10
+        puts "#{amount} is too large of of a withdrawal.
+        You must leave $10 in your account and your current balance is #{@current_balance}."
+        return @current_balance
+      else
+        @current_balance = @current_balance - amount - 2
+      end
     end
 
   end

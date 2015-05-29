@@ -14,7 +14,7 @@ describe BankAccount::Account do
       expect(bankaccount.initial_balance).to eq(10000)
     end
 
-    it "raises an ArgumentError if a negative account value is initialized" do
+    it "raises an ArgumentError if a negative account balance is initialized" do
       expect{BankAccount::Account.new(3, -5000)}.to raise_error(ArgumentError)
     end
   end
