@@ -10,7 +10,7 @@ module BankAccounts
       # raises error if initial_balance amount is negative
       # sets initial_balance to balance
       if initial_balance < 0
-        raise ArgumentError.new("You need money to open this account. Please try again")
+        raise ArgumentError.new("You need money to open this account. Please try again.")
       else
         @balance = initial_balance
       end
