@@ -44,7 +44,7 @@ describe BankAccounts::Account do
 			end
 		end
 
-		context "deposits an amount" do
+		context "balance increases by deposited amount" do
 			[
 				[10, 110],
 				[50.50, 150.50]
