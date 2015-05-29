@@ -25,4 +25,16 @@ context "When you create a new savings account"
     expect(new_savings_account.withdraw(5)).to eq(193)
   end
 
+  it "won't let you dip under $10" do
+    expect(new_savings_account.withdraw(195)).to eq("Sorry, you need a minimum of ten whole bucks in your account. Withdraw canceled. Let's keep your current balance at 200.")
+  end
+
+  it "lets you deposit moneh" do
+    expect(new_savings_account.deposit(5)).to eq(205)
+  end
+
+  it "lets you check interest" do
+    expect(new_savings_account.add_interest(0.25)).to eq(0.5)
+  end
+
 end

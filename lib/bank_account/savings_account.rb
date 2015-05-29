@@ -2,7 +2,9 @@ require 'pry'
 
 module BankAccount
 
-  class SavingsAccount
+
+  class SavingsAccount < Account
+
     attr_reader :id, :initial_balance
     attr_accessor :current_balance
 
@@ -18,9 +20,23 @@ module BankAccount
 
     def withdraw(get_monies)
       highway_robbery = get_monies + 2
-      @current_balance -= highway_robbery
+
+      if @current_balance - highway_robbery > 10
+        @current_balance -= highway_robbery
+      else
+        return "Sorry, you need a minimum of ten whole bucks in your account. Withdraw canceled. Let's keep your current balance at #{@current_balance}."
+      end
+
+    end #withdraw method
+
+    def deposit(put_monies)
+      super
     end
 
-  end
+    def add_interest(rate)
+      interest = @current_balance * (rate/100)
+    end
 
-end
+  end #class
+
+end #module

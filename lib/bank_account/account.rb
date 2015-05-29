@@ -22,7 +22,7 @@ module BankAccount
         @current_balance -= get_monies
         @current_balance
       else
-        return "Sorry, you don't have that much! Withdrawal canceled. Let's keep your current balance at #{@current_balance}."
+        return "Sorry, you don't have that much! Withdraw canceled. Let's keep your current balance at #{@current_balance}."
       end #conditional
     end # withdraw method
 

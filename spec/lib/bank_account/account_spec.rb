@@ -34,7 +34,7 @@ describe BankAccount::Account do
     end
 
     it "won't let you overdraft" do
-      expect(new_account.withdraw(51)).to eq("Sorry, you don't have that much! Withdrawal canceled. Let's keep your current balance at 50.")
+      expect(new_account.withdraw(51)).to eq("Sorry, you don't have that much! Withdraw canceled. Let's keep your current balance at 50.")
     end
 
     it "lets you to deposit moneh" do
@@ -45,5 +45,6 @@ describe BankAccount::Account do
       expect(new_account.balance).to eq(50)
     end
 
+    
   end
 end
