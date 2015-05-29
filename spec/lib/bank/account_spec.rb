@@ -87,4 +87,11 @@ describe Bank::Account do
       end
     end
   end
+
+  describe "#balance" do
+    it "returns current balance" do
+      @bank.deposit(50)
+      expect(@bank.balance).to eq(50 + 50)
+    end
+  end
 end

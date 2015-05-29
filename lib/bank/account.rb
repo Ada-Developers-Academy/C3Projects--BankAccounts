@@ -1,5 +1,6 @@
 module Bank
   class Account
+    # attr_accessor creates an implicit balance method
     attr_accessor :id, :balance
 
     def initialize(id, initial_balance)
