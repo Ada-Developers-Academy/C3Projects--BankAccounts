@@ -5,7 +5,7 @@ module BankAccount
 		attr_reader :id, :initial_balance, :account_balance
 
 		def initialize(id, initial_balance)
-			raise ArgumentError.new "Please enter a positive initial balance." unless initial_balance >= 10
+			raise ArgumentError.new "Please enter an initial balance of at least $10." unless initial_balance >= 10
 			super
 		end
 

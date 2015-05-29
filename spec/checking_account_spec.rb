@@ -63,12 +63,12 @@ describe BankAccount::CheckingAccount do
 				end
 			end
 
-			context "you get 3 free checks to withdraw from your account for free. After that, there is a 2 fee per withdrawl." do
+			context "you get 3 free checks to withdraw from your account for free. After that, there is a 2 fee per withdrawal." do
 				it "has 3 free checks when you create your CheckingAccount" do
 					expect(checking_account.free_checks).to eq 3
 				end
 
-				it "reduces the free_checks count to 2 when you make your first withdrawl" do
+				it "reduces the free_checks count to 2 when you make your first withdrawal" do
 					checking_account.withdraw_using_check(200) # account_balance == 4800; free_checks == 2
 					expect(checking_account.free_checks).to eq 2
 				end
