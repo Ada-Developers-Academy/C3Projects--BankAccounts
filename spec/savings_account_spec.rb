@@ -40,6 +40,18 @@ describe BankAccounts::SavingsAccount do
 				expect(savings_account.balance).to eq(200)
 			end
 		end
+
+		context "adds interest" do
+
+			it "adds interest to account and returns interest" do
+				expect(savings_account.add_interest(1)).to eq(2)
+			end
+		
+			it "new balance equals old balance plus interest" do
+				savings_account.add_interest(1)
+				expect(savings_account.balance).to eq(202)
+			end
+		end
 	end
 
 	context "too small initial balance" do

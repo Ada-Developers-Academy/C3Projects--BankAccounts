@@ -19,5 +19,11 @@ module BankAccounts
 				@balance -= (amount + 2)
 			end
 		end
+
+		def add_interest(amount)
+			interest = @balance * (amount.to_f/100)
+			@balance += interest
+			return interest
+		end
 	end
 end
