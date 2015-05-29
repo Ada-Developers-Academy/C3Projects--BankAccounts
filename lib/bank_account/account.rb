@@ -4,6 +4,7 @@ module BankAccount
 
   class Account
     attr_reader :id, :initial_balance
+    attr_accessor :current_balance
 
     def initialize(id, initial_balance)
       @id = id
@@ -15,10 +16,10 @@ module BankAccount
       end
     end
 
-    def withdraw(need_monies)
+    def withdraw(get_monies)
 
-      if need_monies <= @current_balance
-        @current_balance -= need_monies
+      if get_monies <= @current_balance
+        @current_balance -= get_monies
         @current_balance
       else
         return "Sorry, you don't have that much! Withdrawal canceled. Let's keep your current balance at #{@current_balance}."

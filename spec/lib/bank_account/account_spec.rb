@@ -14,6 +14,7 @@ describe BankAccount::Account do
 
     # Since new is a default method, perhaps
     # write a spec checking the arg number?
+
     it "responds to class method called .new" do
       expect(BankAccount::Account).to respond_to :new
     end
