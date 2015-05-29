@@ -18,7 +18,7 @@ module BankAccount
       if amount > @current_balance
         # accounts are not allowed to go below 0
         # #withdraw will return the previous balance
-        puts "WARNING: This account cannot go below zero."
+        puts "WARNING: This account cannot go below $0."
         return @current_balance
       else
         return @current_balance -= amount

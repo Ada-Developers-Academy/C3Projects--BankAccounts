@@ -15,8 +15,13 @@ describe "BankAccount::CheckingAccount" do
   context "Withdrawing money" do
     checking_account = BankAccount::CheckingAccount.new(87, 135)
 
-    it "returns the current_balance after a withdrawl (includes the $1 transaction fee)" do
+    it "takes out $1 for each withdrawl" do
       expect(checking_account.withdraw(35)).to eq(99)
+    end
+
+    it "prints message if try to withdraw more than current balance" do
+      expect{checking_account.withdraw(100)}.to output("WARNING: This account cannot go below $0.\n").to_stdout
+      expect(checking_account.withdraw(100)).to eq(99) # the previous balance is 99 because of the last test (we withdrew 100)
     end
   end
 end
