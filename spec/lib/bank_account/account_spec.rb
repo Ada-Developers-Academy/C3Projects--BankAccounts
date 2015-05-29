@@ -6,6 +6,13 @@ describe BankAccount::Account do
   end
 end
 
+describe "Declining to Open an Account with Less than zero" do
+  let (:account) {BankAccount::Account.new(345, -5)}
+  it "Raises an exception" do
+    expect { raise ArgumentError}.to raise_exception (ArgumentError)
+  end
+end
+
 describe "Executing a withdraw" do
   let (:account) {BankAccount::Account.new(345, 500)}
   it "When withdraw is executed the balance of the bank account will be reduced by withdraw amount and return the new balance" do
