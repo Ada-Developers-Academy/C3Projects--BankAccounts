@@ -37,4 +37,9 @@ context "When you create a new savings account"
     expect(new_savings_account.add_interest(0.25)).to eq(0.5)
   end
 
+  it "lets you check your current balance" do
+    expect(new_savings_account.balance).to eq(200)
+
+  end
+
 end

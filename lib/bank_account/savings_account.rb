@@ -1,5 +1,3 @@
-require 'pry'
-
 module BankAccount
 
 
@@ -9,16 +7,18 @@ module BankAccount
     attr_accessor :current_balance
 
     def initialize(id, initial_balance)
-      @id = id
-      @initial_balance = initial_balance
-      @current_balance = initial_balance
+      #Inherit the same variables as Account
+      super
 
       if @initial_balance < 10
-        raise ArgumentError, "You can't have negative monies!"
+        raise ArgumentError, "You can't have less than 10 whole bucks!"
       end
     end
 
     def withdraw(get_monies)
+
+      # All of this behavior is unique. So I
+      # don't think I can call super...
       highway_robbery = get_monies + 2
 
       if @current_balance - highway_robbery > 10
@@ -27,10 +27,6 @@ module BankAccount
         return "Sorry, you need a minimum of ten whole bucks in your account. Withdraw canceled. Let's keep your current balance at #{@current_balance}."
       end
 
-    end #withdraw method
-
-    def deposit(put_monies)
-      super
     end
 
     def add_interest(rate)
