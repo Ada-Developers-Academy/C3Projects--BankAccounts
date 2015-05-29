@@ -6,10 +6,6 @@ describe BankAccounts::Account do
 
   describe "class methods" do
 
-    it "responds to 'new'" do
-      expect(BankAccounts::Account).to respond_to :new
-    end
-
     context "when balance would be negative" do
       it "throws an error and aborts account creation" do
         expect { BankAccounts::Account.new(1, -10) }.to raise_error(ArgumentError, "Account can't have a negative balance. Create a new account.")

@@ -25,7 +25,14 @@ module BankAccounts
 
 
     def add_interest(rate)
-      
+      interest = ((@balance * rate) / 100).to_i
+      if (@balance + interest) < 10
+        puts "Savings account balance must be at least $10. Interest rate not processed."
+        return @balance
+      else
+        @balance += interest
+        return interest
+      end
     end
 
 
