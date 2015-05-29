@@ -7,8 +7,8 @@ module BankAccount
 end
 
 #testing
-x = BankAccount::Savings.new("cj",20)
-ap x.withdraw(3)
-ap x.balance
-ap x.add_interest(0.25)
-ap x.balance
+x = BankAccount::Checking.new("cj",20)
+4.times do
+  ap x.withdraw_using_check(1)
+end
+
