@@ -7,6 +7,17 @@
 # #deposit(amount): Adds the input amount to the account balance as a result of an ATM transaction.
 # #balance: Returns the current account balance
 
+
+# throw error it's more of a prog thing like a data type that won't be recognized by a method.
+# if it's more the user trying to take too much, return false b/c the method call is where the error message should trigger.
+
+# be consistent about throwing errors vs false.
+
+# PRIVATE might be the cause / PROTECTED might be the solution
+# nope not returning true/false
+# !R private vs protected
+
+
 module BankAccounts
   class Account
 
@@ -25,24 +36,22 @@ module BankAccounts
       end
 
       @id = id
+
+      return true
     end
 
 
+    #
     def withdraw(amount)
-      # withdrawals can only be numberic values.
-      # dogs, arrays of dogs, hashes of dogs, etc not accepted here.
-      unless validate_number(amount)
+      # withdrawals can only be numeric values.
+      # withdrawals must not create negative balances.
+      unless validate_number(amount) && validate_withdrawal(amount)
         return false
       end
 
       # raises an error if withdrawing negative or no funds.
       if (amount <= 0)
         raise ArgumentError.new("You cannot withdraw negative funds! That sounds like it should be a deposit.")
-      end
-
-      # raises an error if withdrawing funds would create a negative balance.
-      if (@balance - amount) < 0
-        raise ArgumentError.new("You cannot withdraw that much. Your balance would be negative.")
       end
 
       # adjusts balance.
@@ -53,8 +62,7 @@ module BankAccounts
 
 
     def deposit(amount)
-      # deposits can only be numberic values.
-      # cats, arrays of cats, hashes of cats, etc not accepted here.
+      # deposits can only be numeric values.
       unless validate_number(amount)
         return false
       end
@@ -86,6 +94,16 @@ module BankAccounts
     def validate_number(input)
       unless (input.class == Fixnum) || (input.class == Float)
         raise ArgumentError.new("That is not a number!")
+      end
+
+      return true
+    end
+
+
+    def validate_withdrawal(amount)
+      if (@balance - amount < 0)
+        raise ArgumentError.new("You cannot withdraw that much. Your balance would be negative.")
+        # return false
       end
 
       return true
