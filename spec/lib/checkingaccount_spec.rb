@@ -38,21 +38,25 @@ describe BankAccount::CheckingAccount do
     end
   end
 
-  describe '#balance' do
-    it 'responds' do
-      expect(BankAccount::CheckingAccount.new(1,125)).to respond_to :balance
+  describe 'attr_reader' do
+    before :all do
+      @my_account = BankAccount::CheckingAccount.new(1,125)
     end
-  end
 
-  describe '#initial_balance' do
-    it 'responds' do
-      expect(BankAccount::CheckingAccount.new(1,125)).to respond_to :initial_balance
+    it '#balance responds' do
+      expect(@my_account).to respond_to :balance
     end
-  end
 
-  describe '#checks_used' do
-    it 'responds' do
-      expect(BankAccount::CheckingAccount.new(1,125)).to respond_to :checks_used
+    it '#initial_balance responds' do
+      expect(@my_account).to respond_to :initial_balance
+    end
+
+    it '#checks_used responds' do
+      expect(@my_account).to respond_to :checks_used
+    end
+
+    it '#reset_checks responds' do
+      expect(@my_account).to respond_to :reset_checks
     end
   end
 
@@ -107,7 +111,7 @@ describe BankAccount::CheckingAccount do
       end
 
       it 'returns updated account balance (includes no transaction fee)' do
-        expect(@my_account.withdraw_using_check(25)).to eq(10)
+        expect(@my_account.withdraw_using_check(25)).to eq(100)
       end
 
       it 'increments check count' do
@@ -140,12 +144,6 @@ describe BankAccount::CheckingAccount do
         @my_account.withdraw_using_check(1)
         expect(@my_account.withdraw_using_check(1)).to eq(119)
       end
-    end
-  end
-
-  describe '#reset_checks' do
-    it 'responds' do
-      expect(@my_account).to respond_to :reset_checks
     end
   end
 
