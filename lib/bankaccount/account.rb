@@ -12,15 +12,21 @@ module BankAccount
 		end
 
 		def withdraw(amount)
-			@account_balance -= amount
+			super 
+			
+			fee = 2
 
-			if @account_balance < 0
-				@account_balance += amount
-				raise ArgumentError.new "Insufficient funds. Your current balance is #{@account_balance}."
-				return @account_balance
-			else 
-				return @account_balance
-			end
+			@account_balance = @account_balance - amount - fee
+
+			# if @account_balance < 0
+			# 	@account_balance += amount + fee
+			# 	raise ArgumentError.new "Insufficient funds. Your current balance is #{@account_balance}."
+			# 	return @account_balance
+			# else 
+			# 	return @account_balance
+			# end
+
+			return @account_balance
 		end
 
 		def deposit(amount)
