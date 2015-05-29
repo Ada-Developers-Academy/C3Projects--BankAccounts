@@ -10,9 +10,9 @@ module BankAccounts
         raise ArgumentError.new "MINIMUM BALANCE $10 REQUIRED"
       end
 
-      # inherits from Account parent class
+      # inherit from Account parent class
       super
-      
+
     end
 
   end # class
