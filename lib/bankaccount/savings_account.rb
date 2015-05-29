@@ -20,10 +20,10 @@ module BankAccount
 
 		def withdraw(amount)
 			super
-			
-			if @account_balance < 0
+
+			if @account_balance < 10
 				@account_balance += amount
-				raise ArgumentError.new "Insufficient funds. Your current balance is #{@account_balance}."
+				raise ArgumentError.new "Insufficient funds to make this withdraw including a $2 transaction fee. Your current balance is #{@account_balance}."
 				return @account_balance
 			else 
 				return @account_balance
