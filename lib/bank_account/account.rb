@@ -1,9 +1,10 @@
 module BankAccount
-  attr_reader :balance, :id
+
   class Account
 
     def initialize(id, initial_balance)
       @id = id
+      @checks = 0
       if initial_balance <= 0
         raise ArgumentError, "Account cannot be 0 or less"
       else

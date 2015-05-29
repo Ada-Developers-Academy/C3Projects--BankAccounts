@@ -23,9 +23,7 @@ module BankAccount
     def add_interest(rate)
       interest = 0.0
       interest = @balance * rate/100
-      puts interest
       @balance += interest
-      puts @balance
       return interest
 
     end
