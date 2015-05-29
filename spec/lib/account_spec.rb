@@ -21,6 +21,10 @@ describe BankAccount::Account do
       it 'has a balance' do
         expect(@my_account.balance).to eq(125)
       end
+
+      it 'has an initial_balance' do
+        expect(@my_account.initial_balance).to eq(125)
+      end
     end
 
     context 'when a negative account balance is passed in' do
@@ -33,6 +37,12 @@ describe BankAccount::Account do
   describe '#balance' do
     it 'responds' do
       expect(BankAccount::Account.new(1,125)).to respond_to :balance
+    end
+  end
+
+  describe '#initial_balance' do
+    it 'responds' do
+      expect(BankAccount::SavingsAccount.new(1,125)).to respond_to :initial_balance
     end
   end
 
