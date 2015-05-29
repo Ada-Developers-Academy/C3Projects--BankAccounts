@@ -22,7 +22,7 @@ describe BankAccounts::Account do
   end
 
   it "cannot initialize with a negative initial_balance" do
-    expect{BankAccounts::Account.new(2, -1000)}.to raise_error(ArgumentError)
+    expect{BankAccounts::Account.new(2, -1000)}.to raise_error(ArgumentError)   #raise_error is the same as raise_exception
   end   # Why does raise_error use expect{} vs expect()???
 
   it "responds to #withdraw" do
@@ -31,6 +31,18 @@ describe BankAccounts::Account do
 
   it "#withdraw subtracts & returns 'amount' from the balance" do
     expect(bob.withdraw(100)).to eq(900)
+  end
+
+  it "#withdraw cannot subtract more than balance: outputs a warning message & returns original balance" do
+    expect(bob.withdraw(1100)).to eq()
+  end # TODO: how to test for warning message?
+
+  it "#withdraw still lets you subtract if amount equals balance" do
+    expect(bob.withdraw(1000)).to eq(0)
+  end
+
+  it "test" do
+    specify { expect(bob.testing).to output('yo').to_stdout }
   end
 
 end

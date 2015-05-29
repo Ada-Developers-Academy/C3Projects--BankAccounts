@@ -5,14 +5,26 @@ module BankAccounts
     attr_accessor :id, :balance
 
     def initialize(id, initial_balance)
-      raise ArgumentError, "negative number" if initial_balance < 0
+      neg_num_guard(initial_balance)
 
       @id = id
       @balance = initial_balance
     end
 
-    def withdraw
+    # SUBTRACT AMOUNT FROM BALANCE & RETURN BALANCE
+    def withdraw(amount)
+      neg_num_guard(amount)
 
+      @balance -= amount
+    end
+
+    def testing
+      print "yo"
+    end
+
+    # CHECKS TO MAKE SURE NUMBER ISN'T NEGATIVE; THROWS ERROR IF SO
+    def neg_num_guard(num)
+      raise ArgumentError, "negative number" if num < 0
     end
 
   end
