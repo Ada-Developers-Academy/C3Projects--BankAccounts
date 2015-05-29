@@ -18,8 +18,8 @@ module BankAccounts
       @balance -= amount
     end
 
-    def testing
-      print "yo"
+    def error
+      print "ERROR"
     end
 
     # CHECKS TO MAKE SURE NUMBER ISN'T NEGATIVE; THROWS ERROR IF SO

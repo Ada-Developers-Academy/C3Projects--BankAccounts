@@ -41,8 +41,8 @@ describe BankAccounts::Account do
     expect(bob.withdraw(1000)).to eq(0)
   end
 
-  it "test" do
-    specify { expect(bob.testing).to output('yo').to_stdout }
+  it "testing rspec 'output'" do
+    expect{bob.error}.to output('ERROR').to_stdout
   end
 
 end
