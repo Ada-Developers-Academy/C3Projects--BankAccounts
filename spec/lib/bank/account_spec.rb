@@ -36,13 +36,14 @@ describe Bank::Account do
   end
 
   describe "#withdraw(amount)" do
-    money = [45, 25, 10, 0.10].shuffle.sample
 
-    it "removes $#{money} from the account" do
-      bank = Bank::Account.new("Checking", "1000")
-      bank.withdraw(money)
+    it "removes amount from the account" do
+      [45, 25, 10, 0.10].each do |money|
+        bank = Bank::Account.new("Checking", "1000")
+        bank.withdraw(money)
 
-      expect(bank.balance).to eq(1000 - money)
+        expect(bank.balance).to eq(1000 - money.to_i)
+      end
     end
 
     # it "is a result of an ATM transaction" do
@@ -61,6 +62,29 @@ describe Bank::Account do
     it "does not allow account to go negative" do
       @bank.withdraw(100)
       expect(@bank.balance).to eq(0)
+    end
+  end
+
+  describe "#deposit(amount)" do
+    money = ["0.30," "50", "60"].shuffle.sample
+
+    it "adds amount to @balance" do
+      @bank.deposit(money)
+      expect(@bank.balance).to eq(50 + money.to_i)
+    end
+
+    # as a result of an ATM transaction
+
+    it "returns updated balance" do
+      expect(@bank.deposit(money)).to eq(50 + money.to_i)
+    end
+
+    context "adding invalid amounts to balance" do
+      it "only adds integers" do
+        ["af", "$$", "5&3"].each do |fake_money|
+          expect(@bank.deposit(fake_money)).to eq(50 + 0)
+        end
+      end
     end
   end
 end

@@ -4,11 +4,14 @@ module Bank
 
     def initialize(id, initial_balance)
       @id = id
-      @balance = initial_balance.to_f >= 0 ? initial_balance.to_f : 0
+      @balance = initial_balance.to_i >= 0 ? initial_balance.to_i : 0
     end
 
     def withdraw(amount)
-      amount = amount.to_f
+      # Integer() will turn strings of numbers into valid integers.
+      # If it's not a whole number or includes invalid characters
+      # it'll return 0 instead
+      amount = Integer(amount) rescue 0
 
       if @balance - amount >= 0
         @balance -= amount
@@ -17,6 +20,11 @@ module Bank
       end
 
       return @balance
+    end
+
+    def deposit(amount)
+      amount = Integer(amount) rescue 0
+      return @balance += amount.to_f
     end
   end
 end
