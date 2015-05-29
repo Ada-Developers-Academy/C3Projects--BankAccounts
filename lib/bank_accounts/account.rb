@@ -3,7 +3,7 @@ require 'pry'
 module BankAccounts
   class Account
 
-    attr_reader :balance
+    attr_reader :id, :balance
 
     def initialize(id, initial_balance)
       @id = id
