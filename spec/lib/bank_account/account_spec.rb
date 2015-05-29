@@ -1,7 +1,7 @@
 require 'bank_account'
 
 describe Bank::Account do
-  let(:account) {Bank::Account.new("checkit", 1000)}
+  let(:account) {Bank::Account.new("check_it", 1000)}
 
   describe "attributes" do
     it "responds to :balance" do
@@ -13,7 +13,7 @@ describe Bank::Account do
     end
 
     it "has the id 'checkit'" do
-      expect(account.id).to eq("checkit")
+      expect(account.id).to eq("check_it")
     end
 
     it "has an initial balance of 1000" do
