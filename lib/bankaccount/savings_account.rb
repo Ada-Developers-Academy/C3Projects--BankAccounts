@@ -1,5 +1,3 @@
-# require "account"
-
 module BankAccount
 
 	class SavingsAccount < Account
