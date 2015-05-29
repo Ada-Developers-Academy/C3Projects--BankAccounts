@@ -23,5 +23,9 @@ module BankAccounts
 				@balance -= amount
 			end
 		end
+
+		def deposit(amount)
+			@balance += amount
+		end
 	end
 end

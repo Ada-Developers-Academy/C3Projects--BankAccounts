@@ -23,8 +23,12 @@ describe BankAccounts::Account do
 			expect(account.balance).to eq(100)		
 		end
 
-		it "responds to withdraw method" do
+		it "responds to #withdraw" do
 			expect(account).to respond_to :withdraw
+		end
+
+		it "responds to #deposit" do
+			expect(account).to respond_to :deposit
 		end
 
 		context "withdraws an amount" do
@@ -37,6 +41,18 @@ describe BankAccounts::Account do
 			it "returns error message if amount withdrawn is greater than balance" do
 				account.withdraw(110)
 				expect(account.balance).to eq(100)
+			end
+		end
+
+		context "deposits an amount" do
+			[
+				[10, 110],
+				[50.50, 150.50]
+			].each do |amount, new_balance|
+				it "after depositing #{amount}, balance is #{new_balance}" do
+					account.deposit(amount)
+					expect(account.balance).to eq(new_balance)
+				end
 			end
 		end
 	end
