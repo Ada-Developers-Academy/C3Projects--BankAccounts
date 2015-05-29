@@ -26,17 +26,13 @@ describe "SavingsAccount methods will: " do
     it "will not allow account to get below $10 min balance" do
       expect(@account.withdraw(990)).to eq("Insufficient funds. Please withdraw a smaller amount.")
     end
-
   end
 
-
-
-
-
-
-
-
-
+  context "when #add_interest is called" do
+    it "calculates rate, adds interest to balance, and returns amount of interest added" do
+      expect(@account.add_interest(0.15)).to eq(1.5)
+    end
+  end
 
 end #describle
 
