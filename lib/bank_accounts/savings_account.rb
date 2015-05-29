@@ -11,9 +11,14 @@ module BankAccounts
       super
     end
 
+    private
+
     # CHECKS TO MAKE SURE NUMBER ISN'T BELOW 10; THROWS ERROR IF SO
     def neg_num_guard(num)
       raise ArgumentError, "must have $10 in savings account" if num < MIN_BALANCE
+    end
+
+    def add_interest
     end
 
   end

@@ -33,6 +33,8 @@ module BankAccounts
       @balance += amount
     end
 
+    private
+
     # CHECKS TO MAKE SURE NUMBER ISN'T NEGATIVE; THROWS ERROR IF SO
     def neg_num_guard(num)
       raise ArgumentError, "negative number" if num < MIN_BALANCE
