@@ -22,6 +22,7 @@ module BankAccounts
       @balance += amount
     end
 
+
     def withdraw(amount)
       if (@balance - amount) < 0
         puts "Account can't have a negative balance. Withdraw not processed."
@@ -30,7 +31,6 @@ module BankAccounts
         @balance -= amount
       end
     end
-
 
 
   end # class Account
