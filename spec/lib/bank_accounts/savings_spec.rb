@@ -30,12 +30,12 @@ describe BankAccounts::SavingsAccount do
       expect(savings).to respond_to(:withdraw)
     end
 
-    it "raises an error when the account is overdrawn" do
-      expect{savings.withdraw(10000)}.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{savings.balance}.")
-    end
-
     it "incurs a fee of $2 for each withdrawal - returns updated balance" do
       expect(savings.withdraw(50)).to eq(448)
+    end
+
+    it "raises an error when account is drawn below $10" do
+      expect{ savings.withdraw(490) }.to raise_error(ArgumentError, "WARNING - You must have at least $10 in your savings account.\nYour current balance is $#{savings.balance}.")
     end
   end
 
