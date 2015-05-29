@@ -41,11 +41,10 @@ module BankAccounts
     end
 
 
-    #
+    # withdraw money from account.
     def withdraw(amount)
-      # withdrawals can only be numeric values.
       # withdrawals must not create negative balances.
-      unless validate_number(amount) && validate_withdrawal(amount)
+      unless validate_withdrawal(amount)
         return false
       end
 
@@ -101,6 +100,10 @@ module BankAccounts
 
 
     def validate_withdrawal(amount)
+      unless validate_number(amount)
+        return false
+      end
+
       if (@balance - amount < 0)
         raise ArgumentError.new("You cannot withdraw that much. Your balance would be negative.")
         # return false
