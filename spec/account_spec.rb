@@ -38,7 +38,7 @@ describe BankAccounts::Account do
 				expect(account.balance).to eq(90)
 			end
 
-			it "returns error message if amount withdrawn is greater than balance" do
+			it "puts error message if amount withdrawn is greater than balance" do
 				account.withdraw(110)
 				expect(account.balance).to eq(100)
 			end
