@@ -2,20 +2,24 @@ module BankAccounts
 
   # SavingsAccount inherits from Account class
   class SavingsAccount < Account
+    def initialize(id, initial_balance)
+      super
+      @min_balance = 10
+      check_initial_balance(initial_balance)
+    end
 
     # Initial balance < $10 raises an ArgumentError
     def check_initial_balance(initial_balance)
-      if initial_balance == nil || initial_balance < 10
+      if initial_balance == nil || initial_balance < @min_balance
         raise ArgumentError.new("Initial balance must be 10 dollars or greater.")
-        initial_balance = nil
+        @initial_balance = nil
       end
     end
 
     # withdraw inherits from Account class, but adds a $2 fee to each withdrawal
     def withdraw(amount)
       super(amount + 2)
-      min_balance = 10
-      return @balance
+      # return @balance
     end
 
 

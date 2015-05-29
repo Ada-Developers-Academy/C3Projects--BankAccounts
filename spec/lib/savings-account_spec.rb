@@ -41,11 +41,15 @@ describe BankAccounts::SavingsAccount do
         end
       end
 
-      context "withdraw(amount) would result in a negative value of balance" do
-      let(:account) { BankAccounts::Account.new("Gangy", 1_000_000) }
+      context "withdraw(amount) would result in a balance of < 10" do
+      let(:account) { BankAccounts::Account.new("Gangy", 100) }
+
+        it "returns balance" do
+          expect(account.balance).to eq(100)
+        end  
 
         it "returns original balance" do
-          expect(account.withdraw(999_997)).to eq(1_000_000)
+          expect(account.withdraw(97)).to eq(100)
         end
 
         # it "raises a warning" do
