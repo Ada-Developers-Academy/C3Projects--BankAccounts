@@ -23,8 +23,16 @@ describe BankAccounts::CheckingAccount do
 			expect(checking_account.balance).to eq(1000)
 		end
 
+		it "new CheckingAccount has check count" do
+			expect(checking_account.check_count).to eq(0)
+		end
+
 		it "responds to #withdraw" do
 			expect(checking_account).to respond_to :withdraw
+		end
+
+		it "responds to #withdraw_using_check" do
+			expect(checking_account).to respond_to :withdraw_using_check
 		end
 
 		context "withdraws an amount" do
@@ -39,6 +47,37 @@ describe BankAccounts::CheckingAccount do
 				it "withdraws #{amount} and leaves new balance of #{new_balance}" do
 					checking_account.withdraw(amount)
 					expect(checking_account.balance).to eq(new_balance)
+				end
+			end
+		end
+
+		context "withdraws using a check" do
+			before(:each) do
+				checking_account.withdraw_using_check(100)
+			end
+
+			it "withdraws amount from balance" do
+				expect(checking_account.balance).to eq(900)
+			end
+
+			it "increases check count by 1" do
+				expect(checking_account.check_count).to eq(1)
+			end
+
+			context	"withdraws two more times" do
+				before(:each) do
+					2.times do
+						checking_account.withdraw_using_check(100)
+					end
+				end
+
+				it "hasn't charged a fee on the first 3 withdrawals with check" do
+					expect(checking_account.balance).to eq(700)
+				end
+
+				it "starts charging a 2 fee on the fourth withdrawl using check" do
+					checking_account.withdraw_using_check(100)
+					expect(checking_account.balance).to eq(598)
 				end
 			end
 		end
