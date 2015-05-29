@@ -12,7 +12,7 @@ module BankAccount
 
     def withdraw(amount)
       if amount > @current_balance
-        puts "#{amount} is too large of of a withdrawal. Your current balance is #{@current_balance}."
+        puts "$#{amount} is too large of of a withdrawal. Your current balance is $#{@current_balance}."
         return @current_balance
       else
         @current_balance = @current_balance - amount

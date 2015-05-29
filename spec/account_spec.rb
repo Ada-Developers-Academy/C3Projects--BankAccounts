@@ -41,8 +41,5 @@ describe BankAccount::Account do
     it "Balance method shows current balance" do
       expect(bankaccount.balance).to eq(10000)
     end
-
   end
-
-
 end

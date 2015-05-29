@@ -4,5 +4,6 @@ module BankAccount
   require_relative('./classes/savingsaccount_class')
 end
 
-# x = BankAccount::Account.new(3,-5000)
-# puts x
+# x = BankAccount::SavingsAccount.new(3,500)
+# puts x.add_interest(0.50)
+# puts x.current_balance

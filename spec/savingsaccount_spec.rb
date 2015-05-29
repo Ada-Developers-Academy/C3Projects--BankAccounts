@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'bankaccounts'
+require 'pry'
 
 describe BankAccount::SavingsAccount do
 
@@ -30,8 +31,12 @@ describe BankAccount::SavingsAccount do
       expect(bankaccount.withdraw(48)).to eq(450)
     end
 
-    it "Cannot leave less than $10 in savings account" do
+    it "Must leave $10 in savings account, puts warning, returnd original amount" do
       expect(bankaccount.withdraw(495)).to eq(500)
+    end
+
+    it "Returns 502.50 with an interest rate of 0.5%" do
+      expect(bankaccount.add_interest(0.5)).to eq(502.5)
     end
   end
 

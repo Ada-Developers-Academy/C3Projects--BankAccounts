@@ -9,15 +9,18 @@ module BankAccount
       @current_balance = initial_balance
     end
 
-
     def withdraw(amount)
       if amount > @current_balance - 10
-        puts "#{amount} is too large of of a withdrawal.
-        You must leave $10 in your account and your current balance is #{@current_balance}."
+        puts "$#{amount} is too large of of a withdrawal.
+        You must leave $10 in your account and your current balance is $#{@current_balance}."
         return @current_balance
       else
         @current_balance = @current_balance - amount - 2
       end
+    end
+
+    def add_interest(rate)
+      @current_balance = (@current_balance * rate/100) + @current_balance
     end
 
   end
