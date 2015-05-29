@@ -42,23 +42,36 @@ describe BankAccounts::SavingsAccount do
       end
 
       context "withdraw(amount) would result in a balance of < 10" do
-      let(:account) { BankAccounts::Account.new("Gangy", 100) }
+      let(:savings_account) { BankAccounts::SavingsAccount.new("Gangy", 1_000_000) }
 
         it "returns balance" do
-          expect(account.balance).to eq(100)
-        end  
-
-        it "returns original balance" do
-          expect(account.withdraw(97)).to eq(100)
+          expect(savings_account.balance).to eq(1_000_000)
         end
 
-        # it "raises a warning" do
-        #   expect { account.withdraw(2_000_000) }.to output("Warning: Insufficient funds! You cannot withdraw 2000000. Your account only has 1000000.\n").to_stderr
-        # end
+        it "returns original balance" do
+          expect(savings_account.withdraw(999_997)).to eq(1_000_000)
+        end
+
+        it "raises a warning" do
+          expect { savings_account.withdraw(2_000_000) }.to output("Warning: Insufficient funds! You cannot withdraw 2000002. Your account only has 1000000.\n").to_stderr
+        end
 
       end
     end
 
+  describe "unique method - #add_interest(rate)" do
+    let(:savings_account) { BankAccounts::SavingsAccount.new("Gob", 10_000) }
+
+    it "calculates and returns interest amount" do
+      expect(savings_account.add_interest(0.25)).to eq(25)
+    end
+
+    it "updates account balance to include interest" do
+      savings_account.add_interest(0.25)
+      expect(savings_account.balance).to eq(10_025)
+    end
+
+  end
 
   end
 

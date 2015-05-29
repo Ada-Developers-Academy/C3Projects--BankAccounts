@@ -15,7 +15,6 @@ module BankAccounts
     def check_initial_balance(initial_balance)
       if initial_balance == nil || initial_balance < @min_balance
         raise ArgumentError.new("Initial balance must be #{min_balance} or greater.")
-        @initial_balance = 0
       end
     end
 

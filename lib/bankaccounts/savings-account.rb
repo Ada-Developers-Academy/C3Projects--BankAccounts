@@ -11,19 +11,24 @@ module BankAccounts
     # Initial balance < $10 raises an ArgumentError
     def check_initial_balance(initial_balance)
       if initial_balance == nil || initial_balance < @min_balance
-        raise ArgumentError.new("Initial balance must be 10 dollars or greater.")
-        @initial_balance = nil
+        raise ArgumentError.new("Initial balance must be #{@min_balance} dollars or greater.")
       end
     end
 
     # withdraw inherits from Account class, but adds a $2 fee to each withdrawal
     def withdraw(amount)
       super(amount + 2)
-      # return @balance
     end
 
+    # Calculates interest and adds it to the balance.
+    def add_interest(rate)
+      # Calculates interest
+      interest = @balance * (rate/100)
+      @balance += interest
+      return interest
+      # Returns calculated interest _not_ the updated balance
+    end
 
-# Does not allow the account to go below the $10 minimum balance - Will output a warning message and return the original un-modified balance
 # It should include the following new methods:
 #
 # #add_interest(rate): Calculate the interest on the balance and add the interest to the balance. Return the interest that was calculated and added to the balance (not the updated balance).
