@@ -27,7 +27,7 @@ module BankAccount
         return @balance
       else
         if @check_counter > 3
-          @balance = @balance - 2
+          # @balance = @balance - 2
         end
 
         @check_counter += 1

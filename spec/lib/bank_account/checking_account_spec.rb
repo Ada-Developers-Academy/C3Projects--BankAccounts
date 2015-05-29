@@ -70,4 +70,8 @@ describe BankAccount::CheckingAccount do
 
   end # withdraw_using_check
 
+  context "#reset_checks" do
+
+  end
+
 end #checkingaccount
