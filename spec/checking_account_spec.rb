@@ -59,6 +59,12 @@ describe BankAccount::CheckingAccount do
 					expect(checking_account.free_checks).to eq 3
 				end
 
+				it "reduces the free_checks count to 2 when you make your first withdrawl" do
+					checking_account.withdraw_using_check(200) # account_balance == 4800; free_checks == 2
+					expect(checking_account.free_checks).to eq 2
+				end
+				
+
 				it "returns 4000 when you withdraw 1000 and have at least 1 free check" do
 					checking_account.withdraw_using_check(1000)
 					expect(checking_account.account_balance).to eq 4000
@@ -70,6 +76,12 @@ describe BankAccount::CheckingAccount do
 					end
 					expect(checking_account.account_balance).to eq 4958
 				end
+
+			# context "does not 'burn' a check if it does not allow you to deposit the check" do
+			# 	it "has 2 free checks if your second transaction does not go through (i.e. would take you < -10 balance)" do
+			# 		checking_account.withdraw_using_check(200) # account_balance == 4800; free_checks == 2
+			# 	end
+			# end
 
 			end
 		end # withdraw with check
