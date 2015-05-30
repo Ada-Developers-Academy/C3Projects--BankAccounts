@@ -66,5 +66,13 @@ module BankAccount
 			return interest.round(2)
 		end
 
+		def reset_transactions 
+			@allowed_transactions = 6
+			return @allowed_transactions
+		end
+		# reset_transactions -- I did this method the opposite way 
+		# as the instructions said since my logic is counting down 
+		# transactions from 6 rather than adding them up to 6
+
 	end #MoneyMarketAccount
 end #BankAccount
