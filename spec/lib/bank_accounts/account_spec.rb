@@ -22,6 +22,7 @@ describe BankAccounts::Account do
 
     it "returns an updated account balance when withdrawing money" do
       expect(account.withdraw(10)).to eq(190)
+      expect(account.withdraw(40)).to eq(150)
     end
 
     it "raises an error when the account is overdrawn" do
@@ -38,6 +39,7 @@ describe BankAccounts::Account do
 
     it "returns an updated account balance when depositing money" do
       expect(account.deposit(50)).to eq(550)
+      expect(account.deposit(150)).to eq(700)
     end
   end
 

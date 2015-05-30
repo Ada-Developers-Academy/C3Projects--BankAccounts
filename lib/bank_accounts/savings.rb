@@ -30,7 +30,7 @@ module BankAccounts
 
     def interest(rate)
       # calculate the interest rate and add it to the balance
-      interest = @balance * (rate/100)
+      interest = @balance * (rate / 100)
       @balance += interest
 
       return interest
