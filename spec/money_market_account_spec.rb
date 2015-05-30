@@ -15,10 +15,18 @@ describe BankAccount::MoneyMarketAccount do
 		expect{BankAccount::MoneyMarketAccount.new(4, 5000)}.to raise_exception(ArgumentError)
 	end
 
+	describe "an instance of a MoneyMarketAccount" do
+
+		let(:money_market_account) { BankAccount::MoneyMarketAccount.new(1, 5000) }
+
+		context "MMA's cannot have a balance < 10,000" do
+			it "returns"
+
+		end
+	end
 
 
 
 
-	
 	
 end 
