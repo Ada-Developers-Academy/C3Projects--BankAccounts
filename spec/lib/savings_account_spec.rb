@@ -1,7 +1,7 @@
 require './lib/bank_account/savings_account'
 require 'spec_helper.rb'
 
-# to make my puts statement not show up in the rspec tests
+# to make my puts statements not show up in the rspec tests
 # found at http://stackoverflow.com/questions/15430551/suppress-console-output-during-rspec-tests
 RSpec.configure do |config|
   original_stderr = $stderr
@@ -19,13 +19,12 @@ end
 
 describe BankAccount::SavingsAccount do
   let (:new_account200) {BankAccount::SavingsAccount.new(100, 200)}
-  let (:new_account20) {BankAccount::SavingsAccount.new(100, 20)}
 
   it "responds to class method called new" do
     expect(BankAccount::SavingsAccount).to respond_to :new
   end
 
-  it "expects initial SA balance to equal current balance" do
+  it "expects initial Savings Account balance to equal current balance" do
     expect(new_account200.balance).to eq (200)
   end
 
@@ -35,7 +34,7 @@ describe BankAccount::SavingsAccount do
     expect(new_account200.balance).to eq(200)
   end
 
-  it "raises ArgumentError for initial SA balance below 10"  do
+  it "raises ArgumentError for an initial balance below 10"  do
     expect {
       BankAccount::SavingsAccount.new(100,9)
     }.to raise_exception("You can't start out with a balance below $10. Add moar monies.")
@@ -45,22 +44,27 @@ describe BankAccount::SavingsAccount do
     expect(new_account200.withdraw(8)).to eq(190)
   end
 
-  it "if balance goes below 10 with withdrawal, returns unmodified balance" do
+  it "returns unchanged balance if withdrawal causes it to go below $10" do
     expect(new_account200.withdraw(220)).to eq(200)
   end
 
-  it "deposits to SA correctly by inheriting method from Account base class" do
+  it "deposits correctly by inheriting method from base class" do
     expect(new_account200.deposit(20)).to eq(220)
   end
 
-  it "returns the current balance after each withdrawal/deposit" do
+  it "keeps track of the current balance after each withdrawal or deposit" do
     expect(new_account200.withdraw(98)).to eq(100)
     expect(new_account200.deposit(50)).to eq(150)
   end
 
-  it "returns the interest from balance & returns new balance when calling balance" do
-    expect(new_account200.add_interest(0.25)).to eq(0.50125)
-    expect(new_account200.balance).to eq(200.5)
+  it "returns the balance correctly when called" do
+    expect(new_account200.deposit(50)).to eq(250)
+    expect(new_account200.balance).to eq(250)
+  end
+
+  it "returns the interest & returns the new balance when calling balance" do
+    expect(new_account200.add_interest(10)).to eq(20)
+    expect(new_account200.balance).to eq(220)
   end
 
 end

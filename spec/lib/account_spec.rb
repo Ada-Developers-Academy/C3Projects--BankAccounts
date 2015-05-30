@@ -18,7 +18,7 @@ describe BankAccount::Account do
     expect(new_account200.balance).to eq(200)
   end
 
-  it "raises ArgumentError for initial balance below 0"  do
+  it "raises ArgumentError for an initial balance below 0"  do
     expect {
       BankAccount::Account.new(100,-1)
     }.to raise_exception("You can't start out with a negative balance. Add some monies")
@@ -28,7 +28,7 @@ describe BankAccount::Account do
     expect(new_account200.withdraw(200)).to eq(0)
   end
 
-  it "can't withdraw more than your current balance & returns unmodified balance" do
+  it "returns unchanged balance if withdrawal is greater than current balance" do
     expect(new_account200.withdraw(201)).to eq(200)
   end
 
@@ -36,9 +36,14 @@ describe BankAccount::Account do
     expect(new_account200.deposit(20)).to eq(220)
   end
 
-  it "returns the current balance after each withdraw or deposit" do
+  it "keeps track of the current balance after each withdrawal or deposit" do
     expect(new_account200.withdraw(100)).to eq(100)
     expect(new_account200.deposit(500)).to eq(600)
+  end
+
+  it "returns the balance correctly when called" do
+    expect(new_account200.deposit(50)).to eq(250)
+    expect(new_account200.balance).to eq(250)
   end
 
 end
