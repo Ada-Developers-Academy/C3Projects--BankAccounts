@@ -16,8 +16,8 @@ module BankAccount
 
     def withdraw(amount)
       unless @balance >= amount
-        @balance = 0
-        return "You can't overdraw. Your balance is #{@balance}."
+        puts "You can't overdraw. Your balance is still #{@balance}."
+        return @balance
       else
         @balance -= amount
       end
