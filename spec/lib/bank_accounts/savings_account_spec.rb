@@ -36,11 +36,15 @@ describe BankAccounts::SavingsAccount do
     end
 
     it "won't accept negative deposit" do
-      expect(savings_account.deposit(-100)).to eq(10_000)
+      expect(savings_account.deposit(-100)).to eq(10_100)
     end
 
     it "withdraws money with fee" do
       expect(savings_account.withdraw(9_988)).to eq(10)
+    end
+
+    it "won't accept negative withdrawls with fee" do
+      expect(savings_account.withdraw(-9_988)).to eq(10)
     end
 
     it "won't withdraw too much money with fee" do
@@ -51,8 +55,8 @@ describe BankAccounts::SavingsAccount do
       expect(savings_account.add_interest(0.25)).to eq(25)
     end
 
-    it "wont add too much negative interest" do
-      expect(savings_account.add_interest(-100)).to eq(10_000)
+    it "won't accept negative interest" do
+      expect(savings_account.add_interest(-0.25)).to eq(25)
     end
 
   end # instance methods

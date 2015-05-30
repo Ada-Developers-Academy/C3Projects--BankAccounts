@@ -1,9 +1,12 @@
 module BankAccounts
   class CheckingAccount < Account
+    attr_reader :checks_used
 
     def initialize(id, initial_balance)
       @id = id
+      @checks_used = 0
 
+      # must have at least $0 balance
       if initial_balance < 0
         raise ArgumentError, "Checking account can't have a negative balance. Create a new account."
       else
@@ -13,14 +16,50 @@ module BankAccounts
 
 
     def withdraw(amount)
+      amount = amount.abs # real ATMs don't have a 'negative number' button
       fee = 1
       if (@balance - (amount + fee)) < 0
-        puts "Savings account can't have a negative balance. Transaction not processed."
+        puts "Checking account can't have a negative balance. Transaction not processed."
         return @balance
       else
+        puts "Transaction fee: $1"
         @balance -= (amount + fee)
       end
     end
+
+
+    def withdraw_using_check(amount)
+      amount = amount.abs # real banks don't accept 'negative number' checks
+      @checks_used += 1
+      fee = 2
+
+      # 3 free checks per month
+      if @checks_used <= 3
+        # must have a least -$10 balance
+        if (@balance - amount) < -10
+          puts "Checking account can only go into overdraft up to -$10. Transaction not processed."
+          return @balance
+        else
+          @balance -= amount
+        end
+      else # adds transaction fee
+        if (@balance - (amount + fee)) < -10
+          puts "Checking account can only go into overdraft up to -$10. Transaction not processed."
+          return @balance
+        else
+          puts "Transaction fee: $2"
+          @balance -= (amount + fee)
+        end
+      end
+
+    end
+
+
+    # end of month
+    def reset_checks
+      @checks_used = 0
+    end
+    
 
   end # class CheckingAccount
 end # module BankAccounts
