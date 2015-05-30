@@ -34,6 +34,10 @@ module BankAccount
 				deposit_needed = 10_000 - @account_balance
 				puts "Your account is currently frozen. Please deposit at least #{deposit_needed} in order to unfreeze your account."
 			end
+
+			if @allowed_transactions = 0
+				puts "I'm sorry. You have already used all of your allotted transactions for this month."
+			end
 		end
 
 
@@ -54,6 +58,12 @@ module BankAccount
 
 		def balance
 			super
+		end
+
+		def add_interest(rate)
+			interest = @account_balance * (rate / 100)
+			@account_balance += interest.round(2)
+			return interest.round(2)
 		end
 
 	end #MoneyMarketAccount
