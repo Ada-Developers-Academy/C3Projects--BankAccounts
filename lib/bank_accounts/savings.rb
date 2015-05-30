@@ -19,6 +19,7 @@ module BankAccounts
       amount += 2
 
       # savings accounts have $10 minimum
+      # error raised if withdrawal causes balance to dip below $10
       if (@balance - amount) < 10
         raise ArgumentError.new "WARNING - You must have at least $10 in your savings account.\nYour current balance is $#{@balance}."
         return @balance
@@ -33,6 +34,7 @@ module BankAccounts
       interest = @balance * (rate / 100)
       @balance += interest
 
+      # return interest amount
       return interest
     end
 

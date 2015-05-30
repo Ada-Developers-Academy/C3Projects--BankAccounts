@@ -21,6 +21,7 @@ module BankAccounts
       if amount > @balance
         raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is $#{@balance}."
         return @balance
+        
       # Return the updated balance once money is withdrawn from the account
       else
         @balance -= amount
