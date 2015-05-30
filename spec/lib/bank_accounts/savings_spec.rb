@@ -28,6 +28,7 @@ describe BankAccounts::SavingsAccount do
 
     it "incurs a fee of $2 for each withdrawal - returning updated balance" do
       expect(savings.withdraw(50)).to eq(448)
+      expect(savings.withdraw(436)).to eq(10)
     end
 
     it "raises an error when account is drawn below $10" do
