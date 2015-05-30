@@ -16,6 +16,7 @@ module BankAccount
     end
 
     def withdraw(amount)
+      amount = amount.round(2)
       if @transaction_count < 1
         puts "you have reached your transaction limit for the month"
         balance
@@ -41,6 +42,7 @@ module BankAccount
     end
 
     def deposit(amount)
+      amount = amount.round(2)
       if @balance < 10_000 && transaction_count < 1 && (@balance + amount) >= 10_000
         @balance += amount
         return @balance
@@ -57,6 +59,7 @@ module BankAccount
 
     def add_interest(rate)
       interest = (rate/100)*@balance
+      interest = interest.round(2)
       return interest
     end
   end # class end

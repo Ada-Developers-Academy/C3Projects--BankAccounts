@@ -1,3 +1,4 @@
+puts "Welcome to Two Big to Fail & Son a small family owned credit union here to serve our...we mean your needs."
 
 require 'money'
 

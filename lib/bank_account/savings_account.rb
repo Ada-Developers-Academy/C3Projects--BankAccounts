@@ -9,6 +9,7 @@ module BankAccount
     end
 
     def withdraw (amount)
+      amount = amount.round(2)
       if (@balance - amount - 2) < 10
         puts "Nonsufficient funds; your savings account has a $10 minimum balance."
         balance
@@ -19,7 +20,7 @@ module BankAccount
     end
 
     def add_interest(rate)
-      interest = (rate/100)*@balance
+      interest = ((rate/100)*@balance).round(2)
       return interest
     end
   end # class end

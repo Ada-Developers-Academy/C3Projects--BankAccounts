@@ -6,12 +6,13 @@ module BankAccount
       if initial_balance < 0
         raise ArgumentError.new("You cannot open an account with a negative balance.")
       else
-      super 
+      super
       @check_count = 3
       end
     end
 
     def withdraw(amount)
+      amount = amount.round(2)
       if (@balance - (amount + 1)) < 0
         balance
       else
@@ -21,6 +22,7 @@ module BankAccount
     end
 
     def withdraw_using_check(amount)
+      amount = amount.round(2)
       if (@balance - amount) < -10
         balance
       else if check_count > 0
