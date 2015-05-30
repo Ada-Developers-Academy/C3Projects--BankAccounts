@@ -33,7 +33,7 @@ module BankAccounts
         warn("Warning: Insufficient funds! You cannot withdraw #{amount}. Your account only has #{@balance}.")
       else
         # updates account balance
-        @balance = new_balance
+        @balance = new_balance.round(2)
       end
       return @balance
     end
@@ -41,12 +41,12 @@ module BankAccounts
     # Adds amount to balance and returns balance
     def deposit(amount)
       @balance += amount
-      return @balance
+      return @balance.round(2)
     end
 
     # returns balance
     def balance
-      @balance
+      @balance.round(2)
     end
   end
 
