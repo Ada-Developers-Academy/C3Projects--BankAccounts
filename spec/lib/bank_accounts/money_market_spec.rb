@@ -42,6 +42,8 @@ end
 end # describe
 
 
+# Dinner Requirements still need to complete --------------------------->
+
 #   - If a withdrawal causes the balance to go below $10,000, a fee of $100 is imposed and no more transactions are allowed until the balance is increased using a deposit transaction.
 #   - Each transaction will be counted against the maximum number of transactions
 # - `#deposit(amount)`. Returns the updated account balance.
