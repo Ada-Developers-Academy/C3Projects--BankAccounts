@@ -15,6 +15,15 @@ describe BankAccounts::MoneyMarketAccount do
   end
  end
 
+ context "When withdrawing from a money market account" do
+  let (:money_market) { BankAccounts::MoneyMarketAccount.new(0, 20000) }
+
+  it "returns an updated account balance after withdrawing" do
+    expect(money_market.withdraw(200)).to eq(19800)
+    expect(money_market.withdraw(4800)).to eq(15000)
+  end
+end
+
  context "Only 6 transactions/month are alowed for Money Market accounts" do
   let (:money_market) { BankAccounts::MoneyMarketAccount.new(0, 1000) }
 
