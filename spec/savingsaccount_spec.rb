@@ -19,7 +19,7 @@ describe BankAccount::SavingsAccount do
       expect(bankaccount.balance).to eq(10000)
     end
 
-    it "raises an ArgumentError if a account of 8 is initialized" do
+    it "raises an ArgumentError if an initial_balance of $8 is initialized" do
       expect{BankAccount::SavingsAccount.new(3, 8)}.to raise_error(ArgumentError)
     end
   end

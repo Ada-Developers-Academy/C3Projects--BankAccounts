@@ -19,5 +19,29 @@ describe BankAccount::CheckingAccount do
       expect(bankaccount.withdraw_using_check(100)).to eq(400)
     end
 
+    it "will allow an overdraft of up to $10" do
+      expect(bankaccount.withdraw_using_check(505)).to eq(-5)
+    end
+
+    it "will return a warning and original balance if withdrawal is more than $10 over" do
+      expect(bankaccount.withdraw_using_check(511)).to eq(500)
+    end
+
+    it "will add a $2 transaction fee after 3 free checks" do
+      # loop allows the check count to get to 4
+      4.times do
+      bankaccount.withdraw_using_check(50)
+      end
+      expect(bankaccount.current_balance).to eq(298)
+      expect(bankaccount.checks).to eq(4)
+    end
+
+    it "will reset the checks count to zero" do
+      # loop ensures @checks was not already 0
+      3.times do
+        bankaccount.withdraw_using_check(50)
+        end
+      expect(bankaccount.reset_checks).to eq(0)
+    end
   end
 end

@@ -23,10 +23,6 @@ describe BankAccount::Account do
   describe "It has instance methods with functionality" do
     let (:bankaccount) {BankAccount::Account.new(2, 10000)}
 
-    it "Has a withdraw method" do
-      expect(bankaccount).to respond_to :withdraw
-    end
-
     it "Returns a balance of 5000 when 5000 is withdrawn" do
       expect(bankaccount.withdraw(5000)).to eq(5000)
     end
@@ -40,7 +36,9 @@ describe BankAccount::Account do
     end
 
     it "Balance method shows current balance" do
-      expect(bankaccount.balance).to eq(10000)
+      # added #withdraw to show #balance was returning current balance
+      bankaccount.withdraw(2000)
+      expect(bankaccount.balance).to eq(8000)
     end
   end
 end
