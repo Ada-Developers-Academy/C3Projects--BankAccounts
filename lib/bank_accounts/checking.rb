@@ -7,5 +7,8 @@ module BankAccounts
       super
     end
 
+    def withdraw(amount)
+    end
+
   end # class
 end # module

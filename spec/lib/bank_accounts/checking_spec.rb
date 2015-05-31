@@ -16,8 +16,10 @@ describe BankAccounts::CheckingAccount do
  end
 
  context "When withdrawing from a checking account" do
+  let (:checking) { BankAccounts::CheckingAccount.new(0, 80) }
+  
   it "responds to withdraw(amount)" do
-    
+    expect(checking).to respond_to(:withdraw)
   end
  end
 
