@@ -21,10 +21,6 @@ describe BankAccounts::Account do
   context "When withdrawing money from bank account" do
     let(:account) { BankAccounts::Account.new(0, 200) }
 
-    it "responds to withdraw(amount)" do
-      expect(account).to respond_to(:withdraw)
-    end
-
     it "returns an updated account balance when withdrawing money" do
       expect(account.withdraw(10)).to eq(190)
       expect(account.withdraw(40)).to eq(150)

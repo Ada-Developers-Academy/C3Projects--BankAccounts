@@ -9,18 +9,8 @@ describe BankAccounts::CheckingAccount do
    end
  end
 
- context "When creating a checking account" do
-   it "responds to checking account instantiation with 2 arguments" do
-     expect(BankAccounts::CheckingAccount).to respond_to(:new).with(2).arguments
-   end
- end
-
  context "When withdrawing from a checking account (ATM)" do
   let (:checking) { BankAccounts::CheckingAccount.new(0, 80) }
-
-  it "responds to withdraw(amount)" do
-    expect(checking).to respond_to(:withdraw)
-  end
 
   it "incurs a fee of $1 for each withdrawal and returns the updated balance" do
     expect(checking.withdraw(14)).to eq(65)

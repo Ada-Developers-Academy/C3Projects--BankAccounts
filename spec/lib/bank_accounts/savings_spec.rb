@@ -10,10 +10,6 @@ describe BankAccounts::SavingsAccount do
   end
 
   context "When creating a savings account" do
-    it "responds to savings account instantiation with 2 arguments" do
-      expect(BankAccounts::SavingsAccount).to respond_to(:new).with(2).arguments
-    end
-
     it "raises an error when instantiating a savings account with a balance below $10" do
       expect{ BankAccounts::SavingsAccount.new(0, 5) }.to raise_error(ArgumentError, "MINIMUM BALANCE $10 REQUIRED")
     end
