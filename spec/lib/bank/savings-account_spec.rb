@@ -1,6 +1,6 @@
 describe Bank::SavingsAccount do
   it "creates a new instance" do
-    expect(Bank::Account).to respond_to(:new)
+    expect(Bank::SavingsAccount).to respond_to(:new)
   end
 
   it "inherits from Bank::Account" do
@@ -24,7 +24,7 @@ describe Bank::SavingsAccount do
   end
 
   describe "#withdraw(amount)" do
-    it "withdraws amount from the account" do
+    it "withdraws from the account" do
       expect(account.withdraw(50)).to be < 100
     end
 
