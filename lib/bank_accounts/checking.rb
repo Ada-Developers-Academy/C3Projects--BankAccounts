@@ -3,14 +3,20 @@ require 'pry'
 module BankAccounts
   class CheckingAccount < Account
 
+    attr_reader :checks_used
+
     def initialize(id, initial_balance)
+      # inherit from Account class
       super
+
+      @checks_used = 0
     end
 
     def withdraw(amount)
       #incur a fee of $1 with each withdrawal
       amount += 1
       super
+      return @balance
     end
 
     def withdraw_using_check(amount)

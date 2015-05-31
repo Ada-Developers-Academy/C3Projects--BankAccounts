@@ -24,10 +24,11 @@ describe BankAccounts::Account do
     it "returns an updated account balance when withdrawing money" do
       expect(account.withdraw(10)).to eq(190)
       expect(account.withdraw(40)).to eq(150)
+      expect(account.withdraw(36.2596)).to eq(113.74)
     end
 
     it "raises an error when the account is overdrawn" do
-      expect{account.withdraw(500)}.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{account.balance}.")
+      expect{ account.withdraw(500) }.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{account.balance}.")
     end
   end
 

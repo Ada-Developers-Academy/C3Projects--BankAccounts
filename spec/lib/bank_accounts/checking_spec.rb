@@ -33,6 +33,9 @@ describe BankAccounts::CheckingAccount do
   it "raises an error if overdraft below -$10" do
     expect { checking.withdraw_using_check(150) }.to raise_error(ArgumentError, "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{checking.balance}.")
   end
+
+  it "adds a $2 fee when more than 3 checks are used" do
+  end
  end
 
 end # describe
@@ -44,3 +47,4 @@ end # describe
 # - `#withdraw_using_check(amount)`: The input amount gets taken out of the account as a result of a check withdrawal. Returns the updated account balance.
 #   - Allows the account to go into overdraft up to -$10 but not any lower
 #   - The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee
+# - `#reset_checks`: Resets the number of checks used to zero
