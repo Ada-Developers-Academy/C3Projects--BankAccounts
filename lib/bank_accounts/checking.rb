@@ -10,8 +10,20 @@ module BankAccounts
     def withdraw(amount)
       #incur a fee of $1 with each withdrawal
       amount += 1
-
       super
+    end
+
+    def withdraw_using_check(amount)
+      # Raises warning message if overdraft goes lower than -$10
+      if (@balance - amount) < -10
+        raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{@balance}."
+        return @balance
+        
+      # Return the updated balance with check withdrawal
+      else
+        @balance -= amount
+        return @balance
+      end
     end
 binding.pry
   end # class

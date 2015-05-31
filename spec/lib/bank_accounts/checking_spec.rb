@@ -15,7 +15,7 @@ describe BankAccounts::CheckingAccount do
    end
  end
 
- context "When withdrawing from a checking account" do
+ context "When withdrawing from a checking account (ATM)" do
   let (:checking) { BankAccounts::CheckingAccount.new(0, 80) }
 
   it "responds to withdraw(amount)" do
@@ -29,6 +29,19 @@ describe BankAccounts::CheckingAccount do
 
   it "raises an error when attempting to withdraw more than the current  balance" do
     expect{ checking.withdraw(85) }.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{checking.balance}.")
+  end
+ end
+
+ context "When withdrawing using a check" do
+  let (:checking) { BankAccounts::CheckingAccount.new(0, 100) }
+
+  it "returns an updated account balance after withdrawing a check value" do
+    expect(checking.withdraw_using_check(20)).to eq(80)
+    expect(checking.withdraw_using_check(30)).to eq(50)
+  end
+
+  it "raises an error if overdraft below -$10" do
+    expect { checking.withdraw_using_check(150) }.to raise_error(ArgumentError, "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{checking.balance}.")
   end
  end
 
