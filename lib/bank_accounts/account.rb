@@ -32,13 +32,13 @@ module BankAccounts
       else
         @balance -= amount
       end
-      return round_to_hundredths(@balance)
+      return @balance = round_to_hundredths(@balance) 
     end
 
     def deposit(amount)
       # Returns the updated balance once money is deposited into the account
       @balance += amount
-      return round_to_hundredths(@balance)
+      return @balance = round_to_hundredths(@balance) 
     end
 
   end # class
