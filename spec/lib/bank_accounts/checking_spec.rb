@@ -17,9 +17,13 @@ describe BankAccounts::CheckingAccount do
 
  context "When withdrawing from a checking account" do
   let (:checking) { BankAccounts::CheckingAccount.new(0, 80) }
-  
+
   it "responds to withdraw(amount)" do
     expect(checking).to respond_to(:withdraw)
+  end
+
+  it "incurs a fee of $1 for each withdrawal and returns the updated balance" do
+    expect(checking.withdraw(14)).to eq(65)
   end
  end
 

@@ -26,7 +26,7 @@ describe BankAccounts::SavingsAccount do
       expect(savings).to respond_to(:withdraw)
     end
 
-    it "incurs a fee of $2 for each withdrawal - returning updated balance" do
+    it "incurs a fee of $2 for each withdrawal & returns the updated balance" do
       expect(savings.withdraw(50)).to eq(448)
       expect(savings.withdraw(436)).to eq(10)
     end
