@@ -117,5 +117,22 @@ describe Bank::CheckingAccount do
         expect(@account.check_transactions).to eq(3)
       end
     end
+
+    it "resets the number of checks used every month" do
+      # pretend we withdrew using 5 checks last month
+      account.month = 4
+      account.check_transactions = 5
+      # now try to use a check this month
+      account.withdraw_using_check(100)
+
+      expect(account.check_transactions).to eq(1) # just successfully withdrew $100
+    end
+  end
+
+  describe "#reset_checks" do
+    it "resets the number of checks used to 0" do
+      account.reset_checks
+      expect(account.check_transactions).to eq(0)
+    end
   end
 end
