@@ -22,6 +22,10 @@ describe BankAccounts::MoneyMarketAccount do
     expect(money_market.withdraw(200)).to eq(19800)
     expect(money_market.withdraw(4800)).to eq(15000)
   end
+
+  it "Adds a fee of $100 for withdrawal surpassing $10000 minimum" do
+    expect(money_market.withdraw(10005)).to eq(9895)
+  end
 end
 
  context "Only 6 transactions/month are alowed for Money Market accounts" do
@@ -37,11 +41,7 @@ end
 
 end # describe
 
-# Create a `MoneyMarketAccount` class with a minimum of 6 specs. The class should inherit behavior from the `Account` class.
-# - A maximum of 6 transactions (deposits or withdrawals) are allowed per month on this account type
-# - `self.new(id, initial_balance)`: creates a new instance with the instance variable `id` and 'initial_balance' assigned
-#   - The initial balance cannot be less than $10,000 - this will `raise` an `ArgumentError`
-# - `#withdraw(amount)`: The input amount gets taken out of the account as result of an ATM transaction. Returns the updated account balance.
+
 #   - If a withdrawal causes the balance to go below $10,000, a fee of $100 is imposed and no more transactions are allowed until the balance is increased using a deposit transaction.
 #   - Each transaction will be counted against the maximum number of transactions
 # - `#deposit(amount)`. Returns the updated account balance.
