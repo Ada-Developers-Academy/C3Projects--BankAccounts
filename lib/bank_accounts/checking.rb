@@ -49,6 +49,6 @@ module BankAccounts
       @checks_used = 0
       return @checks_used
     end
-binding.pry
+
   end # class
 end # module
