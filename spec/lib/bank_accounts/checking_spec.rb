@@ -35,16 +35,19 @@ describe BankAccounts::CheckingAccount do
   end
 
   it "adds a $2 fee when more than 3 checks are used" do
+    5.times { checking.withdraw_using_check(10) }
+    expect(checking.balance).to eq(46)
+  end
+ end
+
+ context "When a new month begins, checks used count is reset" do
+  let (:checking) { BankAccounts::CheckingAccount.new(0, 500) }
+  
+  it "resets the number of used checks from 10 to 0" do
+    10.times { checking.withdraw_using_check(2.6899) }
+    expect(checking.checks_used).to eq(10)
+    expect(checking.reset_checks).to eq(0)
   end
  end
 
 end # describe
-
-# Create a `CheckingAccount` class with a minimum of 6 specs. The class should inherit behavior from the `Account` class.
-
-# - `#withdraw(amount)`: The input amount gets taken out of the account as result of an ATM transaction. Each withdrawal 'transaction' incurs a fee of $1 that is taken out of the balance. Returns the updated account balance.
-#   - Does not allow the account to go negative. Will output a warning message and return the original un-modified balance
-# - `#withdraw_using_check(amount)`: The input amount gets taken out of the account as a result of a check withdrawal. Returns the updated account balance.
-#   - Allows the account to go into overdraft up to -$10 but not any lower
-#   - The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee
-# - `#reset_checks`: Resets the number of checks used to zero

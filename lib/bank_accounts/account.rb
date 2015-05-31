@@ -24,16 +24,15 @@ module BankAccounts
 
     def withdraw(amount)
 
-      # Raises warning message if withdraw amount is greater than present balance
+      # Raises warning if withdraw amount is greater than present balance
       if amount > @balance
         raise ArgumentError.new "INSUFFICIENT FUNDS\nYour current balance is $#{round_to_hundredths(@balance)}."
-        return round_to_hundredths(@balance)
         
       # Return the updated balance once money is withdrawn from the account
       else
         @balance -= amount
-        return round_to_hundredths(@balance)
       end
+      return round_to_hundredths(@balance)
     end
 
     def deposit(amount)

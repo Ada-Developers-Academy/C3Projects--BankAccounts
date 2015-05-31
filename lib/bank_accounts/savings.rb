@@ -3,6 +3,8 @@ require 'pry'
 module BankAccounts
   class SavingsAccount < Account
 
+    attr_reader :balance
+
     def initialize(id, initial_balance)
       # Require at least $10 to start savings account
       if round_to_hundredths(initial_balance) < 10
@@ -22,20 +24,20 @@ module BankAccounts
       # error raised if withdrawal causes balance to dip below $10
       if (@balance - amount) < 10
         raise ArgumentError.new "WARNING - You must have at least $10 in your savings account.\nYour current balance is $#{round_to_hundredths(@balance)}."
-        return round_to_hundredths(@balance)
       else
         super
-        return round_to_hundredths(@balance)
       end
+      return @balance = round_to_hundredths(@balance) 
     end
 
     def interest(rate)
       # calculate the interest rate and add it to the balance
       interest = @balance * (rate / 100)
       @balance += interest
+      @balance = round_to_hundredths(@balance)
 
       # return interest amount
-      return round_to_hundredths(interest)
+      return interest = round_to_hundredths(interest)
     end
 
   end # class
