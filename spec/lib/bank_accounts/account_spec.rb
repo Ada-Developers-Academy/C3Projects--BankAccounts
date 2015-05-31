@@ -1,28 +1,33 @@
 describe "BankAccounts::Account" do
   before :each do
     id = "Carl"
-    initial_balance = 50.to_f
+    initial_balance = 50
     @account = BankAccounts::Account.new(id, initial_balance)
   end
 
 
-  it "can have instances of the Account class" do
-    expect(@account).to be_an_instance_of(BankAccounts::Account)
-  end
+  context "creating a new instance of the Account class" do
+    it "can have instances of the Account class" do
+      expect(@account).to be_an_instance_of(BankAccounts::Account)
+    end
 
-  it "has an initial balance" do
-    expect(@account.balance).to eq(50)
-  end
+    it "has an initial balance" do
+      expect(@account.balance).to eq(50)
+    end
 
-  it "has a balance in dollars and cents" do
-    expect(@account.balance.class).to eq(Float)
+    it "has a balance in dollars and cents" do
+      expect(@account.balance.class).to eq(Float)
 
-    @account.deposit(0.011)
-    expect(@account.balance).to eq(@account.balance.round(2))
-  end
+      expect(@account.balance).to eq(@account.balance.round(2))
+    end
 
-  it "cannot have a negative initial balance" do
-    expect{ BankAccounts::Account.new("George", -1) }.to raise_error(ArgumentError)
+    it "cannot have a negative initial balance" do
+      expect{ BankAccounts::Account.new("George", -1) }.to raise_error(ArgumentError)
+    end
+
+    it "cannot have a large initial balance" do
+      expect { BankAccounts::Account.new("George", 5_000_000) }.to raise_error(ArgumentError)
+    end
   end
 
   context "has a #deposit method" do

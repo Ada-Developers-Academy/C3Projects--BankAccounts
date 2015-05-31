@@ -18,17 +18,27 @@ module BankAccounts
     MINIMUM_BALANCE = 0
 
 
-    attr_reader :balance, :id
-
-
     ##--------------------------------------------------------------------------
     # INSTANCE METHODS
 
+
+    attr_reader :balance, :id
+
+
     def initialize(id, initial_balance)
       if initial_balance >= MINIMUM_BALANCE
-        @balance = initial_balance.round(2)
+        @balance = 0
+        update_balance(initial_balance.round(2))
       else
         raise ArgumentError.new("An account cannot be created with a negative balance.")
+      end
+
+      if (@balance >= RECOMMEND_MONEY_MARKET) && (@balance < RECOMMEND_SISTER_BANK) && (self.class != MoneyMarketAccount)
+        puts MONEY_MARKET_RECOMMENDATION
+      end
+
+      if (@balance >= RECOMMEND_SISTER_BANK)
+        raise ArgumentError.new(SISTER_BANK_RECOMMENDATION)
       end
 
       @id = id
@@ -46,7 +56,7 @@ module BankAccounts
 
       # sends a message to the user if attempting to withdraw negative or zero funds.
       if (amount <= 0)
-        puts "You cannot withdraw negative funds! That sounds like a transaction that should be a deposit."
+        warn "You cannot withdraw negative funds! That sounds like a transaction that should be a deposit."
 
         return @balance
       end
@@ -66,7 +76,7 @@ module BankAccounts
 
       # raises an error if depositing negative funds would create a negative balance.
       if (amount <= 0)
-        puts "You cannot deposit negative funds! That sounds like a transaction that should be a withdrawal."
+        warn "You cannot deposit negative funds! That sounds like a transaction that should be a withdrawal."
 
         return @balance
       end
@@ -105,7 +115,7 @@ module BankAccounts
       end
 
       if (@balance - amount < 0)
-        puts "You cannot withdraw that much. Your balance would be negative, and this is not a credit account."
+        warn "You cannot withdraw that much. Your balance would be negative, and this is not a credit account."
         return false
       end
 

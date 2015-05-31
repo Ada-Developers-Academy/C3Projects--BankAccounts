@@ -57,7 +57,7 @@ module BankAccounts
     def deposit(amount)
       unless balance_low? # if balance is low, don't do this stuff.
         unless transaction_allowed? # if transaction is allowed, don't send a warning message!
-          puts "You cannot make any additional deposits this month. You have already reached the limit (#{ TRANSACTION_LIMIT })."
+          warn "You cannot make any additional deposits this month. You have already reached the limit (#{ TRANSACTION_LIMIT })."
 
           return @balance
         else # when it is allowed, increment transactions counter.
@@ -87,13 +87,13 @@ module BankAccounts
         if transaction_allowed?
           @transactions += 1
         else
-            puts "You cannot make any additional withdrawals this month. You have already reached the limit (#{ TRANSACTION_LIMIT })."
+            warn "You cannot make any additional withdrawals this month. You have already reached the limit (#{ TRANSACTION_LIMIT })."
 
             return @balance
         end
 
       else
-        puts "You cannot make any additional withdrawals until your balance is above the minimum: $#{ MINIMUM_BALANCE }. Your balance is only: $ #{ @balance }."
+        warn "You cannot make any additional withdrawals until your balance is above the minimum: $#{ MINIMUM_BALANCE }. Your balance is only: $ #{ @balance }."
 
         return @balance
       end

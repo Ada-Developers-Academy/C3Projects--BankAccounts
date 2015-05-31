@@ -70,7 +70,7 @@ module BankAccounts
       future_balance = @balance - amount - WITHDRAWAL_FEE
 
       if (future_balance < MINIMUM_BALANCE)
-        puts "You cannot withdraw that much. Your minimum balance is $#{ MINIMUM_BALANCE }, and this withdrawal would put you at $#{ future_balance }."
+        warn "You cannot withdraw that much. Your minimum balance is $#{ MINIMUM_BALANCE }, and this withdrawal would put you at $#{ future_balance }."
 
         return false
       end
