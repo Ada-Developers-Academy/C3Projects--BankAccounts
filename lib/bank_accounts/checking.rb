@@ -33,6 +33,7 @@ module BankAccounts
         else
           @balance -= amount
         end
+        return @balance = round_to_hundredths(@balance)
     
       # no transaction fee for 3 or fewer checks
       else
