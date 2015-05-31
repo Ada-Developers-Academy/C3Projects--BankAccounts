@@ -16,8 +16,8 @@ describe BankAccounts::CheckingAccount do
   context "#withdraw does not allow account to go to negative:" do
 
     it "outputs a warning message" do
-      expect(tom.withdraw(1100)).to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
-    end
+      expect{tom.withdraw(1100)}.to output("Cannot withdraw amount; not enough money in account.\n").to_stdout
+    end   # NOTE TO SELF: Remember the 'expect' before 'output' & 'raise_error' needs to be in a block.
 
     it "returns the original un-modified balance" do
       expect(tom.withdraw(1100)).to eq(1000)
