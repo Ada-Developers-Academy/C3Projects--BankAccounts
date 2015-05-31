@@ -33,16 +33,15 @@ module BankAccounts
       @checks_used += 1
       fee = 2
 
-      # 3 free checks per month
-      if @checks_used <= 3
-        # must have a least -$10 balance
+      if @checks_used <= 3 # 3 free checks per month
+        # can have up to -$10 balance when using checks
         if (@balance - amount) < -10
           puts "Checking account can only go into overdraft up to -$10. Transaction not processed."
           return @balance
         else
           @balance -= amount
         end
-      else # adds transaction fee
+      else # after 3 checks, adds transaction fee
         if (@balance - (amount + fee)) < -10
           puts "Checking account can only go into overdraft up to -$10. Transaction not processed."
           return @balance
@@ -59,7 +58,7 @@ module BankAccounts
     def reset_checks
       @checks_used = 0
     end
-    
+
 
   end # class CheckingAccount
 end # module BankAccounts

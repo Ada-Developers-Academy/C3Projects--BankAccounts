@@ -64,7 +64,7 @@ describe BankAccounts::CheckingAccount do
     end
 
 
-    context "when doing check withdrawls" do
+    context "when doing many check withdrawls" do
       let(:checks_used) {0}
       before(:each) do
 				checking_account.withdraw_using_check(2)
@@ -116,7 +116,7 @@ describe BankAccounts::CheckingAccount do
           end # context end of month
         end # context 4th check withdrawl
       end # context 3rd check withdrawls
-    end # context check withdralws
+    end # context many check withdralws
 
 
   end # instance methods
