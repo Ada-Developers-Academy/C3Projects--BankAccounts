@@ -16,7 +16,7 @@ module BankAccounts
       #incur a fee of $1 with each withdrawal
       amount += 1
       super
-      return @balance
+      return round_to_hundredths(@balance)
     end
 
     def withdraw_using_check(amount)
@@ -25,13 +25,13 @@ module BankAccounts
       # LOOP
       # Raises warning message if overdraft goes lower than -$10
       if (@balance - amount) < -10
-        raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{@balance}."
-        return @balance
+        raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{round_to_hundredths(@balance)}."
+        return round_to_hundredths(@balance)
         
       # Return the updated balance after check withdrawal
       else
         @balance -= amount
-        return @balance
+        return round_to_hundredths(@balance)
       end
     end
 binding.pry

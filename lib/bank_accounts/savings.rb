@@ -3,11 +3,6 @@ require 'pry'
 module BankAccounts
   class SavingsAccount < Account
 
-    def round_to_hundredths(n)
-      n = (((n * 100).floor) / 100.0)
-      return n
-    end
-
     def initialize(id, initial_balance)
       # Require at least $10 to start savings account
       if round_to_hundredths(initial_balance) < 10

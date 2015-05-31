@@ -5,7 +5,7 @@ module BankAccounts
 
     attr_reader :id, :balance
 
-    # Rounds float down to hundredths position
+    # Rounds float value down to hundredths position
     # For example 10.2599 rounds to 10.25
     def round_to_hundredths(n)
       n = (((n * 100).floor) / 100.0)
