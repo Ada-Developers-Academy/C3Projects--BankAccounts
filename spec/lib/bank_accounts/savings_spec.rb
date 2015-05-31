@@ -4,12 +4,12 @@ require 'bank_accounts'
 describe BankAccounts::SavingsAccount do
   
   context "A savings account is a bank account" do
-    it "inherits from class Account" do
+    it "SavingsAccount class inherits from Account class" do
       expect(BankAccounts::SavingsAccount.superclass).to eq(BankAccounts::Account)
     end
   end
 
-  context "When creating a savings bank account" do
+  context "When creating a savings account" do
     it "responds to savings account instantiation with 2 arguments" do
       expect(BankAccounts::SavingsAccount).to respond_to(:new).with(2).arguments
     end
