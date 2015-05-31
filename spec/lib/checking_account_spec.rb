@@ -35,9 +35,8 @@ describe BankAccounts::CheckingAccount do
   end
 
   #The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee
-  it "returns 58 after 4 10 dollar withdrawals by check" do
-    3.times do @checking_account.withdraw_using_check(10)
-    expect(@checking_account.withdraw_using_check(10)).to eq(58)
-    end
+  it "returns 58 after 4 #withdraw_using_check(10)" do
+      expect(4.times {@checking_account.withdraw_using_check(10)}).to eq(58)
   end
+
 end
