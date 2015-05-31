@@ -46,19 +46,19 @@ describe BankAccounts::SavingsAccount do
       expect(george.withdraw(1100)).to eq(1000)
     end   # 1000 is original balance
 
-    it "responds to #add_interest" do
-      expect(george).to respond_to(:add_interest)
-    end
-
-    it "#add_interest calculates & returns interest" do
-      expect(george.add_interest(0.25)).to eq(250)
-    end
-
-    it "#add_interest adds interest to balance (balance check)" do
-      account = george.add_interest(0.25)
-      expect(account.balance).to eq(1250)
-    end
-
   end #context
+
+  it "responds to #add_interest" do
+    expect(george).to respond_to(:add_interest)
+  end
+
+  it "#add_interest calculates & returns interest" do
+    expect(george.add_interest(0.25)).to eq(2.5)
+  end
+
+  it "#add_interest adds interest to balance" do
+    account = george.add_interest(0.25)
+    expect(george.balance).to eq(1002.5)
+  end
 
 end
