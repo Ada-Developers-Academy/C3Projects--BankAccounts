@@ -2,6 +2,7 @@ module BankAccount
   class SavingAccount < Account
 
     def initialize(id, initial_balance)
+      # SavingAccount inherits from acount, initialize method is exactly the same
       super
     end
 
@@ -12,22 +13,18 @@ module BankAccount
         puts "Your balance cannot be less than $10 in your savings account."
       else
         super
-        @balance= @balance - 2 # $2 transaction fee tacked on
+        @balance -= 2 # $2 transaction fee tacked on
       end
 
       return @balance
-
-
     end
 
     def add_interest(rate)
       interest = @balance * rate/100
-      @balance = @balance + interest
+      @balance += interest
       return interest
     end
 
 
   end # class
-
-
 end # module
