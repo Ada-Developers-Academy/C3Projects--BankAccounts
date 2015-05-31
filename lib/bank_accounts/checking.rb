@@ -8,7 +8,6 @@ module BankAccounts
     end
 
     def withdraw(amount)
-
       #incur a fee of $1 with each withdrawal
       amount += 1
 

@@ -11,6 +11,11 @@ describe BankAccounts::Account do
     it "raises an error when an account is created with a negative balance" do
       expect{ BankAccounts::Account.new(0, -1) }.to raise_error(ArgumentError, "Sorry, you can't start an account with a negative balance.")
     end
+
+    it "rounds initial balance floats > longer than 2 decimal spots, down to 2" do
+      account = BankAccounts::Account.new(0, 10.2599)
+      expect(account.balance).to eq(10.25)
+    end
   end
 
   context "When withdrawing money from bank account" do

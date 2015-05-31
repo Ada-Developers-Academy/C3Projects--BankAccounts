@@ -7,7 +7,10 @@ module BankAccounts
 
     def initialize(id, initial_balance)
       @id = id
-      @balance = initial_balance
+
+      # Rounds initial balance to down to hundredths position
+      # For example 10.2599 rounds to 10.25
+      @balance = ((initial_balance * 100).floor) / 100.0
 
       # Raises an error if the initial balance is negative
       if initial_balance < 0

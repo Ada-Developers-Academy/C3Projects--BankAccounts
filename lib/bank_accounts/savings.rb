@@ -5,7 +5,7 @@ module BankAccounts
 
     def initialize(id, initial_balance)
       # Require at least $10 to start savings account
-      if initial_balance < 10
+      if (((initial_balance * 100).floor) / 100.0) < 10
         raise ArgumentError.new "MINIMUM BALANCE $10 REQUIRED"
       end
 

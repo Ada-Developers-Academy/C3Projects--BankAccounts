@@ -24,6 +24,11 @@ describe BankAccounts::CheckingAccount do
 
   it "incurs a fee of $1 for each withdrawal and returns the updated balance" do
     expect(checking.withdraw(14)).to eq(65)
+    expect(checking.withdraw(54)).to eq(10)
+  end
+
+  it "raises an error when attempting to withdraw more than the current  balance" do
+    expect{ checking.withdraw(85) }.to raise_error(ArgumentError, "INSUFFICIENT FUNDS\nYour current balance is $#{checking.balance}.")
   end
  end
 
