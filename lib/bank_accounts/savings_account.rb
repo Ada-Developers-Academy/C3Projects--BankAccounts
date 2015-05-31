@@ -11,6 +11,7 @@ module BankAccounts
       super
     end
 
+    # ADDS INTEREST TO BALANCE & RETURNS INTEREST AMOUNT
     def add_interest(rate)
       interest = @balance * (rate/100)
       @balance += interest

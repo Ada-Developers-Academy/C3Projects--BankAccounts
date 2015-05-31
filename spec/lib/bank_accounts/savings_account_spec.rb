@@ -57,7 +57,7 @@ describe BankAccounts::SavingsAccount do
   end
 
   it "#add_interest adds interest to balance" do
-    account = george.add_interest(0.25)
+    george.add_interest(0.25)
     expect(george.balance).to eq(1002.5)
   end
 
