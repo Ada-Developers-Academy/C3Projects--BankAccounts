@@ -11,6 +11,23 @@ describe BankAccounts::MoneyMarketAccount do
 		expect(BankAccounts::MoneyMarketAccount).to respond_to :new
 	end
 
+	context "too small initial balance" do
+
+		[
+			[5,  100],
+			[5, 9000],
+			[5,	   1],
+			[5,    0],
+			[5,  -10]
+		].each do |id, initial_balance|
+			it "raises ArgumentError in case of initial balance of #{initial_balance}" do
+				expect { 
+					BankAccounts::MoneyMarketAccount.new(id, initial_balance)
+				}.to raise_error ArgumentError
+			end
+		end
+	end
+
 	context "With any money market account it..." do
 		let(:id_option) 				{ default_id }
 		let(:balance_option) 			{ default_balance }
@@ -47,7 +64,6 @@ describe BankAccounts::MoneyMarketAccount do
 			end
 		end
 
-
 		context "withdraws an amount" do
 
 			it "lowers balance by amount withdrawn" do
@@ -61,32 +77,57 @@ describe BankAccounts::MoneyMarketAccount do
 			end
 
 			it "puts error message if withdrawal takes balance below 10k" do
-				money_market_account.withdraw(10100)
-				expect(money_market_account.balance).to eq(9900)
+				money_market_account.withdraw(11000)
+				expect(money_market_account.balance).to eq(8900)
 			end
 		end
 
-		# context "deposits to bring the balance > 10000 don't count affect transactions_remaining" do
+		context "deposits to bring the balance > 10000 don't count affect transactions_remaining" do
+			before(:each) do
+				money_market_account.withdraw(11000)
+			end
 
-		# end
+			it "balance is below 10k" do
+				expect(money_market_account.balance).to eq(8900)
+			end
 
-	end
+			it "transactions remaining lowers after withdrawal below 10k" do
+				expect(money_market_account.transactions_remaining).to eq(5)
+			end
 
-	context "too small initial balance" do
+			it "does not allow more withdrawals, and doesn't lower transactions_remaining" do
+				money_market_account.withdraw(1000)
+				expect(money_market_account.balance).to eq(8900)
+				expect(money_market_account.transactions_remaining).to eq(5)
+			end
 
-		[
-			[5,  100],
-			[5, 9000],
-			[5,	   1],
-			[5,    0],
-			[5,  -10]
-		].each do |id, initial_balance|
-			it "raises ArgumentError in case of initial balance of #{initial_balance}" do
-				expect { 
-					BankAccounts::MoneyMarketAccount.new(id, initial_balance)
-				}.to raise_error ArgumentError
+			it "allows a deposit without lowering transactions_remaining" do
+				money_market_account.deposit(1200)
+				expect(money_market_account.balance).to eq(10100)
+				expect(money_market_account.transactions_remaining).to eq(5)
+			end
+		end
+
+		context "only 6 transactions permitted per month" do
+			before(:each) do
+				3.times do
+					money_market_account.withdraw(1000)
+					money_market_account.deposit(500)
+				end
+			end
+
+			it "after 6, zero transactions remaining" do
+				expect(money_market_account.transactions_remaining).to eq(0)
+			end
+
+			it "doesn't allow any more transactions" do
+				expect(money_market_account.withdraw(100)).to be_nil
+			end
+
+			it "can reset transactions" do
+				money_market_account.reset_transactions
+				expect(money_market_account.transactions_remaining).to eq(6)
 			end
 		end
 	end
-
 end
