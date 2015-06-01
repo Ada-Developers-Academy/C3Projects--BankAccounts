@@ -2,11 +2,15 @@ module BankAccounts
 
   class CheckingAccount < Account
 
+    attr_reader :checks_used
+
+    # SUBTRACT AMOUNT (+ FEE) FROM BALANCE, RETURN BALANCE, & INCREASE CHECKS USED
     def withdraw_using_check(amount)
       neg_num_guard(amount)
+      @checks_used += 1
 
       if @checks_used > 3
-        amount += @checks_withdraw_fee
+        amount += @check_withdraw_fee
       end
 
       if (@balance - amount) < @max_overdraft
@@ -15,6 +19,11 @@ module BankAccounts
       end
 
       @balance -= amount
+    end
+
+    # RESETS CHECKS USED TO ZERO
+    def reset_checks
+      @checks_used = 0
     end
 
     private

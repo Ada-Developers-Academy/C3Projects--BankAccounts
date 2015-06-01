@@ -46,7 +46,7 @@ module BankAccounts
       raise ArgumentError, "below allowed minimum" if num < @min_balance
     end
 
-    # VARIABLES CREATING DURING INITIALIZATION
+    # VARIABLES CREATED DURING INITIALIZATION
     # SEPERATED FROM INITIALIZE SO CAN CHANGE WHEN INHERITED
     def bank_info
       @min_balance = 0

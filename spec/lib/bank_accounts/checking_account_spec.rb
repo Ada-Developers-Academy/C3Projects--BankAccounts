@@ -35,7 +35,7 @@ describe BankAccounts::CheckingAccount do
     end
 
     it "charges $2 after 3 free times" do
-      expect(account.withdraw_using_check(100)).to eq(600)
+      expect(account.withdraw_using_check(100)).to eq(598)
     end
   end
 
@@ -47,6 +47,30 @@ describe BankAccounts::CheckingAccount do
 
     it "but not any lower (returns un-modified balance)" do
       expect(tom.withdraw_using_check(1011)).to eq(1000)
+    end
+
+  end
+
+  context "#reset_checks changes the @checks_used to 0:" do
+    # Had a really hard time with this rspec.
+    # Why wouldn't the 'expect' on line 65 work
+    # if I put lines 60-64 outside the it-do block?
+
+    it "checks before reset should be 3" do
+      account = BankAccounts::CheckingAccount.new(3, 1000)
+      3.times do
+        account.withdraw_using_check(100)
+      end
+      expect(account.checks_used).to eq(3)
+    end
+
+    it "checks after reset should be 0" do
+      account = BankAccounts::CheckingAccount.new(3, 1000)
+      3.times do
+        account.withdraw_using_check(100)
+      end
+      account.reset_checks
+      expect(account.checks_used).to eq(0)
     end
 
   end
