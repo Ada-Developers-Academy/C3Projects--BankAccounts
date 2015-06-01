@@ -3,8 +3,10 @@ module Bank
     attr_accessor :num_of_transactions
 
     def initialize(id, initial_balance)
+      raise ArgumentError, "Account requires minimum balance of $10,000." if initial_balance.to_i < 10_000
       super
       @num_of_transactions = 0
+      @balance = initial_balance.to_i
     end
 
     def is_at_transaction_limit
