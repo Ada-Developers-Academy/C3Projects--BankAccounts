@@ -2,7 +2,7 @@ module BankAccount
   class CheckingAccount < Account
     attr_reader :checks_used
 
-    def initialize(id, initial_balance)
+    def initialize(id, initial_balance, required_opening_balance = 0) # required_opening_balance = 0 is not necessary, since this matches base class's default, but I wanted to be explicit
       super
       @checks_used = 0
     end
@@ -24,7 +24,7 @@ module BankAccount
     end
 
     def check_fee
-      # The user is allowed three free check uses in one month, but any subsequent use adds a $2 transaction fee [lunch]
+      # 3 free checks per month; $2 transaction fee after that [lunch]
       if @checks_used < 3
         transaction_fee = 0
       else
