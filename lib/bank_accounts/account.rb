@@ -5,10 +5,8 @@ module BankAccounts
     attr_accessor :balance
     attr_reader :id
 
-    MIN_BALANCE = 0
-    WITHDRAW_FEE = 0
-
     def initialize(id, initial_balance)
+      bank_info   # see private methods
       min_num_guard(initial_balance)
 
       @id = id
@@ -19,10 +17,9 @@ module BankAccounts
     def withdraw(amount)
       neg_num_guard(amount)
 
-      amount += WITHDRAW_FEE   # useful in children classes of account
-      puts WITHDRAW_FEE
+      amount += @atm_withdraw_fee   # useful in children classes
 
-      if (@balance - amount) < MIN_BALANCE
+      if (@balance - amount) < @min_balance
         puts "Cannot withdraw amount; not enough money in account."
         return @balance
       end
@@ -46,7 +43,14 @@ module BankAccounts
 
     # CHECKS TO MAKE SURE AMOUNT IS ABOVE ALLOWED MINIMUM WHEN INITIALIZING
     def min_num_guard(num)
-      raise ArgumentError, "below allowed minimum" if num < MIN_BALANCE
+      raise ArgumentError, "below allowed minimum" if num < @min_balance
+    end
+
+    # VARIABLES CREATING DURING INITIALIZATION
+    # SEPERATED FROM INITIALIZE SO CAN CHANGE WHEN INHERITED
+    def bank_info
+      @min_balance = 0
+      @atm_withdraw_fee = 0
     end
 
   end

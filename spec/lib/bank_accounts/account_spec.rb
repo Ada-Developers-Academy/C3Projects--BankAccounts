@@ -65,10 +65,10 @@ describe BankAccounts::Account do
   end
 
   it "#balance returns current account balance (after manipulation of balance)" do
-    amount = BankAccounts::Account.new(3, 500)
-    amount.withdraw(400)
-    amount.deposit(100)
-    expect(amount.balance).to eq(200)
+    account = BankAccounts::Account.new(3, 500)
+    account.withdraw(400)
+    account.deposit(100)
+    expect(account.balance).to eq(200)
   end   # QUESTION: Is there a way to execute multiple methods in a row on the same object without typing them all out?
 
 end

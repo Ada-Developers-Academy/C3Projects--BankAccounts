@@ -27,15 +27,15 @@ describe BankAccounts::CheckingAccount do
 
   context "#withdraw_using_check subtracts 'amount' from balance (as a result of a check withdraw):" do
     results = [900, 800, 700]
+    account = BankAccounts::CheckingAccount.new(2, 1000)
     results.each do |result|
       it "up to 3 (free) times" do
-        expect(tom.withdraw_using_check(100)).to eq(result)
+        expect(account.withdraw_using_check(100)).to eq(result)
       end
     end
 
     it "charges $2 after 3 free times" do
-      3.times { tom.withdraw(100) }
-      expect(tom.withdraw_using_check(100)).to eq()
+      expect(account.withdraw_using_check(100)).to eq(600)
     end
   end
 

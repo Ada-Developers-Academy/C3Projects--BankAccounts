@@ -34,6 +34,7 @@ describe BankAccounts::SavingsAccount do
 
   it "#withdraw subtracts 'amount' from the balance (& a $2 fee) & returns balance" do
     expect(george.withdraw(100)).to eq(898)
+    expect(george.withdraw(6)).to eq(890)
   end
 
   context "#withdraw cannot subtract more than minimum balance:" do
