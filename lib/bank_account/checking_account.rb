@@ -11,10 +11,11 @@ module BankAccount
       @free_checks = 3 #Per month
     end
 
-    def withdraw(get_monies)
+    # Get monies
+    def withdraw(amount)
 
       slight_burglary = 1 #That yucky fee
-      total_withdraw = get_monies + slight_burglary
+      total_withdraw = amount + slight_burglary
 
       # Proceeds if you have enough monies
       if @current_balance - total_withdraw > 0

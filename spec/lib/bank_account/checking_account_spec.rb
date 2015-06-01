@@ -26,6 +26,10 @@ describe BankAccount::CheckingAccount do
       expect(mediocre_checking_account.withdraw(201)).to eq("Sorry, you can't have a negative balance in your account! Withdraw canceled. Let's keep your current balance at 200.")
     end
 
+    it "lets you withdraw with a $210 check, overdrafting by $10" do
+      expect(mediocre_checking_account.withdraw_using_check(210)).to eq(-10)
+    end
+
   end
 
 end

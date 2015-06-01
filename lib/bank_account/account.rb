@@ -20,11 +20,12 @@ module BankAccount
 
     end
 
-    def withdraw(get_monies)
+    # Get monies
+    def withdraw(amount)
 
       # Proceeds if you have enough monies
-      if get_monies <= @current_balance
-        @current_balance -= get_monies
+      if amount <= @current_balance
+        @current_balance -= amount
       else
         # Yells at you (nicely) when you don't have enough monies
         return "Sorry, you don't have that much! Withdraw canceled. Let's keep your current balance at #{@current_balance}."
@@ -33,8 +34,8 @@ module BankAccount
     end
 
     # Puts monies into account, updates balance
-    def deposit(put_monies)
-      @current_balance += put_monies
+    def deposit(amount)
+      @current_balance += amount
     end
 
     # Returns balance

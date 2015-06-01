@@ -17,10 +17,10 @@ module BankAccount
     end
 
     # Gets monies from account, updates current balance
-    def withdraw(get_monies)
+    def withdraw(amount)
 
       highway_robbery = 2 #That yucky fee
-      total_withdraw = get_monies + highway_robbery
+      total_withdraw = amount + highway_robbery
 
       # Proceeds if you have enough monies
       if @current_balance - total_withdraw > 10
