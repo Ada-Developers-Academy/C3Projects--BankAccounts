@@ -17,12 +17,12 @@ module Bank
       # it'll return 0 instead
       amount = Integer(amount) rescue 0
       error_message = "You cannot withdraw more than the balance minimum of $#{@minimum_balance}."
-      @is_error = false
+      @is_withdrawal_error = false
 
       if @balance - amount >= @minimum_balance
         @balance -= amount
       else
-        @is_error = true
+        @is_withdrawal_error = true
         puts error_message
       end
 

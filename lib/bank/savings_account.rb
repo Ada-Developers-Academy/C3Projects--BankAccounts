@@ -12,7 +12,7 @@ module Bank
     def withdraw(amount)
       super
       # there was not an error with the withdrawal amount
-      if !@is_error
+      if !@is_withdrawal_error
         # subtract the $2 fee from balance
         return @balance - 2
       else
