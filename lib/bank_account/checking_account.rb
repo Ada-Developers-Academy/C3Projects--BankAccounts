@@ -40,5 +40,9 @@ module BankAccount
       end
     end
 
+    def reset_checks
+      @free_checks = 0
+    end
+
   end #class
 end #module
