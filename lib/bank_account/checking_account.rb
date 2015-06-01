@@ -31,6 +31,18 @@ module BankAccount
       highway_robbery = 2 #Yucky fee
       total_withdraw = amount + highway_robbery
 
+      # Resetting @free_checks to 3 each subsequent month
+      # Grabs the calendar month when a check is first used for withdraw
+      first_time_use = Time.new.month
+      # Sets an "alarm" for next month
+      next_month = first_time_use + 1
+      # Runs a check
+      if Time.now.month == next_month
+        @free_checks = 3
+      end
+      # I don't think this works the way I want it to.
+      # I also can't think of how to do the rspec for this.
+
       # Reduces free checks by one, complete the transaction
       if @current_balance - amount >= -10 && free_checks > 0
         @free_checks -= 1
