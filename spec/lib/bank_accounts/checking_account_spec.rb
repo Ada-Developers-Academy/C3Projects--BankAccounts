@@ -7,15 +7,15 @@ describe BankAccounts::CheckingAccount do
   end
 
   before :each do
-    @account = BankAccounts::CheckingAccount.new(1, 1000)s
+    @account = BankAccounts::CheckingAccount.new(1, 1000)
   end
 
-  it "inherits balance from parent Account" do
+  it "inherits #balance from parent Account" do
     expect(@account.balance).to eq(1000)
   end
 
   context "#withdraw method will: " do
-    it "subtracts input amount from balance and charges $1 transaction fee" do
+    it "subtract input amount from balance and charges $1 transaction fee" do
       expect(@account.withdraw(500)).to eq(499)
     end
 
@@ -29,11 +29,11 @@ describe BankAccounts::CheckingAccount do
       expect(@account.withdraw_using_check(400)).to eq(600)
     end
 
-    it "allows overdraft of up to -$10" do
+    it "allows overdraft of up to -$10 and returns balance" do
       expect(@account.withdraw_using_check(1010)).to eq(-10)
     end
 
-    it "does not allow overdraft of more than -$10" do
+    it "does not allow overdraft of more than -$10 and returns original balance" do
       expect(@account.withdraw_using_check(1011)).to eq(1000)
     end
 
@@ -52,14 +52,13 @@ describe BankAccounts::CheckingAccount do
 
   #Need to fix this test to work, but method seems to work just fine
   context "#reset_checks will: " do
-    it "reset checks_used to 0" do
+    it "resets checks_used to 0" do
       4.times do @account.withdraw_using_check(100)
       end
       @account.reset_checks
-      expect(@checks_used).to eq(0)
+      expect(@account.checks_used).to eq(0)
     end
   end
-
 end #describe
 
 

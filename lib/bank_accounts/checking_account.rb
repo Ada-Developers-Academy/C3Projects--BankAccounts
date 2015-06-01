@@ -2,6 +2,7 @@ module BankAccounts
   require "pry"
 
   class CheckingAccount < Account
+    attr_reader :checks_used
 
     def initialize (id, initial_balance)
      super

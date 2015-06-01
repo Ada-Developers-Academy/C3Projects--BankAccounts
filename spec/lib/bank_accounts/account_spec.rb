@@ -10,29 +10,26 @@ describe BankAccounts::Account do
     expect { BankAccounts::Account.new(4, -500) }.to raise_exception(ArgumentError)
   end
 
-end
-
-describe "For the following Account methods:" do
   before :each do
       @account = BankAccounts::Account.new(1, 1000)
-    end
+  end
 
   it "#balance returns the account balance" do
     expect(@account.balance).to eq(1000)
   end
 
-  context "When #withdraw is called" do
-    it "subtracts the input amount from the balance" do
-      expect(@account.withdraw(500)).to eq(500)
+  context "#withdraw will: " do
+    it "subtract the input amount from the balance and return the balance" do
+      expect(@account.withdraw(400)).to eq(600)
     end
 
-    it "does not allow the account to go negative" do
+    it "not allow the account to go negative and will return the original balance" do
       expect(@account.withdraw(1500)).to eq(1000)
     end
   end
 
-  context "When #deposit is called" do
-    it "adds input value to balance and returns balance" do
+  context "#deposit will: " do
+    it "add input value to balance and returns balance" do
       expect(@account.deposit(500)).to eq(1500)
     end
   end

@@ -10,16 +10,15 @@ describe BankAccounts::SavingsAccount do
     expect { BankAccounts::SavingsAccount.new(4, 9) }.to raise_exception(ArgumentError)
   end
 
-end
-
-describe "SavingsAccount methods will: " do
   before :each do
     @account = BankAccounts::SavingsAccount.new(1, 1000)
   end
 
-  it "inherits #deposit from parent Account" do
-    @account.deposit(1000)
-    expect(@account.balance).to eq(2000)
+  context "SavingsAccount methods will: " do
+    it "inherit #deposit from parent Account" do
+      @account.deposit(1000)
+      expect(@account.balance).to eq(2000)
+    end
   end
 
   context "when #withdraw is called" do
@@ -42,7 +41,6 @@ describe "SavingsAccount methods will: " do
       expect(@account.add_interest(-0.15)).to eq("Rate must be a positive percentage.")
     end
   end
-
 end #describle
 
 
