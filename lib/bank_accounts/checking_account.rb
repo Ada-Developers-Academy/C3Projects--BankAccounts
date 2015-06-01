@@ -1,7 +1,7 @@
 module BankAccounts
 
 	class CheckingAccount < BankAccounts::Account
-		attr_reader :check_count, :using_check
+		attr_reader :free_checks_remaining, :using_check
 
 		def initialize(id, initial_balance)
 			super
@@ -9,15 +9,15 @@ module BankAccounts
 			@overdraft_limit	 	= -10
 			@fee					= 1
 			@check_fee				= 2
-			@check_count 			= 0
+			@free_checks_remaining 	= 3
 			@using_check 			= false
-		end 
+		end
 
 		def validate_withdrawal(amount)
 			if @using_check
 				return @balance if amount == 0
 				valid = true
-				amount_to_withdraw = @check_count < 3 ? amount : amount + @check_fee
+				amount_to_withdraw = @free_checks_remaining > 0 ? amount : amount + @check_fee
 				if amount_to_withdraw <= @balance - @overdraft_limit
 					return amount_to_withdraw, valid
 				else
@@ -37,14 +37,14 @@ module BankAccounts
 			if valid
 				@balance -= amount_to_withdraw
 			end
-			@check_count += 1
+			@free_checks_remaining -= 1
 
 			# reset @using_check
 			@using_check = false
 		end
 
 		def reset_checks
-			@check_count = 0
+			@free_checks_remaining = 3
 		end
 	end
 end

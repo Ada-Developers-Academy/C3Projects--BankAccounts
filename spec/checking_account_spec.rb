@@ -24,7 +24,7 @@ describe BankAccounts::CheckingAccount do
 		end
 
 		it "new CheckingAccount has check count" do
-			expect(checking_account.check_count).to eq(0)
+			expect(checking_account.free_checks_remaining).to eq(3)
 		end
 
 		it "responds to #withdraw" do
@@ -60,8 +60,8 @@ describe BankAccounts::CheckingAccount do
 				expect(checking_account.balance).to eq(900)
 			end
 
-			it "increases check count by 1" do
-				expect(checking_account.check_count).to eq(1)
+			it "decreases check count by 1" do
+				expect(checking_account.free_checks_remaining).to eq(2)
 			end
 
 			context	"withdraws with check more than 3 times" do
@@ -81,7 +81,7 @@ describe BankAccounts::CheckingAccount do
 				end
 
 				it "resets check count" do
-					expect(checking_account.reset_checks).to eq(0)
+					expect(checking_account.reset_checks).to eq(3)
 				end
 			end
 
