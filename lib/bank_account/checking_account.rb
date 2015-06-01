@@ -4,6 +4,7 @@ module BankAccount
 
   class CheckingAccount < Account
 
+    # This is unique to the checking account
     attr_accessor :free_checks
 
     def initialize(id, initial_balance)
@@ -30,11 +31,14 @@ module BankAccount
       highway_robbery = 2 #Yucky fee
       total_withdraw = amount + highway_robbery
 
+      # Reduces free checks by one, complete the transaction
       if @current_balance - amount >= -10 && free_checks > 0
         @free_checks -= 1
         @current_balance -= amount
+      # Adds that yucky fee when there are no free checks
       elsif @current_balance - amount >= -10 && free_checks == 0
         @current_balance -= total_withdraw
+      # Yells at you (nicely) when your balance goes under -$10
       else
         return "Sorry, you can't overdraft more than $10! Withdraw canceled. Let's keep your current balance at #{@current_balance}."
       end
