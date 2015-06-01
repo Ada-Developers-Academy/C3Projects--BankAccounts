@@ -1,16 +1,21 @@
 module Bank
   class MoneyMarketAccount < Account
-    attr_accessor :num_of_transactions, :balance
+    attr_accessor :num_of_transactions, :balance, :interest, :month
 
     def initialize(id, initial_balance)
       raise ArgumentError, "Account requires minimum balance of $10,000." if initial_balance.to_i < 10_000
       super
       @num_of_transactions = 0
       @balance = initial_balance.to_i
-      # @minimum_balance = 10_000
+      @month = Time.now.mon
     end
 
     def is_at_transaction_limit
+      if @month != Time.now.mon
+        reset_transactions
+        @month = Time.now.mon
+      end
+
       if @num_of_transactions >= 6
         # uses abort because I want to end the transaction request
         abort("You've reached your transaction limit for this month.")
@@ -50,6 +55,15 @@ module Bank
       end
 
       return @balance
+    end
+
+    def add_interest(rate)
+      @interest = @balance * rate / 100
+      @balance += @interest
+    end
+
+    def reset_transactions
+      @num_of_transactions = 0
     end
   end
 end

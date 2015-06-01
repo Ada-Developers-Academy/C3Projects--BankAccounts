@@ -15,9 +15,18 @@ describe Bank::MoneyMarketAccount do
     # 1 and not 2 because the balance isn't >= $10k
   end
 
+  it "resets the num_of_transactions each month" do
+    # pretend it's last month
+    account.month = 4
+    account.num_of_transactions = 4
+    # and now we're making a new deposit
+    account.deposit(10_000)
+    
+    expect(account.num_of_transactions).to eq(1) # our successful deposit
+  end
+
   let(:account) { Bank::MoneyMarketAccount.new("Market", 20_000) }
 
-  # PER MONTH - make a test for that
   context "when 6 transactions have been made this month" do
     let(:market_account) { Bank::MoneyMarketAccount.new("Market", 20_000) }
 
@@ -110,6 +119,30 @@ describe Bank::MoneyMarketAccount do
       account.withdraw(15_000) # counts, balance = 5000
       3.times { account.deposit(3500) } # balance = 8500; 12_000; counts, 15_500
       expect(account.num_of_transactions).to eq(2)
+    end
+  end
+
+  describe "#add_interest(rate)" do
+    it "calculates interst on balance" do
+      account.add_interest(0.25)
+      expect(account.interest).to eq(50)
+    end
+
+    it "adds interest to balance" do
+      account.add_interest(0.25)
+      expect(account.balance).to eq(20_050)
+    end
+
+    it "returns calculated interest" do
+      expect(account.add_interest(0.25)).to eq(20_050)
+    end
+  end
+
+  describe "#reset_transactions" do
+    it "resets the num_of_transactions to 0" do
+      4.times { account.deposit(10_000) }
+      account.reset_transactions
+      expect(account.num_of_transactions).to eq(0)
     end
   end
 end
