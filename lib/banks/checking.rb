@@ -5,14 +5,13 @@ module BankAccount
       TRANSACTION_FEE = 1
 
     def withdraw(amount)
-      if (amount + MINIMUM_BALANCE + TRANSACTION_FEE) > @current_balance
-        # accounts are not allowed to go below $0
-        # #withdraw will return the previous balance
-        puts "WARNING: This account cannot go below $0."
-        return @current_balance
-      else
-        return @current_balance -= (amount + TRANSACTION_FEE)
-      end
+      # This method inherits from the Account class #withdraw(amount) method
+      # amount will be checked against current_balance to make sure you have
+      # enough money in your account to make this withdrawl (leaving at least
+      # $10 left in the account)
+      amount = amount + MINIMUM_BALANCE + TRANSACTION_FEE
+      # need to add MINIMUM_BALANCE back on the current_balance
+      super + MINIMUM_BALANCE
     end
   end
 end

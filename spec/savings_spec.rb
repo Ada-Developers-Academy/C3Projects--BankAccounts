@@ -28,7 +28,7 @@ describe "BankAccount::SavingsAccount" do
     end
 
     it "does not allow the account to go below $10 - outputs warning and returns previous balance" do
-      expect{savings_account.withdraw(87)}.to output("WARNING: This account cannot go below $10.\n").to_stdout
+      expect{savings_account.withdraw(87)}.to output("WARNING: You cannot remove that much money from your account.\n").to_stdout
       expect(savings_account.withdraw(87)).to eq(98) # the previous balance is 98 because of the last test (we withdrew 100)
     end
   end

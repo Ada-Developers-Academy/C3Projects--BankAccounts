@@ -20,7 +20,7 @@ describe "BankAccount::CheckingAccount" do
     end
 
     it "prints message if try to withdraw more than current balance" do
-      expect{checking_account.withdraw(100)}.to output("WARNING: This account cannot go below $0.\n").to_stdout
+      expect{checking_account.withdraw(100)}.to output("WARNING: You cannot remove that much money from your account.\n").to_stdout
       expect(checking_account.withdraw(100)).to eq(99) # the previous balance is 99 because of the last test (we withdrew 100)
     end
   end

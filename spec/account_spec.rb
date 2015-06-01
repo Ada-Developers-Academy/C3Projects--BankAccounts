@@ -35,7 +35,7 @@ describe "BankAccount::Account" do
 
     it "does not allow the account to go negative - outputs warning and returns previous balance" do
       # This tests that the warning is given
-      expect{account.withdraw(1100)}.to output("WARNING: This account cannot go below $0.\n").to_stdout
+      expect{account.withdraw(1100)}.to output("WARNING: You cannot remove that much money from your account.\n").to_stdout
       # This tests that the #withdraw method returns the previous balance
       expect(account.withdraw(1100)).to eq(900) # the previous balance is 900 because of the last test (we withdrew 100)
     end

@@ -1,5 +1,6 @@
 module BankAccount
   class Account
+
     def initialize(id, initial_balance)
       @id = id
       @current_balance = initial_balance
@@ -18,7 +19,7 @@ module BankAccount
       if amount > @current_balance
         # accounts are not allowed to go below 0
         # #withdraw will return the previous balance
-        puts "WARNING: This account cannot go below $0."
+        puts "WARNING: You cannot remove that much money from your account."
         return @current_balance
       else
         return @current_balance -= amount
