@@ -4,18 +4,20 @@ require 'pry'
 
 describe BankAccount::Account do
 
-  context "When you sign up for a new account / sell your soul" do
+  context "When you sign up for a new account" do
 
     # Thanks TA Chef!
     # This 'let' statement allows you to create a variable called 'new account'
     # that runs something. This variable only works for this one context.
+    let (:test_account) {BankAccount::Account.new(1,200)}
     let (:sad_account) {BankAccount::Account.new(2,-1)}
 
-    # Since new is a default method, perhaps
-    # write a spec checking the arg number?
+    it "has an ID of 1" do
+      expect(test_account.id).to eq(1)
+    end
 
-    it "responds to class method called .new" do
-      expect(BankAccount::Account).to respond_to :new
+    it "has an initial balance of 200" do
+      expect(test_account.initial_balance).to eq(200)
     end
 
     it "throws an error when you open an account with a negative balance" do

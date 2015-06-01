@@ -4,13 +4,9 @@ require 'pry'
 
 describe BankAccount::SavingsAccount do
 
-  context "When you create a savings account / hoard your money" do
+  context "When you create a savings account" do
 
     let (:sad_savings_account) {BankAccount::SavingsAccount.new(1,9)}
-
-    it "responds to class method called .new" do
-      expect(BankAccount::SavingsAccount).to respond_to :new
-    end
 
     it "raises an error if the initial balance is under $10" do
       expect{sad_savings_account}.to raise_error(ArgumentError)
