@@ -9,14 +9,15 @@ describe Bank::MoneyMarketAccount do
 
   it "counts number of transactions" do
     account = Bank::MoneyMarketAccount.new("Market", 10_000)
-    account.withdraw(500)
-    account.deposit(200)
-    expect(account.num_of_transactions).to eq(2)
+    account.withdraw(500) # 9500
+    account.deposit(200) # 9700
+    expect(account.num_of_transactions).to eq(1)
+    # 1 and not 2 because the balance isn't >= $10k
   end
 
   let(:account) { Bank::MoneyMarketAccount.new("Market", 20_000) }
 
-  # max of 6 transactions allowed per month
+  # PER MONTH - make a test for that
   context "when 6 transactions have been made this month" do
     let(:market_account) { Bank::MoneyMarketAccount.new("Market", 20_000) }
 
@@ -73,21 +74,42 @@ describe Bank::MoneyMarketAccount do
         expect(account.withdraw(100)).to eq(10_800) # successful withdrawal
       end
 
-      # each transaction is counted against the 6 maximum
       it "counts each transaction towards the 6 transaction maximum" do
         3.times do
           account.withdraw(11_000)
           account.deposit(2000)
-        end
+      end
 
-        expect(account.num_of_transactions).to eq(5)
-        # equals 5 and not 6 because one of the transactions isn't successful
-        # it'd create a negative balance which isn't allowed
+        # withdraw1 counts; balance = 8900
+        # deposit1 doesn't count; balance = 10_900
+        # withdraw2 doesn't count, balance would've been negative; stays 10_900
+        # deposit2 counts; balance = 12900
+        # withdraw3 counts; balance = 1800
+        # deposit3 doesn't count; balance = 3800
+        expect(account.num_of_transactions).to eq(3)
       end
     end
   end
 
   describe "#deposit(amount)" do
-    
+    it "adds to the balance" do
+      account.deposit(10_000)
+      expect(account.balance).to eq(30_000)
+    end
+
+    it "returns an updated balance" do
+      expect(account.deposit(5000)).to eq(25_000)
+    end
+
+    it "counts towards total number of transactions" do
+      3.times { account.deposit(5000) }
+      expect(account.num_of_transactions).to eq(3)
+    end
+
+    it "doesn't count deposits that reach/exceed minimum balance" do
+      account.withdraw(15_000) # counts, balance = 5000
+      3.times { account.deposit(3500) } # balance = 8500; 12_000; counts, 15_500
+      expect(account.num_of_transactions).to eq(2)
+    end
   end
 end

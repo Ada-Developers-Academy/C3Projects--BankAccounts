@@ -38,11 +38,14 @@ module Bank
 
     def deposit(amount)
       is_at_transaction_limit
-
+      balance_before_deposit = @balance
       super
+
+      # if Income(amount) evaluated to 0 there was a problem
+      # e.g. amount input was a String
       @is_deposit_error = true if amount == 0
 
-      if !@is_deposit_error
+      if !@is_deposit_error && balance_before_deposit > 10_000
         @num_of_transactions += 1
       end
 
