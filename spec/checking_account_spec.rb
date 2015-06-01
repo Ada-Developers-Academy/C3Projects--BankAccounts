@@ -84,6 +84,30 @@ describe BankAccounts::CheckingAccount do
 					expect(checking_account.reset_checks).to eq(0)
 				end
 			end
+
+			context "allows the balance to overdraft" do
+				before(:each) do
+					8.times do
+						checking_account.withdraw_using_check(100)
+					end
+					checking_account.withdraw_using_check(90)
+				end
+
+				it "the balance can go below zero" do
+					expect(checking_account.balance).to eq(-4)
+				end
+
+				it "allows the balance to overdraft up to -10" do
+					checking_account.withdraw_using_check(4)
+					expect(checking_account.balance).to eq(-10)
+				end
+
+				it "does not permit overdraft past -10" do
+					checking_account.withdraw_using_check(4)
+					checking_account.withdraw_using_check(10)
+					expect(checking_account.balance).to eq(-10)
+				end
+			end
 		end
 	end
 

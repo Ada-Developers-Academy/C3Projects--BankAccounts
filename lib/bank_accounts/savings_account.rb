@@ -6,11 +6,7 @@ module BankAccounts
 			super
 			@minimum 		= 10
 			self.balance 	= initial_balance
-		end
-
-		def withdraw(amount)
-			return @balance if amount == 0
-			super(amount + 2)
+			@fee			= 2
 		end
 
 		def add_interest(amount)
