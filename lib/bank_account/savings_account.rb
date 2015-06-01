@@ -19,9 +19,7 @@ module BankAccount
     # Gets monies from account, updates current balance
     def withdraw(get_monies)
 
-      # All of this behavior is unique. So I
-      # don't think I can call super...
-      highway_robbery = 2
+      highway_robbery = 2 #That yucky fee
       total_withdraw = get_monies + highway_robbery
 
       # Proceeds if you have enough monies
