@@ -1,12 +1,13 @@
 module Bank
   class MoneyMarketAccount < Account
-    attr_accessor :num_of_transactions
+    attr_accessor :num_of_transactions, :balance
 
     def initialize(id, initial_balance)
       raise ArgumentError, "Account requires minimum balance of $10,000." if initial_balance.to_i < 10_000
       super
       @num_of_transactions = 0
       @balance = initial_balance.to_i
+      # @minimum_balance = 10_000
     end
 
     def is_at_transaction_limit
@@ -19,12 +20,20 @@ module Bank
     def withdraw(amount)
       is_at_transaction_limit
 
+      if @balance < 10_000
+        puts "Cannot withdraw until account balance is $10,000 or more."
+        return @balance
+      end
+
       super
 
       # if the transaction was successful
       if !@is_withdrawal_error
         @num_of_transactions += 1
+        @balance -= 100 if @balance < 10_000 # $100 fee
       end
+
+      return @balance
     end
 
     def deposit(amount)
@@ -36,6 +45,8 @@ module Bank
       if !@is_deposit_error
         @num_of_transactions += 1
       end
+
+      return @balance
     end
   end
 end
