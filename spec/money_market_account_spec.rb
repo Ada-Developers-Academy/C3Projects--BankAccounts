@@ -129,5 +129,37 @@ describe BankAccounts::MoneyMarketAccount do
 				expect(money_market_account.transactions_remaining).to eq(6)
 			end
 		end
+
+		context "adds interest" do
+
+			[
+				[1, 	  200],
+				[0.25, 	  50],
+				[5,		 1000],
+				[0,		  0],
+			].each do |rate, interest|
+				it "adds interest to account at a rate of #{rate} and returns #{interest}" do
+					expect(money_market_account.add_interest(rate)).to eq(interest)
+				end
+			end
+		
+			[
+				[1, 	20200],
+				[0.25, 	20050],
+				[5,		21000],
+				[0,		20000]
+			].each do |rate, new_balance|
+				it "adding interest at rate of #{rate} yields new balance of #{new_balance}" do
+					money_market_account.add_interest(rate)
+					expect(money_market_account.balance).to eq(new_balance)
+				end
+			end
+
+			it "raises ArgumentError in case of negative rate" do
+				expect { 
+					money_market_account.add_interest(-2)
+				}.to raise_error ArgumentError
+			end
+		end
 	end
 end

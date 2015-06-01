@@ -46,5 +46,14 @@ module BankAccounts
 			@transactions_remaining = 6
 		end
 
+		# this is the same as SavingsAccount#add_interest
+		def add_interest(amount)
+			if amount == nil || amount < 0
+				raise ArgumentError.new("Interest rate cannot be negative.")
+			end
+			interest = @balance * (amount.to_f/100)
+			@balance += interest
+			return interest
+		end
 	end
 end
