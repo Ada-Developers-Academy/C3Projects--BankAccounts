@@ -9,7 +9,7 @@ describe BankAccount::CheckingAccount do
     end
   end
 
-  context "instance methods" do
+  context "withdraw methods methods" do
     let(:checking_account) {BankAccount::CheckingAccount.new(6, 600)}
 
     it "withdraws correct amount + $1" do
@@ -37,16 +37,17 @@ describe BankAccount::CheckingAccount do
 
     context "checks methods" do
       let(:checking_account) {BankAccount::CheckingAccount.new(6, 600)}
-      check_count = BankAccount::CheckingAccount.new(6, 600).checks = 4
-      puts @checks
       
 
       it "checks if checks are set" do
-        expect(check_count).to eq 4
+        4.times do |count|
+          checking_account.withdraw_using_check(10)
+        end
+        expect(checking_account.checks).to eq 4
       end
 
       it "reset the check counter" do
-        expect(check_count.reset_checks).to eq 0
+        expect(checking_account.reset_checks).to eq 0
       end
   
     end
