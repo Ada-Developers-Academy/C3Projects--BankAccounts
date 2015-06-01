@@ -6,6 +6,7 @@ module Bank
       raise ArgumentError.new "Insufficient Funds" unless initial_balance >= 10
     end
 
+    # charges $2 for every withdrawal
     def withdraw(amount)
       @balance -= (amount + 2)
       if @balance < 10
@@ -16,6 +17,7 @@ module Bank
       end
     end
 
+    # calculates interest on balance where rate is in %
     def add_interest(rate)
       @accrued_interest = @balance * (rate/100.to_f)
       @balance += @accrued_interest
