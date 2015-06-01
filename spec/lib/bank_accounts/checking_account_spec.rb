@@ -25,6 +25,32 @@ describe BankAccounts::CheckingAccount do
 
   end
 
+  context "#withdraw_using_check subtracts 'amount' from balance (as a result of a check withdraw):" do
+    results = [900, 800, 700]
+    results.each do |result|
+      it "up to 3 (free) times" do
+        expect(tom.withdraw_using_check(100)).to eq(result)
+      end
+    end
+
+    it "charges $2 after 3 free times" do
+      3.times { tom.withdraw(100) }
+      expect(tom.withdraw_using_check(100)).to eq()
+    end
+  end
+
+  context "#withdraw_using_check allows account to go into overdraft:" do
+
+    it "up to -$10 (returns modified balance)" do
+      expect(tom.withdraw_using_check(1010)).to eq(-10)
+    end
+
+    it "but not any lower (returns un-modified balance)" do
+      expect(tom.withdraw_using_check(1011)).to eq(1000)
+    end
+
+  end
+
   # Is it usual to copy and paste rspecs from a parent class?
 
 end
