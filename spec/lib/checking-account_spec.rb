@@ -31,7 +31,7 @@ describe BankAccounts::CheckingAccount do
           expect(checking_account.withdraw(5032)).to eq(1002)
         end
 
-        it "allows withdrawals betwee 0 and 10" do
+        it "unlike SavingsAccount, allows withdrawals that result in a balance between 0 and 10" do
           expect(checking_account.withdraw(1000)).to eq(1)
         end
 
@@ -82,26 +82,24 @@ describe BankAccounts::CheckingAccount do
       end
 
       context "after the third withdraw_using_check call" do
+        amounts = [7, 2, 7, 10, 7]
+        expected_balance = [80, 78, 71, 59, 50]
         it "charges a $2 fee" do
-          expect(checking_account.withdraw_using_check(7)).to eq(80)
-          expect(checking_account.withdraw_using_check(2)).to eq(78)
-          expect(checking_account.withdraw_using_check(7)).to eq(71)
-          expect(checking_account.withdraw_using_check(10)).to eq(59)
-          expect(checking_account.withdraw_using_check(7)).to eq(50)
-          expect(checking_account.balance).to eq(50)
+          amounts.each_index do |index|
+            expect(checking_account.withdraw_using_check(amounts[index])).to eq(expected_balance[index])
+          end
         end
 
         it "reset_checks sets checks_used to 0" do
-          expect(checking_account.withdraw_using_check(7)).to eq(80)
-          expect(checking_account.withdraw_using_check(2)).to eq(78)
-          expect(checking_account.withdraw_using_check(7)).to eq(71)
-          expect(checking_account.withdraw_using_check(10)).to eq(59)
-          expect(checking_account.withdraw_using_check(7)).to eq(50)
+          amounts.each_index do |index|
+            expect(checking_account.withdraw_using_check(amounts[index])).to eq(expected_balance[index])
+          end
           expect(checking_account.checks_used).to eq(5)
           expect(checking_account.reset_checks).to eq(0)
           expect(checking_account.checks_used).to eq(0)
           expect(checking_account.balance).to eq(50)
         end
+      
       end
 
   end

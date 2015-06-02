@@ -1,7 +1,7 @@
 module BankAccounts
 
   class Account
-    attr_accessor :id, :min_balance, :initial_balance, :balance, :fee
+    attr_reader :id, :balance, :min_balance, :initial_balance, :fee
 
     def initialize(id, initial_balance = 0)
       @id = id
@@ -14,7 +14,7 @@ module BankAccounts
     end
 
     def check_initial_balance(initial_balance)
-      if initial_balance == nil || initial_balance < @min_balance
+      if initial_balance.nil? || initial_balance < @min_balance
         raise ArgumentError.new("Initial balance must be #{min_balance} or greater.")
       end
     end
@@ -33,9 +33,9 @@ module BankAccounts
         warn("Warning: Insufficient funds! You cannot withdraw #{amount}. Your account only has #{@balance}.")
       else
         # updates account balance
-        @balance = new_balance.round(2)
+        @balance = new_balance
       end
-      return @balance
+      return @balance.round(2)
     end
 
     # Adds amount to balance and returns balance
