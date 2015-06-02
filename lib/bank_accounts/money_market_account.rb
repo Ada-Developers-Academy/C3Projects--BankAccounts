@@ -4,19 +4,21 @@ module BankAccounts
 
 		attr_reader	:transactions_remaining
 
+		TRANSACTION_COUNT = 6
+
 		def initialize(id, initial_balance)
 			super
 			@minimum 				= 10_000
 			self.balance 			= initial_balance
 			# hardcoding the number of transactions permitted and working down
-			@transactions_remaining	= 6
+			@transactions_remaining	= TRANSACTION_COUNT
 			@low_balance			= false
 		end
 
 		def validate_withdrawal(amount)
 			valid = true
-			# guard clause for if already 6 transactions
-			return "You've already used all 6 transactions for this month." if @transactions_remaining == 0
+			# guard clause for if already maximum transactions
+			return "You've already used all #{TRANSACTION_COUNT} transactions for this month." if @transactions_remaining == 0
 			unless @low_balance
 				@transactions_remaining -= 1
 				if @balance - amount < 10_000
@@ -45,7 +47,7 @@ module BankAccounts
 
 		# reset the transactions to the allowed number of 6
 		def reset_transactions
-			@transactions_remaining = 6
+			@transactions_remaining = TRANSACTION_COUNT
 		end
 
 		# this is the same as SavingsAccount#add_interest

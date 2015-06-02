@@ -3,14 +3,16 @@ module BankAccounts
 	class CheckingAccount < BankAccounts::Account
 		attr_reader :free_checks_remaining, :using_check
 
+		FREE_CHECK_COUNT = 3
+
 		def initialize(id, initial_balance)
 			super
 			@minimum 				= 0
 			@overdraft_limit	 	= -10
 			@fee					= 1
 			@check_fee				= 2
-			@free_checks_remaining 	= 3
-			@using_check 			= false
+			@free_checks_remaining 	= FREE_CHECK_COUNT
+			@using_check			= false
 		end
 
 		def validate_withdrawal(amount)
@@ -44,7 +46,7 @@ module BankAccounts
 		end
 
 		def reset_checks
-			@free_checks_remaining = 3
+			@free_checks_remaining = FREE_CHECK_COUNT
 		end
 	end
 end
