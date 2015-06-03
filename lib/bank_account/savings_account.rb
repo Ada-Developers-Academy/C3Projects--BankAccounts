@@ -34,8 +34,8 @@ module BankAccount
       # and so it will just return an error and the unmodified balance
       else
         puts "You can't go under $10. Your balance is staying at $#{@balance}."
-        return @balance
       end
+      return @balance
     end
 
     # inherited the deposit behavior from the parent class, BankAccount::Account
@@ -47,7 +47,7 @@ module BankAccount
       #stores the balance's interest in a variable
       interest = @balance * rate/100
 
-      #stores the new updated balance from the current balance plus the interest 
+      #stores the new updated balance from the current balance plus the interest
       #which will make the current balance reflect that when calling balance on Savings Account
       @balance += interest
       puts "Your interest rate to be added is $#{interest}. Call balance to see updated amount."

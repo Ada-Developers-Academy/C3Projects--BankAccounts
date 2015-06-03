@@ -7,7 +7,6 @@ module BankAccount
     def initialize(id, initial_balance)
       @id = id
       @balance = initial_balance #local variable
-      # made initial balance equal to instance variable balance, which actually turns out to be the current balance
 
       #this raises an error to prevent the initial balance from being lower than 0
       unless @balance >= 0
@@ -18,13 +17,14 @@ module BankAccount
     def withdraw(amount)
 
   # If the amount to withdraw is greater than the current balance, it throws and error and returns the original balance
-      unless @balance >= amount
+      if amount >= @balance
         puts "You can't overdraw. Your balance is still $#{@balance}."
         return @balance
 
   # Otherwise, just subtract from the current balance and increment it so balance will always stay current
       else
         @balance -= amount
+        return @balance
       end
     end
 
