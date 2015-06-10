@@ -12,37 +12,29 @@ module BankAccounts
 			@fee					= 1
 			@check_fee				= 2
 			@free_checks_remaining 	= FREE_CHECK_COUNT
-			@using_check			= false
 		end
 
-		def validate_withdrawal(amount)
-			if @using_check
-				return @balance if amount == 0
-				valid = true
-				amount_to_withdraw = @free_checks_remaining > 0 ? amount : amount + @check_fee
-				if amount_to_withdraw <= @balance - @overdraft_limit
-					return amount_to_withdraw, valid
-				else
-					puts "You cannot withdraw more than the limit: #{@overdraft_limit}."
-					valid = false
-					return @balance, valid
-				end
+		def validate_check_withdrawal(amount)
+			return @balance if amount == 0
+			valid = true
+			amount_to_withdraw = @free_checks_remaining > 0 ? amount : amount + @check_fee
+			if amount_to_withdraw <= @balance - @overdraft_limit
+				return amount_to_withdraw, valid
 			else
-				super
+				puts "You cannot withdraw more than the limit: #{@overdraft_limit}."
+				valid = false
+				return @balance, valid
 			end
 		end
 
 		def withdraw_using_check(amount)
-			@using_check = true
-			amount_to_withdraw, valid = validate_withdrawal(amount)
+			amount_to_withdraw, valid = validate_check_withdrawal(amount)
 
 			if valid
 				@balance -= amount_to_withdraw
 			end
-			@free_checks_remaining -= 1
 
-			# reset @using_check
-			@using_check = false
+			@free_checks_remaining -= 1
 		end
 
 		def reset_checks
