@@ -18,14 +18,9 @@ module BankAccounts
 			@balance = initial_balance
 		end
 
-		# def zero_balance
-		# 	return @balance if amount == 0
-		# end
-
 		def validate_withdrawal(amount)
 			return @balance if amount == 0
 			valid = true
-			# zero_balance
 
 			amount_to_withdraw = amount + @fee
 			if amount_to_withdraw <= @balance - @minimum
