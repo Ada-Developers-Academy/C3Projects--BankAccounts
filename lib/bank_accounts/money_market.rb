@@ -28,7 +28,7 @@ module BankAccounts
       else
         super
       end
-      return @balance = round_to_hundredths(@balance) 
+      return @balance = round_to_hundredths(@balance)
       super
     end
 

@@ -22,7 +22,7 @@ module BankAccounts
 
     def withdraw_using_check(amount)
       @checks_used += 1 # increase checks used with each method call
-      
+
       if @checks_used > 3
         # $2 fee for greater than 3 checks
         amount += 2
@@ -34,7 +34,7 @@ module BankAccounts
           @balance -= amount
         end
         return @balance = round_to_hundredths(@balance)
-    
+
       # no transaction fee for 3 or fewer checks
       else
         if (@balance - amount) < -10

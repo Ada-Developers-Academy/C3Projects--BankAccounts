@@ -6,7 +6,7 @@ module BankAccounts
     attr_reader :balance
 
     def initialize(id, initial_balance)
-      
+
       # Require at least $10 to start savings account
       if round_to_hundredths(initial_balance) < 10
         raise ArgumentError.new "MINIMUM BALANCE $10 REQUIRED"
@@ -28,7 +28,7 @@ module BankAccounts
       else
         super
       end
-      return @balance = round_to_hundredths(@balance) 
+      return @balance = round_to_hundredths(@balance)
     end
 
     def interest(rate)

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'bank_accounts'
 
 describe BankAccounts::SavingsAccount do
-  
+
   context "A savings account is a bank account" do
     it "SavingsAccount class inherits from Account class" do
       expect(BankAccounts::SavingsAccount.superclass).to eq(BankAccounts::Account)
