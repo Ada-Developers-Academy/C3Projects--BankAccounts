@@ -40,7 +40,7 @@ describe BankAccounts::CheckingAccount do
     end
   end
 
-  context "When a new month begins, checks used count is reset" do
+  context "A new month begins" do
     let (:checking) { BankAccounts::CheckingAccount.new(0, 500) }
 
     it "resets the number of used checks from 10 to 0" do

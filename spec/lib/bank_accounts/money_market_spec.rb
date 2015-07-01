@@ -20,7 +20,6 @@ describe BankAccounts::MoneyMarketAccount do
 
   it "returns an updated account balance after withdrawing" do
     expect(money_market.withdraw(200)).to eq(19800)
-    expect(money_market.withdraw(4800)).to eq(15000)
   end
 
   it "Adds a fee of $100 for withdrawal surpassing $10000 minimum" do
