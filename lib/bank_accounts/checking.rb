@@ -27,23 +27,22 @@ module BankAccounts
         # $2 fee for greater than 3 checks
         amount += 2
 
-        # Raises warning message if overdraft goes lower than -$10
-        if (@balance - amount) < -10
-          raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{round_to_hundredths(@balance)}."
-        else
-          @balance -= amount
-        end
-        return @balance = round_to_hundredths(@balance)
+        overdraft_check
 
       # no transaction fee for 3 or fewer checks
       else
-        if (@balance - amount) < -10
-          raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{round_to_hundredths(@balance)}."
-        else
-          @balance -= amount
-        end
-        return @balance = round_to_hundredths(@balance)
+        overdraft_check
       end
+    end
+
+    # Raises warning message if overdraft goes lower than -$10
+    def overdraft_check
+      if (@balance - amount) < -10
+        raise ArgumentError.new "OVERDRAFT WARNING - only $10 overdraft allowed. Your current balance is #{round_to_hundredths(@balance)}."
+      else
+        @balance -= amount
+      end
+      return @balance = round_to_hundredths(@balance)
     end
 
     def reset_checks
