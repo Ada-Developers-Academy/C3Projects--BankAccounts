@@ -19,7 +19,7 @@ describe BankAccounts::MoneyMarketAccount do
   let (:money_market) { BankAccounts::MoneyMarketAccount.new(0, 20000) }
 
   it "returns an updated account balance after withdrawing" do
-    expect(money_market.withdraw(200)).to eq(19800)
+    expect(money_market.withdraw(200)).to eq(19800)g
   end
 
   it "Adds a fee of $100 for withdrawal surpassing $10000 minimum" do
