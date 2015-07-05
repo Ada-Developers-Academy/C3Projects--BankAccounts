@@ -6,7 +6,7 @@ module BankAccounts
     def initialize(id, initial_balance)
       # raises an error if initial_balance is negative
       if initial_balance < 0
-        raise ArgumentError.new("Only positive initial balances allowed")
+        raise ArgumentError, "Only positive initial balances allowed"
       end
 
       @id = id
@@ -20,7 +20,7 @@ module BankAccounts
         puts "You can't withdraw what you don't have..."
       else
       # the input amount gets taken out of the account as result of an ATM transaction
-        @balance = @balance - amount
+        @balance -= amount
       end
       # return value should be the updated account balance
       return @balance
@@ -28,7 +28,7 @@ module BankAccounts
 
     def deposit(amount)
     # adds the input amount to the account balance as a result of an ATM transaction
-      @balance = @balance + amount
+      @balance += amount
     # return value should be the updated account balance
       return @balance
     end

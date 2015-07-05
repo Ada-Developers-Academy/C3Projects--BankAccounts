@@ -19,7 +19,7 @@ module BankAccounts
       # will output a warning message and return the original un-modified balance
         puts "You can't withdraw that much"
       else
-        @balance = @balance - (amount + 2)
+        @balance -= (amount + 2)
       end
         return @balance
     end
@@ -27,7 +27,7 @@ module BankAccounts
     def add_interest(rate)
       # calculate the interest on the balance AND add the interest to the balance
       interest = @balance * rate/100
-      @balance = @balance + interest
+      @balance += interest
       # return the interest that was calculated and added to the balance (not the updated balance)
       return interest
       #Input rate is assumed to be a percentage (i.e. 0.25).

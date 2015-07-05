@@ -1,7 +1,7 @@
 module BankAccounts
 
   class CheckingAccount < Account
-      # attr_accessor :check_count
+      attr_accessor :check_count
 
     def initialize(id, initial_balance)
       super
@@ -15,7 +15,8 @@ module BankAccounts
         puts "You can't withdraw what you don't have..."
       else
       # the input amount gets taken out of the account as result of an ATM transaction.
-        @balance = @balance - (amount + 1)
+        fee = 1
+        @balance -= (amount + fee)
       # each withdrawal 'transaction' incurs a fee of $1 that is taken out of the balance.
       # returns the updated account balance.
       end
@@ -32,7 +33,7 @@ module BankAccounts
         puts "You can't withdraw that much"
       else
       # the input amount gets taken out of the account as a result of a check withdrawal
-        @balance = @balance - (amount + fee)
+        @balance -= (amount + fee)
         @check_count += 1
       end
       # returns the updated account balance or the unmodified balance if amount is more than 10 more than balance
