@@ -6,10 +6,10 @@ module BankAccounts
       super
       # raises an error if initial_balance is less than 10
       if initial_balance < 10
-        raise ArgumentError.new("Initial balances must be at least 10")
+        raise ArgumentError, "Initial balances must be at least 10"
       end
     end
-
+  
     def withdraw(amount)
       # the input amount gets taken out of the account as result of an ATM transaction
       # does not allow the account to go below the $10 minimum balance
