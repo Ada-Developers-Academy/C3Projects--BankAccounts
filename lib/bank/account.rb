@@ -14,7 +14,7 @@ module Bank
     def withdraw(amount)
       # Integer() will turn strings of numbers into valid integers.
       # If it's not a whole number or includes invalid characters
-      # it'll return 0 instead
+      # it'll raise the error instead
       begin
         amount = Integer(amount)
       rescue
@@ -24,8 +24,8 @@ module Bank
       error_message = "You cannot withdraw more than the balance minimum of $#{@minimum_balance}."
       @is_withdrawal_error = false
 
-      if @balance - amount >= @minimum_balance
-        @balance -= amount
+      if @balance - (amount + (@fee ||= 0)) >= @minimum_balance
+        @balance -= (amount + (@fee ||= 0))
       else
         @is_withdrawal_error = true
         puts error_message

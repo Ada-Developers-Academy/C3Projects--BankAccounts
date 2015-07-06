@@ -42,7 +42,7 @@ describe Bank::SavingsAccount do
       end
 
       it "outputs a warning message" do
-        expect{account.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $12.\n").to_stdout
+        expect{account.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $10.\n").to_stdout
       end
 
       it "returns the unmodified the balance" do

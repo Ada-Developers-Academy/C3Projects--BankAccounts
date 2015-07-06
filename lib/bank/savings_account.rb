@@ -6,19 +6,12 @@ module Bank
 
       @id = id
       @balance = initial_balance.to_i
-      @minimum_balance = 12
+      @minimum_balance = 10
+      @fee = 2
     end
 
     def withdraw(amount)
       super
-      # there was not an error with the withdrawal amount
-      if !@is_withdrawal_error
-        # subtract the $2 fee from balance
-        return @balance - 2
-      else
-        # return the unmodified balance
-        return @balance
-      end
     end
 
     def add_interest(rate)
