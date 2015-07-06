@@ -61,6 +61,7 @@ describe Bank::Account do
       end
 
       it "outputs a warning message" do
+        # `puts` got changed to `warn` so output doesn't work anymore
         expect{bank.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $0.\n").to_stdout
       end
 
@@ -72,7 +73,7 @@ describe Bank::Account do
   end
 
   describe "#deposit(amount)" do
-    let(:money) { ["0.30", "50", "60"].sample }
+    let(:money) { ["22", "50", "60"].sample }
 
     it "adds amount to @balance" do
       bank.deposit(money)

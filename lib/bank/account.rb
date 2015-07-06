@@ -28,7 +28,7 @@ module Bank
         @balance -= (amount + (@fee ||= 0))
       else
         @is_withdrawal_error = true
-        puts error_message
+        warn error_message
       end
 
       return @balance

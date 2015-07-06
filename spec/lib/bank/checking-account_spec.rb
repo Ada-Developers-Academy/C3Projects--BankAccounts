@@ -86,39 +86,40 @@ describe Bank::CheckingAccount do
     end
 
     context "when three checks have been used this month" do
-      # used before block to solve scope issue
-      # apparently :account can't be used within a context block
-      # outside of the individual examples (e.g. it blocks)…?
-      before(:each) do
-        @account = Bank::CheckingAccount.new("Checking", 1000)
+      let(:account) { Bank::CheckingAccount.new("Checking", 1000) }
 
+      before(:each) do
         3.times do
-          @account.withdraw_using_check(20)
-          # @account.balance = 940
+          account.withdraw_using_check(20)
+          # account.balance = 940
         end
       end
 
       it "charges a $2 fee per use after the third check transaction" do
-        @account.withdraw_using_check(20)
-        # 940 - (20 + 2) = 918
-        expect(@account.balance).to eq(918)
+        old_balance = account.balance
+        check_withdraw_amount = 20
+        fee = 2
+        new_balance = old_balance - (check_withdraw_amount + fee)
+
+        expect(account.withdraw_using_check(20)).to eq (new_balance)
+        expect(account.balance).to eq(new_balance)
       end
 
       it "accounts for $2 fee regarding $10 overdraft limit" do
-        expect{@account.withdraw_using_check(950)}.to output("Account cannot overdraft over $10.\n").to_stdout
+        expect{account.withdraw_using_check(950)}.to output("Account cannot overdraft over $10.\n").to_stdout
         # since transaction wasn't completed, it shouldn't count
         # towards that month's used checks
-        expect(@account.check_transactions).to be < 4
+        expect(account.check_transactions).to be < 4
       end
 
       # testing that $1010 withdrawal is not okay after first 3 checks
       # after third check, $2 fee would be added (totaling $1012)
       # and would create $12 overdraft which isn't allowed
       it "doesn't allow withdrawal to be $12 over balance" do
-        @account.withdraw_using_check(950) # plus $2 fee = 952
-        expect(@account.balance).to eq(940)
+        account.withdraw_using_check(950) # plus $2 fee = 952
+        expect(account.balance).to eq(940)
         # check transaction wasn't completed
-        expect(@account.check_transactions).to eq(3)
+        expect(account.check_transactions).to eq(3)
       end
     end
 
