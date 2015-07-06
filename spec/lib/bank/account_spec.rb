@@ -5,10 +5,6 @@ describe Bank::Account do
   let(:bank) { Bank::Account.new("Checking", 50) }
 
   describe "#new" do
-    it "creates a new instance" do
-      expect(Bank::Account).to respond_to(:new)
-    end
-
     describe "initialize" do
       it "assigns the id instance variable" do
         expect(bank.id).to eq("Checking")
@@ -21,9 +17,11 @@ describe Bank::Account do
       it "sets balance to an integer" do
         bank = Bank::Account.new("Checking", "45")
         expect(bank.balance).to eq(45)
+      end
 
-        bank2 = Bank::Account.new("Checking", "af")
-        expect(bank2.balance).to eq(0)
+      it "doesn't initialize a non-integer balance" do
+        bank = Bank::Account.new("Checking", "af")
+        expect(bank.balance).to eq(0)
       end
 
       context "when creating an account with a negative balance" do
@@ -50,6 +48,9 @@ describe Bank::Account do
       bank.withdraw("20")
 
       expect(bank.balance).to eq(25)
+    end
+
+    it "doesn't subtract a non-integer from @balance" do
       expect{ bank.withdraw("forty") }.to raise_error(ArgumentError, "Not a valid amount.")
     end
 
@@ -64,13 +65,14 @@ describe Bank::Account do
       end
 
       it "returns unmodified balance" do
-        expect(bank.withdraw(100)).to eq(50)
+        unmodified_balance = bank.balance
+        expect(bank.withdraw(100)).to eq(unmodified_balance)
       end
     end
   end
 
   describe "#deposit(amount)" do
-    let(:money) { ["0.30", "50", "60"].shuffle.sample }
+    let(:money) { ["0.30", "50", "60"].sample }
 
     it "adds amount to @balance" do
       bank.deposit(money)
