@@ -11,15 +11,17 @@ module Bank
 
     # subtracts amount from total balance
     def withdraw(amount)
-      @balance -= amount
-      # for withdrawal greater than balance
-      # gives warning error and returns original balance
-      if @balance < 0
+      if amount > @balance
         puts "Insufficient funds. Your remaining balance is:"
-        return @balance += amount
       else
-        return @balance
+        @balance -= amount
       end
+      return @balance
+    end
+
+    def deposit(amount)
+      @balance += amount
+      return @balance
     end
 
   end

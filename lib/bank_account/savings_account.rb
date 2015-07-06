@@ -19,9 +19,9 @@ module Bank
 
     # calculates interest on balance where rate is in %
     def add_interest(rate)
-      @accrued_interest = @balance * (rate/100.to_f)
-      @balance += @accrued_interest
-      return @accrued_interest
+      accrued_interest = @balance * (rate/100.to_f)
+      @balance += accrued_interest
+      return accrued_interest
     end
 
   end

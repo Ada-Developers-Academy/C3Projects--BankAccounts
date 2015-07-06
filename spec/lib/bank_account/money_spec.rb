@@ -1,4 +1,4 @@
-require 'bank_account'
+require './lib/bank_account/money_market.rb'
 
 describe Bank::MoneyMarketAccount do
   context "attributes" do

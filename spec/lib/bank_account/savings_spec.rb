@@ -1,4 +1,4 @@
-require 'bank_account'
+require './lib/bank_account/savings_account.rb'
 
 describe Bank::SavingsAccount do
   context "attributes" do

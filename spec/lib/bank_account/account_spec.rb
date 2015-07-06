@@ -1,4 +1,4 @@
-require 'bank_account'
+require './lib/bank_account/account.rb'
 
 describe Bank::Account do
   let(:account) {Bank::Account.new("check_it", 1000)}
@@ -20,7 +20,7 @@ describe Bank::Account do
       expect(account.balance).to eq(1000)
     end
 
-    it "returns 750 for a 250 withdrawal" do
+    it "withdraws the specified amount" do
       expect(account.withdraw(250)).to eq(750)
     end
 
@@ -29,7 +29,7 @@ describe Bank::Account do
         expect{Bank::Account.new("so_broke", -10)}.to raise_error(ArgumentError)
       end
 
-      it "returns original balance of 1000 for overdraft" do
+      it "returns original balance for overdraft" do
         expect(account.withdraw(1500)).to eq(1000)
       end
     end
