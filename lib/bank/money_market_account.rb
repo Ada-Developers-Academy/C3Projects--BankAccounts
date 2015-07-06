@@ -10,7 +10,7 @@ module Bank
       @month = Time.now.mon
     end
 
-    def is_at_transaction_limit
+    def check_transaction_limit
       if @month != Time.now.mon
         reset_transactions
         @month = Time.now.mon
@@ -18,12 +18,14 @@ module Bank
 
       if @num_of_transactions >= 6
         # uses abort because I want to end the transaction request
+        # if there is a way to just kick them out of this method
+        # like how `return` does, I'd much prefer that
         abort("You've reached your transaction limit for this month.")
       end
     end
 
     def withdraw(amount)
-      is_at_transaction_limit
+      check_transaction_limit
 
       if @balance < 10_000
         puts "Cannot withdraw until account balance is $10,000 or more."
@@ -42,7 +44,7 @@ module Bank
     end
 
     def deposit(amount)
-      is_at_transaction_limit
+      check_transaction_limit
       balance_before_deposit = @balance
       super
 
@@ -60,6 +62,7 @@ module Bank
     def add_interest(rate)
       @interest = @balance * rate / 100
       @balance += @interest
+      return @interest
     end
 
     def reset_transactions

@@ -1,7 +1,7 @@
 module Bank
   class Account
-    # attr_accessor creates an implicit balance method
-    attr_accessor :id, :balance
+    # attr_reader creates an implicit balance method
+    attr_reader :id, :balance
 
     def initialize(id, initial_balance)
       raise ArgumentError, "Negative balance is invalid." if initial_balance.to_i < 0
@@ -15,7 +15,12 @@ module Bank
       # Integer() will turn strings of numbers into valid integers.
       # If it's not a whole number or includes invalid characters
       # it'll return 0 instead
-      amount = Integer(amount) rescue 0
+      begin
+        amount = Integer(amount)
+      rescue
+        raise ArgumentError, "Not a valid amount."
+      end
+
       error_message = "You cannot withdraw more than the balance minimum of $#{@minimum_balance}."
       @is_withdrawal_error = false
 
@@ -30,7 +35,11 @@ module Bank
     end
 
     def deposit(amount)
-      amount = Integer(amount) rescue 0
+      begin
+        amount = Integer(amount)
+      rescue
+        raise ArgumentError, "Not a valid amount."
+      end
       return @balance += amount
     end
   end

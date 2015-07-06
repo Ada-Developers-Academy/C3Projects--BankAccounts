@@ -13,7 +13,7 @@ module Bank
       # there was not an error with the withdrawal amount
       if !@is_withdrawal_error
         # subtract the $1 fee from balance
-        return @balance - 1
+        return @balance -= 1
       else
         # return the unmodified balance
         return @balance
@@ -34,6 +34,7 @@ module Bank
         return @balance -= amount
       else
         puts "Account cannot overdraft over $10."
+        return @balance # stays consistent with withdraw method
       end
     end
 

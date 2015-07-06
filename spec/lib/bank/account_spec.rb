@@ -2,9 +2,7 @@ require 'bank'
 
 describe Bank::Account do
 
-  before :each do
-    @bank = Bank::Account.new("Checking", 50)
-  end
+  let(:bank) { Bank::Account.new("Checking", 50) }
 
   describe "#new" do
     it "creates a new instance" do
@@ -13,11 +11,11 @@ describe Bank::Account do
 
     describe "initialize" do
       it "assigns the id instance variable" do
-        expect(@bank.id).to eq("Checking")
+        expect(bank.id).to eq("Checking")
       end
 
       it "assigns the balance instance variable" do
-        expect(@bank.balance).to eq(50)
+        expect(bank.balance).to eq(50)
       end
 
       it "sets balance to an integer" do
@@ -47,53 +45,46 @@ describe Bank::Account do
       end
     end
 
-    # it "is a result of an ATM transaction" do
-    # end
-
     it "subtracts an integer from @balance" do
       bank = Bank::Account.new("Checking", "45")
       bank.withdraw("20")
-      expect(bank.balance).to eq(25)
 
-      bank2 = Bank::Account.new("Checking", 100)
-      bank.withdraw("forty")
-      expect(bank2.balance).to eq(100)
+      expect(bank.balance).to eq(25)
+      expect{ bank.withdraw("forty") }.to raise_error(ArgumentError, "Not a valid amount.")
     end
 
     context "amount is greater than account balance" do
       it "does not withdraw amount" do
-        @bank.withdraw(100)
-        expect(@bank.balance).to eq(50)
+        bank.withdraw(100)
+        expect(bank.balance).to eq(50)
       end
 
       it "outputs a warning message" do
-        expect{@bank.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $0.\n").to_stdout
+        expect{bank.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $0.\n").to_stdout
       end
 
       it "returns unmodified balance" do
-        expect(@bank.withdraw(100)).to eq(50)
+        expect(bank.withdraw(100)).to eq(50)
       end
     end
   end
 
   describe "#deposit(amount)" do
-    money = ["0.30," "50", "60"].shuffle.sample
+    let(:money) { ["0.30", "50", "60"].shuffle.sample }
 
     it "adds amount to @balance" do
-      @bank.deposit(money)
-      expect(@bank.balance).to eq(50 + money.to_i)
+      bank.deposit(money)
+      expect(bank.balance).to eq(50 + money.to_i)
     end
 
-    # as a result of an ATM transaction
-
     it "returns updated balance" do
-      expect(@bank.deposit(money)).to eq(50 + money.to_i)
+      expect(bank.deposit(money)).to eq(50 + money.to_i)
     end
 
     context "adding invalid amounts to balance" do
       it "only adds integers" do
         ["af", "$$", "5&3"].each do |fake_money|
-          expect(@bank.deposit(fake_money)).to eq(50 + 0)
+          expect{ bank.deposit(fake_money) }.to raise_error(ArgumentError, "Not a valid amount.")
         end
       end
     end
@@ -101,8 +92,8 @@ describe Bank::Account do
 
   describe "#balance" do
     it "returns current balance" do
-      @bank.deposit(50)
-      expect(@bank.balance).to eq(50 + 50)
+      bank.deposit(50)
+      expect(bank.balance).to eq(50 + 50)
     end
   end
 end

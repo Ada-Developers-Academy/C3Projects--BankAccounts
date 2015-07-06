@@ -21,7 +21,7 @@ describe Bank::MoneyMarketAccount do
     account.num_of_transactions = 4
     # and now we're making a new deposit
     account.deposit(10_000)
-    
+
     expect(account.num_of_transactions).to eq(1) # our successful deposit
   end
 
@@ -134,7 +134,7 @@ describe Bank::MoneyMarketAccount do
     end
 
     it "returns calculated interest" do
-      expect(account.add_interest(0.25)).to eq(20_050)
+      expect(account.add_interest(0.25)).to eq(50.0)
     end
   end
 

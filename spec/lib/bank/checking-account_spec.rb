@@ -11,11 +11,9 @@ describe Bank::CheckingAccount do
 
   describe "#withdraw(amount)" do
     it "withdraws amount from balance" do
-      account.withdraw(100)
-      expect(account.balance).to eq(900)
+      account.withdraw(100) # plus $1 fee
+      expect(account.balance).to eq(899)
     end
-
-    # from an ATM transaction
 
     # how can I check for the $1 independently?
     it "also withdraws $1 fee and returns balance" do
