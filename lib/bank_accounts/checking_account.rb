@@ -6,7 +6,7 @@ module BankAccounts
 
     # limits
     CHECKS_LIMIT = 3
-    MINIMUM_BALANCE = -10
+    MINIMUM_BALANCE = -10.00
 
     # fees
     EXCESS_CHECKS_FEE = 2.00
@@ -22,8 +22,6 @@ module BankAccounts
       super(id, initial_balance)
 
       @checks_used = 0
-
-      return true
     end
 
 
@@ -36,29 +34,24 @@ module BankAccounts
 
     # withdraw money from account.
     def withdraw(amount)
-      if super(amount + WITHDRAWAL_FEE)
-        return @balance
-      else
-        return @balance
-      end
+      super(amount + WITHDRAWAL_FEE)
+
+      @balance
     end
 
 
     def withdraw_using_check(amount)
       if validate_check_withdrawal(amount)
         @checks_used += 1
-      end
-
-      unless @checks_used <= 3
-        amount += EXCESS_CHECKS_FEE
-      end
-
-      if withdraw(amount)
-        return @balance
       else
         return @balance
       end
 
+      amount += EXCESS_CHECKS_FEE unless @checks_used <= 3
+
+      withdraw(amount)
+
+      return @balance
     end
 
 
@@ -69,9 +62,7 @@ module BankAccounts
 
     # check withdrawal amount is valid (not below minimum balance).
     def validate_withdrawal(amount)
-      unless validate_number(amount)
-        return false
-      end
+      validate_number(amount)
 
       future_balance = @balance - amount - WITHDRAWAL_FEE
 
@@ -86,13 +77,9 @@ module BankAccounts
 
 
     def validate_check_withdrawal(amount)
-      if (@checks_used + 1) > 3
-        amount += EXCESS_CHECKS_FEE
-      end
+      amount += EXCESS_CHECKS_FEE if (@checks_used + 1) > 3
 
-      if validate_withdrawal(amount)
-        return true
-      end
+      return true if validate_withdrawal(amount)
 
       return false
     end

@@ -20,56 +20,47 @@ module BankAccounts
 
 
     def initialize(id, initial_balance)
-      if (initial_balance >= MINIMUM_BALANCE)
-        @transactions = 0
+      raise ArgumentError.new("You cannot create a money market account with less than a $#{ MINIMUM_BALANCE } initial deposit.") unless (initial_balance >= MINIMUM_BALANCE)
 
-        super(id, initial_balance)
+      @transactions = 0
 
-        return true
-
-      else
-        raise ArgumentError.new("You cannot create a money market account with less than a $#{ MINIMUM_BALANCE } initial deposit.")
-      end
+      super(id, initial_balance)
     end
 
 
-    # add interest to account.
+    # add interest to account
     def add_interest(rate_percentage)
-      if validate_number(rate_percentage)
-        # convert rate from percentage to decimal.
-        rate_decimal = rate_percentage / 100.0
+      validate_number(rate_percentage)
 
-        # calculate interest.
-        interest = @balance * rate_decimal
+      # convert rate from percentage to decimal
+      rate_decimal = rate_percentage / 100.0
 
-        # add interest to balance.
-        update_balance(interest)
+      # calculate interest
+      interest = @balance * rate_decimal
 
-        # return interest.
-        return interest
-      else
-        return false
-      end
+      # add interest to balance
+      update_balance(interest)
+
+      return interest
     end
 
 
     # deposit money to account.
     def deposit(amount)
       unless balance_low? # if balance is low, don't do this stuff.
-        unless transaction_allowed? # if transaction is allowed, don't send a warning message!
+        if transaction_allowed? # if transaction is allowed, don't send a warning message!
+          @transactions += 1 # and increment transactions counter.
+
+        else
           warn "You cannot make any additional deposits this month. You have already reached the limit (#{ TRANSACTION_LIMIT })."
 
           return @balance
-        else # when it is allowed, increment transactions counter.
-          @transactions += 1
         end
       end
 
-      if super(amount) # call parent method to handle deposit.
-        return @balance #!Q does this need to be a conditional?
-      else
-        return @balance
-      end
+      super(amount) # call parent method to handle deposit.
+
+      return @balance
     end
 
     def reset_transactions
@@ -98,17 +89,12 @@ module BankAccounts
         return @balance
       end
 
-      if super(amount) # call parent to handle withdrawal.
-        if balance_low?
-          apply_low_balance_fee
-        end
+      super(amount) # call parent to handle withdrawal.
 
-        return @balance
-      else
-        return @balance
-      end
+      apply_low_balance_fee if balance_low?
+
+      return @balance
     end
-
 
 
     private
@@ -122,20 +108,14 @@ module BankAccounts
 
 
     def balance_low?
-      if @balance < MINIMUM_BALANCE
-        return true
-      else
-        return false
-      end
+      @balance < MINIMUM_BALANCE
     end
 
 
     def transaction_allowed?
-      if @transactions >= TRANSACTION_LIMIT
-        return false
-      else
-        return true
-      end
+      return false if @transactions >= TRANSACTION_LIMIT
+
+      return true
     end
   end
 end

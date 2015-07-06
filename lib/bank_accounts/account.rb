@@ -26,35 +26,29 @@ module BankAccounts
 
 
     def initialize(id, initial_balance)
-      if initial_balance >= MINIMUM_BALANCE
-        @balance = 0
-        update_balance(initial_balance.round(2))
-      else
-        raise ArgumentError.new("An account cannot be created with a negative balance.")
-      end
+      # guard clauses, third one just for flavor text
+      validate_number(initial_balance)
+      raise ArgumentError.new("An account cannot be created with a negative balance.") if (initial_balance < MINIMUM_BALANCE)
+      raise ArgumentError.new(SISTER_BANK_RECOMMENDATION) if initial_balance >= RECOMMEND_SISTER_BANK
 
+      @balance = 0
+      @id = id
+
+      update_balance(initial_balance.round(2))
+
+      # more flavor text
       if (@balance >= RECOMMEND_MONEY_MARKET) && (@balance < RECOMMEND_SISTER_BANK) && (self.class != MoneyMarketAccount)
         puts MONEY_MARKET_RECOMMENDATION
       end
-
-      if (@balance >= RECOMMEND_SISTER_BANK)
-        raise ArgumentError.new(SISTER_BANK_RECOMMENDATION)
-      end
-
-      @id = id
-
-      return true
     end
 
 
     # withdraw money from account & return adjusted balance.
     def withdraw(amount)
-      # withdrawals must not create negative balances.
-      unless validate_withdrawal(amount)
-        return @balance
-      end
+      # guard clause to abort transaction if withdrawal would cause a negative balance.
+      return @balance unless validate_withdrawal(amount)
 
-      # sends a message to the user if attempting to withdraw negative or zero funds.
+      # guard clause: withdrawals can only be withdrawals.
       if (amount <= 0)
         warn "You cannot withdraw negative funds! That sounds like a transaction that should be a deposit."
 
@@ -69,12 +63,10 @@ module BankAccounts
 
 
     def deposit(amount)
-      # deposits can only be numeric values.
-      unless validate_number(amount)
-        return @balance
-      end
+      # guard clause: deposits can only be numeric values.
+      validate_number(amount)
 
-      # raises an error if depositing negative funds would create a negative balance.
+      # guard clause: deposits can only be deposits.
       if (amount <= 0)
         warn "You cannot deposit negative funds! That sounds like a transaction that should be a withdrawal."
 
@@ -101,21 +93,16 @@ module BankAccounts
 
 
     def validate_number(input)
-      unless (input.class == Fixnum) || (input.class == Float)
-        raise ArgumentError.new("That is not a number!")
-      end
-
-      return true
+      raise ArgumentError.new("That is not a number!") unless (input.class == Fixnum) || (input.class == Float)
     end
 
 
     def validate_withdrawal(amount)
-      unless validate_number(amount)
-        return false
-      end
+      validate_number(amount)
 
       if (@balance - amount < 0)
         warn "You cannot withdraw that much. Your balance would be negative, and this is not a credit account."
+
         return false
       end
 
