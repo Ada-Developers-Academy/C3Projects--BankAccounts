@@ -17,7 +17,13 @@ describe Bank::CheckingAccount do
 
     # how can I check for the $1 independently?
     it "also withdraws $1 fee and returns balance" do
-      expect(account.withdraw(100)).to eq(899)
+      old_balance = account.balance
+      fee = 1
+      withdraw_amount = 100
+      new_balance = old_balance - (withdraw_amount + fee)
+
+      expect(account.withdraw(withdraw_amount)).to eq(new_balance)
+      expect(account.balance).to eq(new_balance)
     end
 
     context "when amount is greater than account balance" do
