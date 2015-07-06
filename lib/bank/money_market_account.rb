@@ -60,7 +60,7 @@ module Bank
     end
 
     # can you inheret a single method?
-    def add_interest(rate)
+    def add_interst(rate)
       @interest = @balance * rate / 100
       @balance += @interest
       return @interest

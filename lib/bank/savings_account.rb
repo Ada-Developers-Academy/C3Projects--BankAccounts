@@ -1,6 +1,5 @@
 module Bank
   class SavingsAccount < Account
-
     def initialize(id, initial_balance)
       raise ArgumentError, "Balance must be a minimum of $10." if initial_balance < 10
 
@@ -14,10 +13,10 @@ module Bank
       super
     end
 
-    def add_interest(rate)
-      interest = @balance * rate / 100
-      @balance += interest
-      return interest
+    def add_interst(rate)
+      @interest = @balance * rate / 100
+      @balance += @interest
+      return @interest
     end
   end
 end

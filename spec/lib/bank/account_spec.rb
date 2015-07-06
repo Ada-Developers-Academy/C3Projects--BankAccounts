@@ -62,7 +62,8 @@ describe Bank::Account do
 
       it "outputs a warning message" do
         # `puts` got changed to `warn` so output doesn't work anymore
-        expect{bank.withdraw(100)}.to output("You cannot withdraw more than the balance minimum of $0.\n").to_stdout
+        # should is outdated but I couldn't find an expect equivalent
+        (bank.withdraw(100)).should_receive(:message) { "You cannot withdraw more than the balance minimum of $0.\n"}
       end
 
       it "returns unmodified balance" do
