@@ -17,7 +17,7 @@ describe BankAccount::Account do
     end
 
     it "has an initial balance of 200" do
-      expect(test_account.initial_balance).to eq(200)
+      expect(test_account.balance).to eq(200)
     end
 
     it "throws an error when you open an account with a negative balance" do
@@ -35,7 +35,7 @@ describe BankAccount::Account do
     end
 
     it "won't let you overdraft" do
-      expect(new_account.withdraw(51)).to eq("Sorry, you don't have that much! Withdraw canceled. Let's keep your current balance at 50.")
+      expect(new_account.withdraw(51)).to eq(50)
     end
 
     it "lets you to deposit moneh" do

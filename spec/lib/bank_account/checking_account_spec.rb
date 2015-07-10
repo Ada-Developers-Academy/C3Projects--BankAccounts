@@ -30,7 +30,7 @@ describe BankAccount::CheckingAccount do
     end
 
     it "won't let you overdraft" do
-      expect(mediocre_checking_account.withdraw(201)).to eq("Sorry, you can't have a negative balance in your account! Withdraw canceled. Let's keep your current balance at 200.")
+      expect(mediocre_checking_account.withdraw(201)).to eq(200)
     end
 
     it "lets you withdraw with a $210 check, overdrafting by $10" do
@@ -38,7 +38,7 @@ describe BankAccount::CheckingAccount do
     end
 
     it "won't let you overdraft more than $10 when withdrawing a check" do
-      expect(mediocre_checking_account.withdraw_using_check(211)).to eq("Sorry, you can't overdraft more than $10! Withdraw canceled. Let's keep your current balance at 200.")
+      expect(mediocre_checking_account.withdraw_using_check(211)).to eq(200)
     end
 
     it "tacks on a $2 withdraw fee when you're out of free checks" do

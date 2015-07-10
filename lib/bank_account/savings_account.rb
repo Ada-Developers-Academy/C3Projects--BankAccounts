@@ -3,7 +3,7 @@ module BankAccount
 
   class SavingsAccount < Account
 
-    def initialize(id, initial_balance)
+    def initialize(id, balance)
 
       #Inherit the same variables as Account
       # I realize that I'll also inherit the same negative balance
@@ -11,7 +11,7 @@ module BankAccount
       super
 
       # Warning if balance is under 10
-      if @initial_balance < 10
+      if @balance < 10
         raise ArgumentError, "You can't have less than 10 whole bucks!"
       end
     end
@@ -23,17 +23,18 @@ module BankAccount
       total_withdraw = amount + highway_robbery
 
       # Proceeds if you have enough monies
-      if @current_balance - total_withdraw > 10
-        @current_balance -= total_withdraw
+      if @balance - total_withdraw > 10
+        @balance -= total_withdraw
       else
         # Yells at you (nicely) if you don't have enough monies
-        return "Sorry, you need a minimum of ten whole bucks in your account. Withdraw canceled. Let's keep your current balance at #{@current_balance}."
+        return "Sorry, you need a minimum of ten whole bucks in your account. Withdraw canceled. Let's keep your current balance at #{@balance}."
       end
     end
 
     # Calculates and displays the interest
     def add_interest(rate)
-      interest = @current_balance * (rate/100)
+      interest = @balance * (rate/100)
+      @balance += interest
       return "$#{interest}"
     end
 

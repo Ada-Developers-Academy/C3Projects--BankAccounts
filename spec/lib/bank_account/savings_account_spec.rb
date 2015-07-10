@@ -29,7 +29,12 @@ describe BankAccount::SavingsAccount do
       expect(new_savings_account.deposit(5)).to eq(205)
     end
 
-    it "lets you check interest" do
+    it "adds interest to your balance" do
+      new_savings_account.add_interest(0.25)
+      expect(new_savings_account.balance).to eq(200.5)
+    end
+
+    it "returns just the interest amount" do
       expect(new_savings_account.add_interest(0.25)).to eq("$0.5")
     end
 
