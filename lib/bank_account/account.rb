@@ -3,7 +3,6 @@ module BankAccount
   attr_accessor :id, :initial_balance
 
     def initialize(id, initial_balance)
-      ## optimize raise_error, initialize
       if initial_balance < 0
         raise ArgumentError.new("You cannot open an account with a negative balance.")
       else
@@ -13,30 +12,33 @@ module BankAccount
       end
     end
 
+    def rounded(number)
+      number.round(2)
+    end
 
-    def balance
+    def get_balance
       return @balance
     end
 
     def withdraw(amount)
-      amount = amount.round(2)
+      amount = amount.rounded
       if amount > @balance
         puts "Nonsufficient funds."
-        balance
+        get_balance
       else
-      @balance -= amount
-      balance
+        @balance -= amount
+        get_balance
       end
     end
 
     def deposit(amount)
-      amount = amount.round(2)
+      amount = amount.rounded
       if amount > 2_000_000
         puts "We are unable to handle deposits of that size. May we suggest opening an account with our Swiss sister bank 'En Huffe Güld'. For information call 1-800-123-4567"
-        balance
+        present_balance
       else
         @balance += amount
-        balance
+        get_balance
       end
     end
 
